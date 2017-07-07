@@ -1,0 +1,23 @@
+{
+  "name": "honeymate",
+  "version": "1.7.0",
+  "description": "Dead simple loading animations",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "gulp"
+  },
+  "author": "Misha Myrt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mishamyrt/honeymate/issues"
+  },
+  "homepage": "https://github.com/mishamyrt/honeymate#readme",
+  "devDependencies": {
+    "babili": "^0.1.2",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-header": "^1.8.8",
+    "gulp-watch": "^4.3.11",
+    "gulp-zip": "^4.0.0"
+  }
+}
