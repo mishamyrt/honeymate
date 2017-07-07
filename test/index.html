@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Honeymate test</title>
+	<script src="../build/honeymate.js"></script>
+	<style>
+	body, html{
+		font-family: sans-serif;
+		max-width: 920px;
+	}
+	.max{
+		width: 100%;
+		height: 500px;
+	}
+	.quart{
+		    height: 180px;
+		width: 20%;
+		display: inline-block;
+		margin-right: 3%;
+	}
+	img{
+		width: 100%;
+    	height: 100%;
+	}
+	</style>
+</head>
+<body>
+<h1>HoneyMate Polygone</h1>
+
+<h2>Basic</h2>
+<div id="firstblock" data-effect="slide" data-right="400" class="max honey">
+<img src="./img/1.jpg">
+</div>
+
+<h2>Await</h2>
+<div class="quart honey" id="first" data-spin="true" data-effect="relax">
+	<img src="./img/2.jpg" alt="">
+</div>
+<div class="quart honey" data-hold="600" id="second" data-effect="relax" data-continue="true">
+	<img src="./img/3.jpg" alt="">
+</div>
+<div class="quart honey" data-hold="375" id="third" data-continue="true" data-effect="relax">
+	<img src="./img/4.jpg" alt="">
+</div>
+<div class="quart honey" data-hold="500" data-continue="true" data-effect="relax">
+	<img src="./img/5.jpeg" alt="">
+</div>
+
+<h2>Expose</h2>
+<div id="exposeblock" data-expose="true" class="max honey">
+<img src="./img/1.jpg">
+</div>
+<div data-expose="true" class="max honey">
+<img src="./img/1.jpg">
+</div>
+<div data-expose="true" class="max honey">
+<img src="./img/1.jpg">
+</div>
+<div class="max honey" data-expose="true">
+<img src="./img/1.jpg">
+</div>
+</body>
+</html>
