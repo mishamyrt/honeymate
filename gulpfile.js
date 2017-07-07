@@ -16,7 +16,7 @@ const release = './release/';
 const build = './build/';
 
 gulp.task('build', function() {
-    gulp.src('./source/*.js')
+    gulp.src('./src/*.js')
         .pipe(babel({ presets: ['babili'] }))
         .pipe(header(banner, { pkg: pkg }))
         .pipe(gulp.dest(build))
@@ -26,8 +26,8 @@ gulp.task('zip', function() {
     var version = pkg.version;
 
     return gulp.src([
-            build + 'averto.js',
+            build + 'honeymate.js',
         ])
-        .pipe(zip('mishamyrt-averto-' + version + '.zip'))
+        .pipe(zip('mishamyrt-honeymate-' + version + '.zip'))
         .pipe(gulp.dest(release));
 });
