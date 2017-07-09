@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function() {
         item.style.background == ""
           ? item.style.backgroundImage
           : item.style.background;
-      imgs.push(uri.replace('url("', "").replace('")', ""));
+      imgs.push(uri.substring(5, a.length - 2));
     }
     let loadedCount = 0;
     //собираем все картинки
