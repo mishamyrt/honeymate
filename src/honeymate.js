@@ -93,9 +93,17 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     }
   });
+
   function imagesLoaded(item, fn) {
     let innerItems = item.querySelectorAll("*");
     let imgs = [];
+    if (item.style.background != "" || item.style.backgroundImage != "") {
+      let uri =
+        item.style.background == ""
+          ? item.style.backgroundImage
+          : item.style.background;
+      imgs.push(uri.replace('url("', "").replace('")', ""));
+    }
     let loadedCount = 0;
     //собираем все картинки
     Array.prototype.forEach.call(innerItems, function(item, i) {
@@ -170,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function() {
             item.style.transition = "opacity " + duration + "ms ease-out";
             break;
         }
-        item.style.opacity = '';
+        item.style.opacity = "";
       });
     }, delay);
     item.classList.remove("is__honeyHidden");
