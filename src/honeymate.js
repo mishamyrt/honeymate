@@ -1,6 +1,7 @@
 "use strict";
 document.addEventListener("DOMContentLoaded", function() {
   let items = document.querySelectorAll(".honey");
+  let exposingItems = [];
   Array.prototype.forEach.call(items, function(item, i) {
     //читаем и задаём параметры из data–атрибутов
     let parameters = item.dataset;
@@ -20,9 +21,9 @@ document.addEventListener("DOMContentLoaded", function() {
         : 32;
     let direction = null;
     if (parameters.up) direction = 1;
-    if (parameters.down) direction = 2;
-    if (parameters.left) direction = 3;
-    if (parameters.right) direction = 4;
+    else if (parameters.down) direction = 2;
+    else if (parameters.left) direction = 3;
+    else if (parameters.right) direction = 4;
     //Вспомогательный класс, нужен для continue и await;
     item.classList.add("is__honeyHidden");
     item.style.opacity = "0";
@@ -56,13 +57,20 @@ document.addEventListener("DOMContentLoaded", function() {
         if (defaultscale) item.style.transform = "scale(0.6)";
         else item.style.transform = "scale(" + scale + ")";
         break;
-
       case "helix":
         if (defaultscale) item.style.transform = "scale(0.6) rotate(90deg)";
         else item.style.transform = "scale(" + scale + ") rotate(90deg)";
         break;
     }
-    if (parameters.await || parameters.continue) {
+    if (parameters.expose) {
+      let exposedItem = {};
+      exposedItem.self = item;
+      exposedItem.duration = duration;
+      exposedItem.delay = delay;
+      exposedItem.effect = effect;
+      exposingItems.push(exposedItem);
+    }
+    else if (parameters.await || parameters.continue) {
       let waited;
       if (parameters.await) {
         waited = document.getElementById(parameters.await);
@@ -93,7 +101,19 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     }
   });
-
+  window.addEventListener('scroll', function(){
+    let scrollTop = (window.pageYOffset ||document.documentElement.scrollTop ||document.body.scrollTop ||0);
+    let viewportEnd = scrollTop + window.innerHeight; 
+    Array.prototype.forEach.call(exposingItems, function(item, i) {
+      if (item.self.getBoundingClientRect().top + scrollTop <= viewportEnd){
+        imagesLoaded(item.self, function() {
+          honeymate(item.self, item.duration, item.delay, item.effect);
+          exposingItems.splice(i, 1);
+          console.log(exposingItems);
+        });
+      }
+    });
+  }, false);
   function imagesLoaded(item, fn) {
     let innerItems = item.querySelectorAll("*");
     let imgs = [];
@@ -102,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function() {
         item.style.background == ""
           ? item.style.backgroundImage
           : item.style.background;
-      imgs.push(uri.substring(5, a.length - 2));
+      imgs.push(uri.substring(5, uri.length - 2));
     }
     let loadedCount = 0;
     //собираем все картинки
