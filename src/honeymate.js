@@ -69,8 +69,7 @@ document.addEventListener("DOMContentLoaded", function() {
       exposedItem.delay = delay;
       exposedItem.effect = effect;
       exposingItems.push(exposedItem);
-    }
-    else if (parameters.await || parameters.continue) {
+    } else if (parameters.await || parameters.continue) {
       let waited;
       if (parameters.await) {
         waited = document.getElementById(parameters.await);
@@ -101,42 +100,52 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     }
   });
-  window.addEventListener('scroll', function(){
-    let scrollTop = (window.pageYOffset ||document.documentElement.scrollTop ||document.body.scrollTop ||0);
-    let viewportEnd = scrollTop + window.innerHeight; 
-    Array.prototype.forEach.call(exposingItems, function(item, i) {
-      if (item.self.getBoundingClientRect().top + scrollTop <= viewportEnd){
-        imagesLoaded(item.self, function() {
-          honeymate(item.self, item.duration, item.delay, item.effect);
-          exposingItems.splice(i, 1);
-          console.log(exposingItems);
-        });
-      }
-    });
-  }, false);
+  window.addEventListener(
+    "scroll",
+    function() {
+      let scrollTop =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop ||
+        0;
+      let viewportEnd = scrollTop + window.innerHeight;
+      Array.prototype.forEach.call(exposingItems, function(item, i) {
+        if (item.self.getBoundingClientRect().top + scrollTop <= viewportEnd) {
+          imagesLoaded(item.self, function() {
+            honeymate(item.self, item.duration, item.delay, item.effect);
+            exposingItems.splice(i, 1);
+            console.log(exposingItems);
+          });
+        }
+      });
+    },
+    false
+  );
   function imagesLoaded(item, fn) {
     let innerItems = item.querySelectorAll("*");
     let imgs = [];
-    if (item.style.background != "" || item.style.backgroundImage != "") {
+    let computedStyle = getComputedStyle(item);
+    if (computedStyle.background != "" || computedStyle.backgroundImage != "") {
       let uri =
-        item.style.background == ""
-          ? item.style.backgroundImage
-          : item.style.background;
+        computedStyle.background == ""
+          ? computedStyle.backgroundImage
+          : computedStyle.background;
       imgs.push(uri.substring(5, uri.length - 2));
     }
     let loadedCount = 0;
     //собираем все картинки
     Array.prototype.forEach.call(innerItems, function(item, i) {
+      computedStyle = getComputedStyle(item);
       if (item.tagName == "IMG") {
         imgs.push(item.getAttribute("src"));
       } else if (
-        item.style.background != "" ||
-        item.style.backgroundImage != ""
+        computedStyle.background != "" ||
+        computedStyle.backgroundImage != ""
       ) {
         let uri =
-          item.style.background == ""
-            ? item.style.backgroundImage
-            : item.style.background;
+          computedStyle.background == ""
+            ? computedStyle.backgroundImage
+            : computedStyle.background;
         imgs.push(uri.replace('url("', "").replace('")', ""));
       }
     });
