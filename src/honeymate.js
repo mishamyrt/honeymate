@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     });
     imgs.forEach(function(item, i) {
-      var image = new Image();
+      let image = new Image();
       image.onload = function() {
         loadedCount++;
         if (imgs.length == loadedCount) {

@@ -1,6 +1,6 @@
 /**
  * Honeymate - Dead simple loading animations
- * @version v1.7.0
+ * @version v2.0.0
  * @link https://github.com/mishamyrt/honeymate#readme
  * @license MIT
  */

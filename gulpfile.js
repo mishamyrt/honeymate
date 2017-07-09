@@ -15,6 +15,10 @@ const banner = ['/**',
 const release = './release/';
 const build = './build/';
 
+gulp.task('default', function() {
+    gulp.start('build');
+});
+
 gulp.task('build', function() {
     gulp.src('./src/*.js')
         .pipe(babel({ presets: ['babili'] }))
