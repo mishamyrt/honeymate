@@ -113,7 +113,6 @@ document.addEventListener("DOMContentLoaded", function() {
           imagesLoaded(item.self, function() {
             honeymate(item.self, item.duration, item.delay, item.effect);
             exposingItems.splice(i, 1);
-            // console.log(exposingItems);
           });
         }
       });
@@ -147,7 +146,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     else{
       imgs.forEach(function(img, i) {
-      // console.log(img);
       let image = new Image();
       image.onload = function() {
         loadedCount++;
@@ -156,7 +154,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       };
       image.onerror = image.onload;
-      // image.onerror = image.onload;
       image.src = img;
     });
     }

@@ -24,7 +24,7 @@ gulp.task('default', function() {
 
 gulp.task('build', function() {
     gulp.src('./src/*.js')
-        .pipe(babel({ presets: ['babili', 'es2015'] }))
+        .pipe(babel({ presets: ['babili', 'es2017', 'es2016', 'es2015'] }))
         .pipe(header(banner, { pkg: pkg }))
         .pipe(gulp.dest(build))
 });
