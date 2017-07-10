@@ -99,34 +99,31 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     }
   });
-  window.addEventListener(
-    "scroll",
-    function() {
-      let scrollTop =
-        window.pageYOffset ||
-        document.documentElement.scrollTop ||
-        document.body.scrollTop ||
-        0;
-      let viewportEnd = scrollTop + window.innerHeight;
-      Array.prototype.forEach.call(exposingItems, function(item, i) {
-        if (item.self.getBoundingClientRect().top + scrollTop <= viewportEnd) {
-          imagesLoaded(item.self, function() {
-            honeymate(item.self, item.duration, item.delay, item.effect);
-            exposingItems.splice(i, 1);
-          });
-        }
-      });
-    },
-    false
-  );
+  window.addEventListener("scroll", expose, false);
+  window.addEventListener("resize", expose, false);
+  function expose() {
+    let scrollTop =
+      window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop ||
+      0;
+    let viewportEnd = scrollTop + window.innerHeight;
+    Array.prototype.forEach.call(exposingItems, function(item, i) {
+      if (item.self.getBoundingClientRect().top + scrollTop <= viewportEnd) {
+        imagesLoaded(item.self, function() {
+          honeymate(item.self, item.duration, item.delay, item.effect);
+          exposingItems.splice(i, 1);
+        });
+      }
+    });
+  }
   function imagesLoaded(item, fn) {
     let innerItems = item.querySelectorAll("*");
     let imgs = [];
     let computedStyle = getComputedStyle(item);
     if (computedStyle.background != "" || computedStyle.backgroundImage != "") {
       let uri = computedStyle.background.match(/url\(\s*(['"]?)(.*)\1\s*\)/);
-      if (uri)
-        imgs.push(uri[2]);
+      if (uri) imgs.push(uri[2]);
     }
     let loadedCount = 0;
     //собираем все картинки
@@ -136,26 +133,24 @@ document.addEventListener("DOMContentLoaded", function() {
         imgs.push(item.getAttribute("src"));
       } else {
         let uri = computedStyle.background.match(/url\(\s*(['"]?)(.*)\1\s*\)/);
-        if (uri)
-          imgs.push(uri[2]);
+        if (uri) imgs.push(uri[2]);
       }
     });
-    
-    if (imgs.length == 0){
+
+    if (imgs.length == 0) {
       fn();
-    }
-    else{
+    } else {
       imgs.forEach(function(img, i) {
-      let image = new Image();
-      image.onload = function() {
-        loadedCount++;
-        if (imgs.length == loadedCount) {
-          fn();
-        }
-      };
-      image.onerror = image.onload;
-      image.src = img;
-    });
+        let image = new Image();
+        image.onload = function() {
+          loadedCount++;
+          if (imgs.length == loadedCount) {
+            fn();
+          }
+        };
+        image.onerror = image.onload;
+        image.src = img;
+      });
     }
   }
   function honeymate(item, duration, delay, effect, expose) {
@@ -215,4 +210,4 @@ document.addEventListener("DOMContentLoaded", function() {
     }, duration + delay + 30);
   }
 });
-document.write('<style>.honey{opacity:0}</style>');
+document.write("<style>.honey{opacity:0}</style>");
