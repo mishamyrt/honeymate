@@ -28,7 +28,6 @@ gulp.task('build', function() {
 
 gulp.task('zip', function() {
     var version = pkg.version;
-
     return gulp.src([
             build + 'honeymate.js',
         ])

@@ -155,9 +155,7 @@ document.addEventListener("DOMContentLoaded", function() {
           fn();
         }
       };
-      image.onerror = function(){
-        // console.log(img);
-      }
+      image.onerror = image.onload;
       // image.onerror = image.onload;
       image.src = img;
     });
