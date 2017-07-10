@@ -26,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function() {
     else if (parameters.right) direction = 4;
     //Вспомогательный класс, нужен для continue и await;
     item.classList.add("is__honeyHidden");
-    item.style.opacity = "0";
 
     //Специфичные подготовки для анимаций
     switch (parameters.effect) {
@@ -114,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function() {
           imagesLoaded(item.self, function() {
             honeymate(item.self, item.duration, item.delay, item.effect);
             exposingItems.splice(i, 1);
-            console.log(exposingItems);
+            // console.log(exposingItems);
           });
         }
       });
@@ -126,11 +125,9 @@ document.addEventListener("DOMContentLoaded", function() {
     let imgs = [];
     let computedStyle = getComputedStyle(item);
     if (computedStyle.background != "" || computedStyle.backgroundImage != "") {
-      let uri =
-        computedStyle.background == ""
-          ? computedStyle.backgroundImage
-          : computedStyle.background;
-      imgs.push(uri.substring(5, uri.length - 2));
+      let uri = computedStyle.background.match(/url\(\s*(['"]?)(.*)\1\s*\)/);
+      if (uri)
+        imgs.push(uri[2]);
     }
     let loadedCount = 0;
     //собираем все картинки
@@ -138,18 +135,19 @@ document.addEventListener("DOMContentLoaded", function() {
       computedStyle = getComputedStyle(item);
       if (item.tagName == "IMG") {
         imgs.push(item.getAttribute("src"));
-      } else if (
-        computedStyle.background != "" ||
-        computedStyle.backgroundImage != ""
-      ) {
-        let uri =
-          computedStyle.background == ""
-            ? computedStyle.backgroundImage
-            : computedStyle.background;
-        imgs.push(uri.replace('url("', "").replace('")', ""));
+      } else {
+        let uri = computedStyle.background.match(/url\(\s*(['"]?)(.*)\1\s*\)/);
+        if (uri)
+          imgs.push(uri[2]);
       }
     });
-    imgs.forEach(function(item, i) {
+    
+    if (imgs.length == 0){
+      fn();
+    }
+    else{
+      imgs.forEach(function(img, i) {
+      // console.log(img);
       let image = new Image();
       image.onload = function() {
         loadedCount++;
@@ -157,9 +155,13 @@ document.addEventListener("DOMContentLoaded", function() {
           fn();
         }
       };
-      image.onerror = image.onload;
-      image.src = item;
+      image.onerror = function(){
+        // console.log(img);
+      }
+      // image.onerror = image.onload;
+      image.src = img;
     });
+    }
   }
   function honeymate(item, duration, delay, effect, expose) {
     setTimeout(function() {
@@ -207,13 +209,15 @@ document.addEventListener("DOMContentLoaded", function() {
             item.style.transition = "opacity " + duration + "ms ease-out";
             break;
         }
-        item.style.opacity = "";
+        item.style.opacity = "1";
       });
     }, delay);
     item.classList.remove("is__honeyHidden");
     setTimeout(function() {
       item.style.transition = "";
       item.style.transform = "";
-    }, duration + delay + 10);
+      item.style.transformOrigin = "";
+    }, duration + delay + 30);
   }
 });
+document.write('<style>.honey{opacity:0}</style>');
