@@ -11,9 +11,12 @@ const banner = ['/**',
     ' */',
     ''
 ].join('\n');
-
 const release = './release/';
 const build = './build/';
+
+gulp.watch("./src/*.js", function() {
+  gulp.start("build");
+});
 
 gulp.task('default', function() {
     gulp.start('build');
