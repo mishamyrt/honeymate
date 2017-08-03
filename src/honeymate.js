@@ -1,104 +1,132 @@
 "use strict";
 document.addEventListener("DOMContentLoaded", function() {
-  let items = document.querySelectorAll(".honey");
+  let items = [];
   let exposingItems = [];
-  Array.prototype.forEach.call(items, function(item, i) {
-    //читаем и задаём параметры из data–атрибутов
-    let parameters = item.dataset;
-    let duration = parameters.duration ? parameters.duration : 640;
-    let effect = parameters.effect ? parameters.effect : "fade";
-    let delay = parameters.delay ? parameters.delay : 0;
-    let hold = parameters.hold ? parameters.hold : 0;
-    let expose = parameters.expose ? parameters.expose : false;
-    let scale = parameters.scale ? parameters.scale : 0.92;
-    let origin = parameters.origin ? parameters.origin : "bottom";
-    let offset =
+  document.querySelectorAll(".honey").forEach(function(img, i) {
+    let item = {};
+    item.self = img;
+    items.push(item);
+  });
+
+  items.forEach(function(item, i) {
+    let parameters = item.self.dataset;
+    item.duration = parameters.duration ? parameters.duration : 640;
+    item.effect = parameters.effect ? parameters.effect : "fade";
+    item.delay = parameters.delay ? parameters.delay : 0;
+    item.hold = parameters.hold ? parameters.hold : 0;
+    item.expose = parameters.expose ? parameters.expose : false;
+    item.scale = parameters.scale ? parameters.scale : 0.87;
+    item.origin = parameters.origin ? parameters.origin : "bottom";
+    item.offset =
       parameters.up || parameters.down || parameters.left || parameters.right
         ? parameters.up ||
           parameters.down ||
           parameters.left ||
           parameters.right
         : 32;
-    let direction = null;
-    if (parameters.up) direction = 1;
-    else if (parameters.down) direction = 2;
-    else if (parameters.left) direction = 3;
-    else if (parameters.right) direction = 4;
+    if (parameters.up) item.direction = 1;
+    else if (parameters.left) item.direction = 3;
+    else if (parameters.right) item.direction = 4;
+    else item.direction = 2;
     //Вспомогательный класс, нужен для continue и await;
-    item.classList.add("is__honeyHidden");
-
-    //Специфичные подготовки для анимаций
-    switch (parameters.effect) {
+    item.self.classList.add("is__honeyHidden");
+    switch (item.effect) {
       case "relax":
-        item.style.transform = "scaleY(" + scale + ")";
+        item.self.style.transform = "scaleY(" + item.scale + ")";
         if (parameters.origin)
-          item.style.transformOrigin = "center " + origin + " 0px";
-        else item.style.transformOrigin = "center bottom 0px";
+          item.self.style.transformOrigin = "center " + item.origin + " 0px";
+        else item.self.style.transformOrigin = "center bottom 0px";
         break;
       case "slide":
-        switch (direction) {
+        switch (item.direction) {
           case 2:
-            item.style.transform = "translateY(-" + offset + "px)";
+            item.self.style.transform = "translateY(-" + item.offset + "px)";
             break;
           case 3:
-            item.style.transform = "translateX(" + offset + "px)";
+            item.self.style.transform = "translateX(" + item.offset + "px)";
             break;
           case 4:
-            item.style.transform = "translateX(-" + offset + "px)";
+            item.self.style.transform = "translateX(-" + item.offset + "px)";
             break;
           case 1:
           default:
-            item.style.transform = "translateY(" + offset + "px)";
+            item.self.style.transform = "translateY(" + item.offset + "px)";
             break;
         }
         break;
       case "zoom":
-        if (defaultscale) item.style.transform = "scale(0.6)";
-        else item.style.transform = "scale(" + scale + ")";
+        item.self.style.transform = "scale(" + item.scale + ")";
         break;
       case "helix":
-        if (defaultscale) item.style.transform = "scale(0.6) rotate(90deg)";
-        else item.style.transform = "scale(" + scale + ") rotate(90deg)";
+        item.self.style.transform = "scale(" + item.scale + ") rotate(90deg)";
         break;
     }
-    if (parameters.expose) {
-      let exposedItem = {};
-      exposedItem.self = item;
-      exposedItem.duration = duration;
-      exposedItem.delay = delay;
-      exposedItem.effect = effect;
-      exposingItems.push(exposedItem);
-    } else if (parameters.await || parameters.continue) {
-      let waited;
-      if (parameters.await) {
-        waited = document.getElementById(parameters.await);
+    if (parameters.spin) {
+      let size = parameters.spinSize ? parameters.spinSize : 36;
+      let color = parameters.spinColor ? parameters.spinColor : "#fff";
+      let spinner = document.createElement("div");
+      spinner.style.position = "absolute";
+      spinner.style.width = item.self.offsetWidth + "px";
+      spinner.style.height = item.self.offsetHeight + "px";
+      spinner.style.transition = "opacity .5s ease-out";
+      spinner.style.opacity = 0;
+      spinner.style.top = item.self.offsetTop + "px";
+      spinner.style.left = item.self.offsetLeft + "px";
+      spinner.innerHTML =
+        '<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;margin:-' +
+        size / 2 +
+        ';left:50%;top:50%" width="' +
+        size +
+        '" height="' +
+        size +
+        '" viewBox="0 0 100 100"><defs><mask id="cut"><rect width="100" height="100" fill="white" /><circle r="44" cx="50" cy="50" fill="black" /><polygon points="50,50 100,25 150,50 100,75" fill="black" style="stransform-origin: 50 50; animation: a 1333ms linear infinite"><animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="1333ms" repeatCount="indefinite"/></polygon></mask></defs><circle r="50" cx="50" cy="50" mask="url(#cut)" /></svg>';
+      item.spinner = spinner;
+      let parent = item.self.parentNode;
+      let next = item.self.nextSibling;
+      if (next) {
+        parent.insertBefore(item.spinner, next);
       } else {
-        waited = items[i - 1];
+        parent.appendChild(item.spinner);
       }
-      if (waited != undefined) {
-        let interval = setInterval(function() {
-          if (!waited.classList.contains("is__honeyHidden")) {
-            imagesLoaded(item, function() {
-              setTimeout(function() {
-                imagesLoaded(item, function() {
-                  honeymate(item, duration, delay, effect);
-                });
-              }, hold);
-              clearInterval(interval);
-            });
-          }
-        }, 0.01);
-      } else {
-        imagesLoaded(item, function() {
-          honeymate(item, duration, delay, effect);
-        });
+      setInterval(function() {
+        item.spinner.style.opacity = 1;
+      }, 200);
+    } else item.spinner = '';
+
+    if (parameters.await || parameters.continue) {
+      if (parameters.await) {
+        let requested = document.getElementById(parameters.await);
+        if (requested != undefined) item.waited = requested;
+        else item.waited = false;
+      } else if (i > 0) {
+        item.waited = items[i - 1].self;
       }
     } else {
-      imagesLoaded(item, function() {
-        honeymate(item, duration, delay, effect);
-      });
+      item.waited = false;
+    }
+
+    if (parameters.expose) {
+      exposingItems.push(i);
+    } else {
+      if (!item.waited) {
+        imagesLoaded(item.self, function() {
+          honeymate(i);
+        });
+      } else {
+        let interval = setInterval(function() {
+          if (!item.waited.classList.contains("is__honeyHidden")) {
+            clearInterval(interval);
+            setTimeout(function() {
+              imagesLoaded(item.self, function() {
+                honeymate(i);
+              });
+            }, item.hold);
+          }
+        }, 100);
+      }
     }
   });
+
   window.addEventListener("scroll", expose, false);
   window.addEventListener("resize", expose, false);
   function expose() {
@@ -108,10 +136,10 @@ document.addEventListener("DOMContentLoaded", function() {
       document.body.scrollTop ||
       0;
     let viewportEnd = scrollTop + window.innerHeight;
-    Array.prototype.forEach.call(exposingItems, function(item, i) {
-      if (item.self.getBoundingClientRect().top + scrollTop <= viewportEnd) {
-        imagesLoaded(item.self, function() {
-          honeymate(item.self, item.duration, item.delay, item.effect);
+    exposingItems.forEach(function(index, i) {
+      if (items[index].self.offsetTop <= viewportEnd) {
+        imagesLoaded(items[index].self, function() {
+          honeymate(index);
           exposingItems.splice(i, 1);
         });
       }
@@ -126,8 +154,7 @@ document.addEventListener("DOMContentLoaded", function() {
       if (uri) imgs.push(uri[2]);
     }
     let loadedCount = 0;
-    //собираем все картинки
-    Array.prototype.forEach.call(innerItems, function(item, i) {
+    innerItems.forEach(function(item, i) {
       computedStyle = getComputedStyle(item);
       if (item.tagName == "IMG") {
         imgs.push(item.getAttribute("src"));
@@ -136,7 +163,6 @@ document.addEventListener("DOMContentLoaded", function() {
         if (uri) imgs.push(uri[2]);
       }
     });
-
     if (imgs.length == 0) {
       fn();
     } else {
@@ -153,61 +179,67 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     }
   }
-  function honeymate(item, duration, delay, effect, expose) {
+  function honeymate(index) {
+    if(items[index].spinner != ''){
+      items[index].spinner.style.top = '-9999px';
+      setTimeout(function(){
+        items[index].spinner.remove();
+      }, 2000)
+    }
     setTimeout(function() {
-      //Показываем через запрос кадра
       requestAnimationFrame(function() {
-        switch (effect) {
+        switch (items[index].effect) {
           case "relax":
-            item.style.transition =
+            items[index].self.style.transition =
               "opacity " +
-              duration +
+              items[index].duration +
               "ms ease-out, transform " +
-              duration +
+              items[index].duration +
               "ms cubic-bezier(0, 0, 0.001, 1)";
-            item.style.transform = "scaleY(1)";
+            items[index].self.style.transform = "scaleY(1)";
             break;
           case "zoom":
-            item.style.transition =
+            items[index].self.style.transition =
               "opacity " +
-              duration +
+              items[index].duration +
               "ms ease-out, transform " +
-              duration +
+              items[index].duration +
               "ms cubic-bezier(0, 0.7, 0.3, 1)";
-            item.style.transform = "scale(1)";
+            items[index].self.style.transform = "scale(1)";
             break;
           case "helix":
-            item.style.transition =
+            items[index].self.style.transition =
               "opacity " +
-              duration +
+              items[index].duration +
               "ms ease-out, transform " +
-              duration +
+              items[index].duration +
               "ms cubic-bezier(0, 0.75, 0.25, 1)";
-            item.style.transform = "scale(1) rotate(0deg)";
+            items[index].self.style.transform = "scale(1) rotate(0deg)";
             break;
           case "slide":
-            item.style.transition =
+            items[index].self.style.transition =
               "opacity " +
-              duration +
+              items[index].duration +
               "ms ease-out, transform " +
-              duration +
+              items[index].duration +
               "ms cubic-bezier(0, 0.9, 0.1, 1)";
-            item.style.opacity = "";
-            item.style.transform = "translate(0)";
+            items[index].self.style.opacity = "";
+            items[index].self.style.transform = "translate(0)";
             break;
           default:
-            item.style.transition = "opacity " + duration + "ms ease-out";
+            items[index].self.style.transition =
+              "opacity " + items[index].duration + "ms ease-out";
             break;
         }
-        item.style.opacity = "1";
+        items[index].self.style.opacity = "1";
       });
-    }, delay);
-    item.classList.remove("is__honeyHidden");
+      items[index].self.classList.remove("is__honeyHidden");
+    }, items[index].delay);
     setTimeout(function() {
-      item.style.transition = "";
-      item.style.transform = "";
-      item.style.transformOrigin = "";
-    }, duration + delay + 30);
+      items[index].self.style.transition = "";
+      items[index].self.style.transform = "";
+      items[index].self.style.transformOrigin = "";
+    }, items[index].duration + items[index].delay + 30);
   }
 });
 document.write("<style>.honey{opacity:0}</style>");
