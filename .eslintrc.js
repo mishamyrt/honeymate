@@ -29,7 +29,7 @@ module.exports = {
             "error",
             "last"
         ],
-        "complexity": "off",
+        "complexity": "error",
         "computed-property-spacing": [
             "error",
             "never"

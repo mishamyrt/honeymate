@@ -16,29 +16,58 @@ export default class HoneyBlock {
                 parameters.left ||
                 parameters.right
                 : 32;
-        if (parameters.up) {
-            this.direction = 1;
-        }
-        else if (parameters.left) {
-            this.direction = 3;
-        }
-        else if (parameters.right) {
-            this.direction = 4;
+        this.direction = getDirection();
+        this.waited = getWaited();
+        if (parameters.spinner) {
+            addSpinner(parameters.spinSize ? parameters.spinSize : 36,
+                parameters.spinColor ? parameters.spinColor : '#000');
         }
         else {
-            this.direction = 2;
+            this.spinner = null;
         }
-        if (parameters.spinner) {
-            const size = parameters.spinSize ? parameters.spinSize : 36;
-            // const color = parameters.spinColor ? parameters.spinColor : '#000';
+
+        function getWaited() {
+            if (parameters.await || parameters.continue) {
+                if (parameters.await) {
+                    const requested = document.getElementById(parameters.await);
+                    if (requested) {
+                        this.waited = requested;
+                    }
+                    else {
+                        this.waited = null;
+                    }
+                }
+                else {
+                    this.waited = previous;
+                }
+            }
+            else {
+                this.waited = null;
+            }
+        }
+        function getDirection() {
+            if (parameters.up) {
+                return 1;
+            }
+            else if (parameters.left) {
+                return 3;
+            }
+            else if (parameters.right) {
+                return 4;
+            }
+            else {
+                return 2;
+            }
+        }
+        function addSpinner(size, color) {
             const spinner = document.createElement('div');
             spinner.style.position = 'absolute';
-            spinner.style.width = item.self.offsetWidth + 'px';
-            spinner.style.height = item.self.offsetHeight + 'px';
+            spinner.style.width = this.self.offsetWidth + 'px';
+            spinner.style.height = this.self.offsetHeight + 'px';
             spinner.style.transition = 'opacity .5s ease-out';
             spinner.style.opacity = 0;
-            spinner.style.top = item.self.offsetTop + 'px';
-            spinner.style.left = item.self.offsetLeft + 'px';
+            spinner.style.top = this.self.offsetTop + 'px';
+            spinner.style.left = this.self.offsetLeft + 'px';
             spinner.innerHTML =
                 '<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;margin:-' +
                 size / 2 +
@@ -46,41 +75,21 @@ export default class HoneyBlock {
                 size +
                 '" height="' +
                 size +
-                '" viewBox="0 0 100 100"><defs><mask id="cut"><rect width="100" height="100" fill="white" /><circle r="44" cx="50" cy="50" fill="black" /><polygon points="50,50 100,25 150,50 100,75" fill="black" style="stransform-origin: 50 50; animation: a 1333ms linear infinite"><animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="1333ms" repeatCount="indefinite"/></polygon></mask></defs><circle r="50" cx="50" cy="50" mask="url(#cut)" /></svg>';
+                '" viewBox="0 0 100 100"><defs><mask id="cut"><rect width="100" height="100" fill="white" /><circle r="44" cx="50" cy="50" fill="' + color + '" /><polygon points="50,50 100,25 150,50 100,75" fill="' + color + '" style="stransform-origin: 50 50; animation: a 1333ms linear infinite"><animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="1333ms" repeatCount="indefinite"/></polygon></mask></defs><circle r="50" cx="50" cy="50" mask="url(#cut)" /></svg>';
             this.spinner = spinner;
             const parent = this.self.parentNode;
             const next = this.self.nextSibling;
             if (next) {
-                parent.insertBefore(item.spinner, next);
+                parent.insertBefore(this.spinner, next);
             }
             else {
-                parent.appendChild(item.spinner);
+                parent.appendChild(this.spinner);
             }
             setInterval(function () {
                 requestAnimationFrame(function () {
-                    item.spinner.style.opacity = 1;
+                    this.spinner.style.opacity = 1;
                 });
             }, 120);
-        }
-        else {
-            this.spinner = null;
-        }
-        if (parameters.await || parameters.continue) {
-            if (parameters.await) {
-                const requested = document.getElementById(parameters.await);
-                if (requested) {
-                    this.waited = requested;
-                }
-                else {
-                    this.waited = null;
-                }
-            }
-            else {
-                this.waited = previous;
-            }
-        }
-        else {
-            this.waited = null;
         }
     }
     removeSpinner() {

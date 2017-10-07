@@ -11,7 +11,6 @@ export default class honeymate {
         document.querySelectorAll('.honey').forEach(function (block) {
             const honeyblock = new HoneyBlock(block, previous);
             prepareAnimation(honeyblock);
-            // blocks.push(honeyblock);
             if (honeyblock.expose) {
                 watcher.push(honeyblock);
             }
