@@ -1,7 +1,7 @@
-import honeymate from './index'
+import honeymate from './index.js';
 
-let honey = honeymate;
-document.addEventListener("DOMContentLoaded", function() {
+const honey = honeymate;
+document.addEventListener('DOMContentLoaded', function () {
     honey.initiate();
 });
-document.write("<style>.honey{opacity:0}</style>");
+document.write('<style>.honey{opacity:0}</style>');
