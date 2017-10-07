@@ -7,7 +7,6 @@ export default class HoneyBlock {
         this.expose = parameters.expose ? parameters.expose == 'true' : false;
         this.delay = parameters.delay ? parameters.delay : 0;
         this.hold = parameters.hold ? parameters.hold : 0;
-        // this.expose = parameters.expose ? parameters.expose : false;
         this.scale = parameters.scale ? parameters.scale : 0.87;
         this.origin = parameters.origin ? parameters.origin : "bottom";
         this.offset =
