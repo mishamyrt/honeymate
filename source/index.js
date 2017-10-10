@@ -25,7 +25,6 @@ export default class Honeymate {
                     if (!honeyblock.waited.classList.contains('is__honeyHidden')) {
                         clearInterval(interval);
                         setTimeout(function () {
-                            // console.log(honeyblock.hold);
                             waitImages(block, function () {
                                 animate(honeyblock);
                             });
