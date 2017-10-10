@@ -12,7 +12,7 @@ See Honeymate in action on its [homepage](https://myrt.co/tools/honeymate/).
 
 [Download the repository code](https://github.com/mishamyrt/Honeymate/archive/master.zip) and move `release/honeymate.js` to the desired directory.
 
-Or use npm or Bower:
+Or use npm:
 
 ```sh
 $ npm install mishamyrt-honeymate --save
