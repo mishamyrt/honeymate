@@ -2,7 +2,7 @@
 
 Dead simple loading animations
 
-[![Honeymate logo](http://i.imgur.com/xzX9l5w.png)](https://myrt.co/tools/honeymate/)
+<p align="center"><img src="http://i.imgur.com/xzX9l5w.png" style="height: 400px;"></p>
 
 ## Take a look
 
@@ -79,7 +79,7 @@ These options should be specified on the `div` with the `honey` class.
 
 ```html
 <div class="honey" data-effect="helix" data-delay="400">
-    <img src="/img/photo.jpg">
+    <img src="./img/foo.jpg">
 </div>
 ```
 
