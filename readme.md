@@ -55,7 +55,7 @@ First, install Honeymate using npm:
 $ npm install mishamyrt-honeymate --save
 ```
 
-Then, use it as CommonJS module somewhere in your program:
+Then, use it as ES6 module somewhere in your program:
 
 ```js
 import Honeymate from 'mishamyrt-honeymate'
