@@ -4,7 +4,7 @@ module.exports = {
         'honeymate-module': ['./source/index.js'],
     },
     output: {
-        filename: '[name].js'
+        filename: '[name].js',
     },
-    devtool: false
-}
+    devtool: false,
+};

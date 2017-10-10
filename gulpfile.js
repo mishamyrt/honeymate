@@ -35,6 +35,13 @@ gulp.task('watch', function () {
     });
 });
 
+gulp.task('dev', function () {
+    gulp.start('lint');
+    gulp.src('./source/honeymate.js')
+        .pipe(webpackStream(require('./webpack.config.js'), webpack))
+        .pipe(gulp.dest(release));
+});
+
 gulp.task('build', function () {
     gulp.start('lint');
     gulp.src('./source/honeymate.js')

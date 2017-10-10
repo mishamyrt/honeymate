@@ -4,7 +4,12 @@
   "description": "Dead simple loading animations",
   "main": "release/honeymate-module.js",
   "scripts": {
-    "test": "gulp build"
+    "build": "gulp build",
+    "dev": "gulp dev",
+    "zip": "gulp zip",
+    "test": "npm run check-codestyle",
+    "check-codestyle": "eslint ./",
+    "fix-codestyle": "eslint ./ --fix"
   },
   "author": "Misha Myrt",
   "license": "MIT",
