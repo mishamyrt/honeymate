@@ -17,7 +17,7 @@ export default class HoneyBlock {
                 return 2;
             }
         };
-        const getWaited = () => {
+        const getWaited = (prev) => {
             if (parameters.await || parameters.continue) {
                 if (parameters.await) {
                     const requested = document.getElementById(parameters.await);
@@ -29,7 +29,7 @@ export default class HoneyBlock {
                     }
                 }
                 else {
-                    return previous;
+                    return prev;
                 }
             }
             else {
@@ -52,7 +52,7 @@ export default class HoneyBlock {
                 parameters.right
                 : 32;
         this.direction = getDirection();
-        this.waited = getWaited();
+        this.waited = getWaited(previous);
         if (parameters.spinner) {
             parameters.spinner = generateSpinnerBlock(item,
                 parameters.spinSize ? parameters.spinSize : 36,

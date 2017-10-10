@@ -10,6 +10,7 @@ export default class Honeymate {
         const watcher = new ExposeWatcher();
         document.querySelectorAll('.honey').forEach(function (block) {
             const honeyblock = new HoneyBlock(block, previous);
+            honeyblock.self.classList.add('is__honeyHidden');
             prepareAnimation(honeyblock);
             if (honeyblock.expose) {
                 watcher.push(honeyblock);
@@ -24,10 +25,11 @@ export default class Honeymate {
                     if (!honeyblock.waited.classList.contains('is__honeyHidden')) {
                         clearInterval(interval);
                         setTimeout(function () {
+                            // console.log(honeyblock.hold);
                             waitImages(block, function () {
                                 animate(honeyblock);
                             });
-                        }, block.hold);
+                        }, honeyblock.hold);
                     }
                 }, 100);
             }
