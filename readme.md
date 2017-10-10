@@ -2,7 +2,7 @@
 
 Dead simple loading animations
 
-<p align="center"><img src="http://i.imgur.com/xzX9l5w.png" style="height: 400px;"></p>
+<p align="center"><img src="http://i.imgur.com/GDaTuQY.png"></p>
 
 ## Take a look
 
