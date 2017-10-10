@@ -1,8 +1,8 @@
 {
-  "name": "honeymate",
-  "version": "2.0.0",
+  "name": "mishamyrt-honeymate",
+  "version": "2.2.0",
   "description": "Dead simple loading animations",
-  "main": "gulpfile.js",
+  "main": "release/honeymate-module.js",
   "scripts": {
     "test": "gulp build"
   },
@@ -12,7 +12,7 @@
     "url": "https://github.com/mishamyrt/honeymate/issues"
   },
   "homepage": "https://misha.myrt.co/tools/honeymate/",
-  "dependencies": {
+  "devDependencies": {
     "babel-preset-es2016": "^6.24.1",
     "babel-preset-minify": "^0.2.0",
     "webpack-stream": "^4.0.0",
