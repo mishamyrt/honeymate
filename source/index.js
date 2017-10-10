@@ -4,7 +4,7 @@ import HoneyBlock from './block.js';
 import waitImages from './wait.js';
 
 
-export default class honeymate {
+export default class Honeymate {
     static initiate() {
         let previous = null;
         const watcher = new ExposeWatcher();

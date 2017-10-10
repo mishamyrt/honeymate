@@ -1,6 +1,6 @@
 {
   "name": "mishamyrt-honeymate",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Dead simple loading animations",
   "main": "release/honeymate-module.js",
   "scripts": {
