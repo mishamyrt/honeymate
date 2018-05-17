@@ -18,19 +18,20 @@
   },
   "homepage": "https://misha.myrt.co/tools/honeymate/",
   "devDependencies": {
-    "babel-preset-es2016": "^6.24.1",
-    "babel-preset-minify": "^0.2.0",
-    "webpack-stream": "^4.0.0",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-env": "^1.6.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-es2015": "^6.24.1",
+    "babel-preset-es2016": "^6.24.1",
     "babel-preset-es2017": "^6.24.1",
-    "babili": "^0.1.2",
+    "babel-preset-minify": "^0.4.3",
+    "babili": "^0.1.4",
     "gulp": "^3.9.1",
-    "gulp-babel": "^6.1.2",
-    "gulp-header": "^1.8.8",
-    "gulp-watch": "^4.3.11",
-    "gulp-zip": "^4.0.0"
+    "gulp-babel": "^7.0.1",
+    "gulp-eslint": "^4.0.2",
+    "gulp-header": "^2.0.5",
+    "gulp-watch": "^5.0.0",
+    "gulp-zip": "^4.1.0",
+    "webpack-stream": "^4.0.3"
   }
 }

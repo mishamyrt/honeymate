@@ -36,14 +36,14 @@ gulp.task('watch', () => {
 });
 
 gulp.task('dev', () => {
-    // gulp.start('lint');
+    gulp.start('lint');
     gulp.src('./source/honeymate.js')
         .pipe(webpackStream(require('./webpack.config.js'), webpack))
         .pipe(gulp.dest(release));
 });
 
 gulp.task('build', () => {
-    gulp.start('lint');
+    // gulp.start('lint');
     gulp.src('./source/honeymate.js')
         .pipe(webpackStream(require('./webpack.config.js'), webpack))
         .pipe(babel({ presets: ['es2016', 'minify'] }))
