@@ -24,25 +24,25 @@ gulp.task('lint', () => {
         .pipe(eslint.failAfterError());
 });
 
-gulp.task('default', function () {
+gulp.task('default', () => {
     gulp.start('build');
 });
 
-gulp.task('watch', function () {
+gulp.task('watch', () => {
     gulp.watch('./source/*.js', function () {
         gulp.start('lint');
         gulp.start('build');
     });
 });
 
-gulp.task('dev', function () {
+gulp.task('dev', () => {
     // gulp.start('lint');
     gulp.src('./source/honeymate.js')
         .pipe(webpackStream(require('./webpack.config.js'), webpack))
         .pipe(gulp.dest(release));
 });
 
-gulp.task('build', function () {
+gulp.task('build', () => {
     gulp.start('lint');
     gulp.src('./source/honeymate.js')
         .pipe(webpackStream(require('./webpack.config.js'), webpack))
@@ -51,7 +51,7 @@ gulp.task('build', function () {
         .pipe(gulp.dest(release));
 });
 
-gulp.task('zip', function () {
+gulp.task('zip', () => {
     var version = pkg.version;
     return gulp.src([
         build + 'honeymate.js',
