@@ -60,9 +60,9 @@ Then, use it as ES6 module somewhere in your program:
 ```js
 import Honeymate from 'mishamyrt-honeymate'
 
-const honey = new Honeymate();
+const honey = new Honeymate()
 // Finds all honeymated blocks in the DOM and initializes them
-honey.initiate();
+honey.initiate()
 ```
 
 ## Options

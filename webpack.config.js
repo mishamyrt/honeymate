@@ -7,4 +7,4 @@ module.exports = {
         filename: '[name].js',
     },
     devtool: false,
-};
+}

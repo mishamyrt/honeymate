@@ -1,38 +1,15 @@
-import animate, { prepareAnimation } from './animation.js';
-import ExposeWatcher from './expose.js';
-import HoneyBlock from './block.js';
-import waitImages from './wait.js';
+import HoneyNode from './node.js'
+import generateEffect from './generateEffect'
 
 
 export default class Honeymate {
     static initiate() {
-        let previous = null;
-        const watcher = new ExposeWatcher();
-        document.querySelectorAll('.honey').forEach(function (block) {
-            const honeyblock = new HoneyBlock(block, previous);
-            honeyblock.self.classList.add('is__honeyHidden');
-            prepareAnimation(honeyblock);
-            if (honeyblock.expose) {
-                watcher.push(honeyblock);
-            }
-            else if (honeyblock.waited === null) {
-                waitImages(honeyblock.self, function () {
-                    animate(honeyblock);
-                });
-            }
-            else {
-                const interval = setInterval(function () {
-                    if (!honeyblock.waited.classList.contains('is__honeyHidden')) {
-                        clearInterval(interval);
-                        setTimeout(function () {
-                            waitImages(block, function () {
-                                animate(honeyblock);
-                            });
-                        }, honeyblock.hold);
-                    }
-                }, 100);
-            }
-            previous = block;
-        });
+        document.querySelectorAll('.honey').forEach((node) => {
+            const honeyNode = new HoneyNode(node)
+            honeyNode.effect = generateEffect(honeyNode)
+            honeyNode.applyEffect(honeyNode.effect).then(() => {
+                honeyNode.isLoaded().then(honeyNode.animate())
+            })
+        })
     }
 }

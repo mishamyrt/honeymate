@@ -1,7 +1,7 @@
 module.exports = {
     "extends": "eslint:recommended",
     "parserOptions": {
-        "ecmaVersion": 6,
+        "ecmaVersion": 2017,
         "sourceType": "module"
     },
     "env": {
@@ -17,7 +17,7 @@ module.exports = {
         ],
         "brace-style": [
             "error",
-            "stroustrup"
+            "1tbs"
         ],
         "camelcase": "error",
         "comma-dangle": [
@@ -208,7 +208,7 @@ module.exports = {
         "require-yield": "error",
         "semi": [
             "error",
-            "always"
+            "never"
         ],
         "semi-spacing": "error",
         "sort-imports": "error",
@@ -258,4 +258,4 @@ module.exports = {
         "yield-star-spacing": "error",
         "yoda": "error"
     }
-};
+}
