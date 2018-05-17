@@ -6,4 +6,3 @@ document.addEventListener('DOMContentLoaded', () => {
     document.head.appendChild(style)
     Honeymate.initiate()
 })
-// document.write('<style>.honey{opacity:0}</style>')

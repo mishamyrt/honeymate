@@ -7,11 +7,11 @@ export default class Honeymate {
         document.querySelectorAll('.honey').forEach((node) => {
             const honeyNode = new HoneyNode(node)
             honeyNode.effect = generateEffect(honeyNode)
-            honeyNode.applyEffect(honeyNode.effect).then(
-                honeyNode.isLoaded().then(
+            honeyNode.applyEffect(honeyNode.effect).then(() => {
+                honeyNode.isLoaded().then(() => {
                     setTimeout(honeyNode.animate(), honeyNode.parameters.delay)
-                )
-            )
+                })
+            })
         })
     }
 }
