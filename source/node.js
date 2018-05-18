@@ -34,7 +34,6 @@ export default class HoneyNode {
     constructor(node) {
         this.node = node
         this.parameters = parseParameters(node.dataset)
-        // console.log(this.parameters)
     }
     async applyEffect(effect) {
         let count = 0

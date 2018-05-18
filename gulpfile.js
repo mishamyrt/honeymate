@@ -30,7 +30,7 @@ gulp.task('lint', () => {
 })
 
 gulp.task('default', () => {
-    gulp.start('build')
+    gulp.start('build', 'build-module')
 })
 
 gulp.task('server', () => {
@@ -50,15 +50,39 @@ gulp.task('watch', () => {
 })
 
 gulp.task('dev', () => {
-    gulp.start(['lint', 'build', 'server', 'watch'])
+    gulp.start(['lint', 'build', 'build-module', 'server', 'watch'])
+})
+
+// gulp.src('./source/honeymate.js')
+// .pipe(webpackStream(require('./webpack.config.js'), webpack))
+// .pipe(gulp.dest(release))
+
+gulp.task('build-module', () => {
     gulp.src('./source/honeymate.js')
-        .pipe(webpackStream(require('./webpack.config.js'), webpack))
+        .pipe(webpackStream({
+            entry: {
+                honeymate: './source/index.js',
+            },
+            output: {
+                filename: 'honeymate-module.js',
+                jsonpScriptType: 'module',
+                libraryTarget: 'commonjs',
+            },
+        }), webpack)
+        .pipe(header(banner, { pkg: pkg }))
         .pipe(gulp.dest(release))
 })
 
 gulp.task('build', () => {
     gulp.src('./source/honeymate.js')
-        .pipe(webpackStream(require('./webpack.config.js'), webpack))
+        .pipe(webpackStream({
+            entry: {
+                honeymate: './source/honeymate.js',
+            },
+            output: {
+                filename: '[name].js',
+            },
+        }), webpack)
         .pipe(babel({ presets: ['es2017', 'es2016'] }))
         .pipe(uglify({
             compress: true,

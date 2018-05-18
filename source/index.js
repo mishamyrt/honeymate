@@ -27,7 +27,6 @@ const findWaited = (parameters, i) => {
     return -1
 }
 
-
 export default class Honeymate {
     static initiate() {
         const nodes = document.querySelectorAll('.honey')
