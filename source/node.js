@@ -18,8 +18,11 @@ const parseParameters = (dataset) => {
         duration: dataset.duration ? dataset.duration : 640,
         effect: dataset.effect ? dataset.effect : 'fade',
         expose: dataset.expose ? dataset.expose === 'true' : false,
-        delay: dataset.delay ? dataset.delay : 0,
+        delay: dataset.delay ? parseInt(dataset.delay, 10) : 0,
+        hold: dataset.hold ? parseInt(dataset.hold, 10) : 0,
         scale: dataset.scale ? dataset.scale : 0.87,
+        await: dataset.await ? dataset.await : null,
+        'continue': dataset.continue === 'true',
         origin: dataset.origin ? dataset.origin : 'bottom',
         offset: dataset.up || dataset.down || dataset.left || dataset.right
             ? dataset.up || dataset.down || dataset.left || dataset.right
@@ -42,9 +45,18 @@ export default class HoneyNode {
         return count
     }
     async isLoaded() {
-        return waitImages(this.node)
+        return new Promise((resolve) => {
+            waitImages(this.node).then(() => setTimeout(() => resolve(), this.parameters.hold))
+        })
     }
-    animate() {
+    animate(effect) {
+        this.applyEffect(effect).then(() => {
+            this.isLoaded().then(() => {
+                setTimeout(() => this.expose(), this.parameters.delay)
+            })
+        })
+    }
+    expose() {
         this.applyEffect({
             transform: '',
             opacity: 1,
