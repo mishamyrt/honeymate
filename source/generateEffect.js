@@ -8,7 +8,7 @@ const generateTransition = (duration, properties) => {
 }
 
 const generateSlide = (direction, offset) => {
-    let transformString = direction === 1 || direction === 3  ? 'Y' : 'X'
+    let transformString = direction === 1 || direction === 3 ? 'Y' : 'X'
     transformString += direction === 1 || direction === 2 ? '(-' : '('
     return `translate${transformString}${offset}px)`
 }

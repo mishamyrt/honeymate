@@ -8,7 +8,7 @@
     "dev": "gulp dev",
     "zip": "gulp zip",
     "test": "npm run check-codestyle",
-    "check-codestyle": "eslint ./",
+    "check-codestyle": "eslint source/",
     "fix-codestyle": "eslint ./ --fix"
   },
   "author": "Misha Myrt",
@@ -18,7 +18,8 @@
   },
   "homepage": "https://misha.myrt.co/tools/honeymate/",
   "devDependencies": {
-    "parcel-bundler": "^1.9.2",
-    "gulp4": "^4.0.3"
+    "eslint": "^4.19.1",
+    "gulp4": "^4.0.3",
+    "parcel-bundler": "^1.9.2"
   }
 }
