@@ -1,5 +1,4 @@
 import HoneyNode from './node.js'
-import generateEffect from './generateEffect'
 
 const honeyNodes = new Map()
 
@@ -32,17 +31,19 @@ export default class Honeymate {
         const nodes = document.querySelectorAll('.honey')
         for (let i = 0; i < nodes.length; i++) {
             const honeyNode = addNode(nodes[i])
-            const effect = generateEffect(honeyNode)
             const waited = findWaited(honeyNode.parameters, i)
             if (waited === -1) {
-                honeyNode.animate(effect)
+                honeyNode.animate()
             } else {
                 waited.isLoaded().then(() => {
                     setTimeout(() => {
-                        honeyNode.animate(effect)
+                        honeyNode.animate()
                     }, honeyNode.parameters.hold)
                 })
             }
         }
+    }
+    static generateNode(node) {
+        return new HoneyNode(node)
     }
 }

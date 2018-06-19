@@ -1,3 +1,4 @@
+import generateEffect from './generateEffect'
 import waitImages from './wait'
 
 const getDirection = (dataset) => {
@@ -32,8 +33,13 @@ const parseParameters = (dataset) => {
 
 export default class HoneyNode {
     constructor(node) {
+        node.style.opacity = 0
         this.node = node
-        this.parameters = parseParameters(node.dataset)
+        this.setParameters(node.dataset)
+    }
+    setParameters(parameters) {
+        this.parameters = parseParameters(parameters)
+        this.effect = generateEffect(this.parameters)
     }
     async applyEffect(effect) {
         let count = 0
@@ -48,10 +54,12 @@ export default class HoneyNode {
             waitImages(this.node).then(() => setTimeout(() => resolve(), this.parameters.hold))
         })
     }
-    animate(effect) {
+    animate(effect = this.effect) {
         this.applyEffect(effect).then(() => {
             this.isLoaded().then(() => {
-                setTimeout(() => this.expose(), this.parameters.delay)
+                setTimeout(() => {
+                    this.expose()
+                }, this.parameters.delay)
             })
         })
     }
