@@ -43,10 +43,10 @@ export default class HoneyNode {
     }
     async applyEffect(effect) {
         let count = 0
-        Object.keys(effect).forEach((key) => {
+        for (const key in effect) {
             this.node.style[key] = effect[key]
             count++
-        })
+        }
         return count
     }
     async isLoaded() {
