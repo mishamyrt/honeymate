@@ -8,24 +8,9 @@ const generateTransition = (duration, properties) => {
 }
 
 const generateSlide = (direction, offset) => {
-    let transformString = 'translate'
-    switch (direction) {
-    case 1:
-        transformString += 'Y(-'
-        break
-    case 2:
-        transformString += 'X(-'
-        break
-    case 3:
-        transformString += 'Y('
-        break
-    case 4:
-        transformString += 'X('
-        break
-    default:
-        return ''
-    }
-    return transformString + `${offset}px)`
+    let transformString = direction === 1 || direction === 3  ? 'Y' : 'X'
+    transformString += direction === 1 || direction === 2 ? '(-' : '('
+    return `translate${transformString}${offset}px)`
 }
 
 const generateEffect = (parameters) => {
