@@ -41,15 +41,17 @@ export default class HoneyNode {
         this.parameters = parseParameters(parameters)
         this.effect = generateEffect(this.parameters)
     }
-    async applyEffect(effect) {
-        let count = 0
-        for (const key in effect) {
-            this.node.style[key] = effect[key]
-            count++
-        }
-        return count
+    applyEffect(effect) {
+        return new Promise((resolve) => {
+            let count = 0
+            for (const key in effect) {
+                this.node.style[key] = effect[key]
+                count++
+            }
+            resolve(count)
+        })
     }
-    async isLoaded() {
+    isLoaded() {
         return new Promise((resolve) => {
             waitImages(this.node).then(() => setTimeout(() => resolve(), this.parameters.hold))
         })
