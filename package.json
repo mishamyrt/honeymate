@@ -4,7 +4,7 @@
   "description": "Dead simple loading animations",
   "main": "release/honeymate-module.js",
   "scripts": {
-    "build": "parcel build source/honeymate.js -d build",
+    "build": "node make.js build",
     "dev": "gulp dev",
     "zip": "gulp zip",
     "test": "npm run check-codestyle",
@@ -19,7 +19,6 @@
   "homepage": "https://misha.myrt.co/tools/honeymate/",
   "devDependencies": {
     "eslint": "^4.19.1",
-    "gulp4": "^4.0.3",
     "parcel-bundler": "^1.9.2"
   }
 }
