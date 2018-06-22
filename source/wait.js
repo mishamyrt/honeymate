@@ -5,9 +5,8 @@ const getBackgroundImage = (node) => {
     if (style.background !== '' || style.backgroundImage !== '') {
         const uri = style.background.match(bgRegex)
         return uri ? uri[2] : ''
-    } else {
-        return ''
     }
+    return ''
 }
 
 const waitForImage = (url) => {
