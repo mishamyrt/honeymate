@@ -13,10 +13,8 @@ const getBackgroundImage = (node) => {
 const waitForImage = (url) => {
     return new Promise((resolve) => {
         const image = new Image()
-        image.onload = () => {
-            resolve()
-        }
-        image.onerror = image.onload
+        image.onload = resolve
+        image.onerror = resolve
         image.src = url
     })
 }
