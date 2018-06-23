@@ -1,3 +1,4 @@
+import generateEffect from './generateEffect'
 import waitImages from './wait'
 
 const getDirection = (dataset) => {
@@ -12,39 +13,57 @@ const getDirection = (dataset) => {
     }
 }
 
-const parseParameters = (dataset) => {
-    return {
-        direction: getDirection(dataset),
-        duration: dataset.duration ? dataset.duration : 640,
-        effect: dataset.effect ? dataset.effect : 'fade',
-        expose: dataset.expose ? dataset.expose === 'true' : false,
-        delay: dataset.delay ? dataset.delay : 0,
-        scale: dataset.scale ? dataset.scale : 0.87,
-        origin: dataset.origin ? dataset.origin : 'bottom',
-        offset: dataset.up || dataset.down || dataset.left || dataset.right
-            ? dataset.up || dataset.down || dataset.left || dataset.right
-            : 32,
-    }
-}
+const parseParameters = (dataset) => ({
+    direction: getDirection(dataset),
+    duration: dataset.duration ? dataset.duration : 640,
+    effect: dataset.effect ? dataset.effect : 'fade',
+    expose: dataset.expose ? dataset.expose === 'true' : false,
+    delay: dataset.delay ? parseInt(dataset.delay, 10) : 0,
+    hold: dataset.hold ? parseInt(dataset.hold, 10) : 0,
+    scale: dataset.scale ? dataset.scale : 0.87,
+    await: dataset.await ? dataset.await : null,
+    'continue': dataset.continue === 'true',
+    origin: dataset.origin ? dataset.origin : 'bottom',
+    offset: dataset.up || dataset.down || dataset.left || dataset.right
+        ? dataset.up || dataset.down || dataset.left || dataset.right
+        : 32,
+})
 
 export default class HoneyNode {
     constructor(node) {
+        node.style.opacity = 0
         this.node = node
-        this.parameters = parseParameters(node.dataset)
-        // console.log(this.parameters)
+        this.setParameters(node.dataset)
     }
-    async applyEffect(effect) {
-        let count = 0
-        Object.keys(effect).forEach((key) => {
-            this.node.style[key] = effect[key]
-            count++
+    setParameters(parameters) {
+        this.parameters = parseParameters(parameters)
+        this.effect = generateEffect(this.parameters)
+    }
+    applyEffect(effect) {
+        return new Promise((resolve) => {
+            let count = 0
+            for (const key in effect) {
+                this.node.style[key] = effect[key]
+                count++
+            }
+            resolve(count)
         })
-        return count
     }
-    async isLoaded() {
-        return waitImages(this.node)
+    isLoaded() {
+        return new Promise((resolve) => {
+            waitImages(this.node).then(() => setTimeout(() => resolve(), this.parameters.hold))
+        })
     }
-    animate() {
+    animate(effect = this.effect) {
+        this.applyEffect(effect).then(() => {
+            this.isLoaded().then(() => {
+                setTimeout(() => {
+                    this.expose()
+                }, this.parameters.delay)
+            })
+        })
+    }
+    expose() {
         this.applyEffect({
             transform: '',
             opacity: 1,

@@ -5,18 +5,15 @@ const getBackgroundImage = (node) => {
     if (style.background !== '' || style.backgroundImage !== '') {
         const uri = style.background.match(bgRegex)
         return uri ? uri[2] : ''
-    } else {
-        return ''
     }
+    return ''
 }
 
 const waitForImage = (url) => {
     return new Promise((resolve) => {
         const image = new Image()
-        image.onload = () => {
-            resolve()
-        }
-        image.onerror = image.onload
+        image.onload = resolve
+        image.onerror = resolve
         image.src = url
     })
 }
@@ -36,20 +33,23 @@ const getImagesUrl = (nodes) => {
     return images
 }
 
-const waitImages = async (node) => {
-    const checkableNodes = Array.from(node.querySelectorAll('*'))
-    checkableNodes.push(node)
-    const images = getImagesUrl(checkableNodes)
-    if (images.length === 0) {
-        return 0
-    } else {
-        const promises = []
-        images.forEach((url) => {
-            promises.push(waitForImage(url))
-        })
-        await Promise.all(promises)
-        return images.length
-    }
+const waitImages = (node) => {
+    return new Promise((resolve) => {
+        const checkableNodes = Array.from(node.querySelectorAll('*'))
+        checkableNodes.push(node)
+        const images = getImagesUrl(checkableNodes)
+        if (images.length === 0) {
+            resolve(0)
+        } else {
+            const promises = []
+            images.forEach((url) => {
+                promises.push(waitForImage(url))
+            })
+            Promise.all(promises).then(() => {
+                resolve(images.length)
+            })
+        }
+    })
 }
 
 export default waitImages

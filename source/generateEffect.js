@@ -8,28 +8,12 @@ const generateTransition = (duration, properties) => {
 }
 
 const generateSlide = (direction, offset) => {
-    let transformString = 'translate'
-    switch (direction) {
-    case 1:
-        transformString += 'Y(-'
-        break
-    case 2:
-        transformString += 'X(-'
-        break
-    case 3:
-        transformString += 'Y('
-        break
-    case 4:
-        transformString += 'X('
-        break
-    default:
-        return ''
-    }
-    return transformString + `${offset}px)`
+    let transformString = direction === 1 || direction === 3 ? 'Y' : 'X'
+    transformString += direction === 1 || direction === 2 ? '(-' : '('
+    return `translate${transformString}${offset}px)`
 }
 
-const generateEffect = (honeyNode) => {
-    const { parameters } = honeyNode
+const generateEffect = (parameters) => {
     const duration = parameters.duration
     const effect = {}
     switch (parameters.effect) {
@@ -49,8 +33,8 @@ const generateEffect = (honeyNode) => {
         effect.transition = generateTransition(
             duration,
             { transform: 'cubic-bezier(0, 0.9, 0.1, 1)' })
-        effect.transform = generateSlide(honeyNode.parameters.direction,
-            honeyNode.parameters.offset)
+        effect.transform = generateSlide(parameters.direction,
+            parameters.offset)
         effect.transformOrigin = parameters.origin
         break
     default:
@@ -62,11 +46,6 @@ const generateEffect = (honeyNode) => {
         effect.transformOrigin = parameters.origin
         break
     }
-    // if (parameters.origin) {
-    //     effect.transformOrigin = 'center ' + parameters.origin + ' 0px'
-    // } else {
-    //     effect.transformOrigin = 'center bottom 0px'
-    // }
     return effect
 }
 

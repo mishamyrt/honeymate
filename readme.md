@@ -75,7 +75,6 @@ These options should be specified on the `div` with the `honey` class.
 * `data-duration` — The animation duration in milliseconds. Default is 600 milliseconds.
 * `data-expose` — Wait until the user scrolls to the element. If a hold time is set, it is calculated from the moment when the element gets into view.
 * `data-await` — Wait for element with id from value to load (but not finish the animation). 
-* `data-spin` — Show loading indicator at the block.
 
 ```html
 <div class="honey" data-effect="helix" data-delay="400">
