@@ -10,7 +10,7 @@ See Honeymate in action on its [homepage](https://myrt.co/tools/honeymate/).
 
 ## Get
 
-[Download the repository code](https://github.com/mishamyrt/Honeymate/archive/master.zip) and move `release/honeymate.js` to the desired directory.
+[Download the repository code](https://github.com/mishamyrt/Honeymate/archive/master.zip) and move `dist/honeymate.js` to the desired directory.
 
 Or use npm:
 
@@ -60,9 +60,8 @@ Then, use it as ES6 module somewhere in your program:
 ```js
 import Honeymate from 'mishamyrt-honeymate'
 
-const honey = new Honeymate()
 // Finds all honeymated blocks in the DOM and initializes them
-honey.initiate()
+Honeymate.initiate()
 ```
 
 ## Options
