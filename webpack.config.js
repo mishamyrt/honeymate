@@ -4,11 +4,10 @@ const webpack = require('webpack')
 const packageJson = require('./package.json')
 
 const license =
-`/*
-* Honeymate ${packageJson.version}
-* @homepage ${packageJson.homepage}
-* @license ${packageJson.license}
-*/`
+    `Honeymate ${packageJson.version}\n` +
+    `@homepage ${packageJson.homepage}\n` +
+    `@license ${packageJson.license}\n`
+
 
 const plugins = [
     new webpack.BannerPlugin(license),

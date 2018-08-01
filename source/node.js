@@ -24,9 +24,8 @@ const parseParameters = (dataset) => ({
     await: dataset.await ? dataset.await : null,
     'continue': dataset.continue === 'true',
     origin: dataset.origin ? dataset.origin : 'bottom',
-    offset: dataset.up || dataset.down || dataset.left || dataset.right
-        ? dataset.up || dataset.down || dataset.left || dataset.right
-        : 32,
+    offset: dataset.up || dataset.down || dataset.left || dataset.right ?
+        dataset.up || dataset.down || dataset.left || dataset.right : 32,
 })
 
 export default class HoneyNode {
