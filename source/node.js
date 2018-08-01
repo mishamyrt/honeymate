@@ -25,8 +25,7 @@ const parseParameters = (dataset) => ({
     'continue': dataset.continue === 'true',
     origin: dataset.origin ? dataset.origin : 'bottom',
     offset: dataset.up || dataset.down || dataset.left || dataset.right ?
-        dataset.up || dataset.down || dataset.left || dataset.right :
-        32,
+        dataset.up || dataset.down || dataset.left || dataset.right : 32,
 })
 
 export default class HoneyNode {
