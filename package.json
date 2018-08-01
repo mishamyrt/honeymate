@@ -1,25 +1,25 @@
 {
-  "name": "mishamyrt-honeymate",
-  "version": "2.2.3",
-  "description": "Dead simple loading animations",
-  "main": "dist/honeymate-commonjs.js",
-  "scripts": {
-    "build": "npx webpack -p",
-    "server": "node test/index.js",
-    "test": "npm run check-codestyle",
-    "check-codestyle": "eslint ./",
-    "fix-codestyle": "eslint ./ --fix"
-  },
-  "author": "Misha Myrt",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/mishamyrt/honeymate/issues"
-  },
-  "homepage": "https://misha.myrt.co/tools/honeymate/",
-  "devDependencies": {
-    "eslint": "^5.2.0",
-    "node-static": "^0.7.10",
-    "webpack": "^4.12.0",
-    "webpack-cli": "^3.0.8"
-  }
+    "name": "mishamyrt-honeymate",
+    "version": "2.2.3",
+    "description": "Dead simple loading animations",
+    "main": "dist/honeymate-commonjs.js",
+    "scripts": {
+        "build": "npx webpack -p",
+        "server": "node test/index.js",
+        "test": "npm run check-codestyle",
+        "check-codestyle": "eslint ./",
+        "fix-codestyle": "eslint ./ --fix"
+    },
+    "author": "Misha Myrt",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/mishamyrt/honeymate/issues"
+    },
+    "homepage": "https://misha.myrt.co/tools/honeymate/",
+    "devDependencies": {
+        "eslint": "^5.2.0",
+        "node-static": "^0.7.10",
+        "webpack": "^4.12.0",
+        "webpack-cli": "^3.0.8"
+    }
 }

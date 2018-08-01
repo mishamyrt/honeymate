@@ -17,34 +17,38 @@ const generateEffect = (parameters) => {
     const duration = parameters.duration
     const effect = {}
     switch (parameters.effect) {
-    case 'zoom':
-        effect.transition = generateTransition(
-            duration,
-            { transform: 'cubic-bezier(0, 0.7, 0.3, 1)' })
-        effect.transform = `scale(${parameters.scale})`
-        break
-    case 'helix':
-        effect.transition = generateTransition(
-            duration,
-            { transform: 'cubic-bezier(0, 0.75, 0.25, 1)' })
-        effect.transform = `scale(${parameters.scale}) rotate(90deg)`
-        break
-    case 'slide':
-        effect.transition = generateTransition(
-            duration,
-            { transform: 'cubic-bezier(0, 0.9, 0.1, 1)' })
-        effect.transform = generateSlide(parameters.direction,
-            parameters.offset)
-        effect.transformOrigin = parameters.origin
-        break
-    default:
-    case 'relax':
-        effect.transition = generateTransition(
-            duration,
-            { transform: 'cubic-bezier(0, 0, 0.001, 1)' })
-        effect.transform = `scaleY(${parameters.scale})`
-        effect.transformOrigin = parameters.origin
-        break
+        case 'zoom':
+            effect.transition = generateTransition(
+                duration, {
+                    transform: 'cubic-bezier(0, 0.7, 0.3, 1)',
+                })
+            effect.transform = `scale(${parameters.scale})`
+            break
+        case 'helix':
+            effect.transition = generateTransition(
+                duration, {
+                    transform: 'cubic-bezier(0, 0.75, 0.25, 1)',
+                })
+            effect.transform = `scale(${parameters.scale}) rotate(90deg)`
+            break
+        case 'slide':
+            effect.transition = generateTransition(
+                duration, {
+                    transform: 'cubic-bezier(0, 0.9, 0.1, 1)',
+                })
+            effect.transform = generateSlide(parameters.direction,
+                parameters.offset)
+            effect.transformOrigin = parameters.origin
+            break
+        default:
+        case 'relax':
+            effect.transition = generateTransition(
+                duration, {
+                    transform: 'cubic-bezier(0, 0, 0.001, 1)',
+                })
+            effect.transform = `scaleY(${parameters.scale})`
+            effect.transformOrigin = parameters.origin
+            break
     }
     return effect
 }

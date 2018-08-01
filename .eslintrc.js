@@ -51,7 +51,14 @@ module.exports = {
         "global-require": "error",
         "guard-for-in": "off",
         "handle-callback-err": "error",
-        "indent": ["error", 4],
+        "indent": ["error", 4, {
+            "SwitchCase": 1,
+            "VariableDeclarator": {
+                "var": 2,
+                "let": 2,
+                "const": 3
+            }
+        }],
         "init-declarations": "off",
         "key-spacing": "error",
         "keyword-spacing": [
@@ -174,7 +181,7 @@ module.exports = {
         ],
         "one-var-declaration-per-line": "error",
         "operator-assignment": "off",
-        "operator-linebreak": "error",
+        "operator-linebreak": "off",
         "padded-blocks": [
             "error",
             "never"
@@ -232,24 +239,24 @@ module.exports = {
         "valid-jsdoc": [
             "error",
             {
-              "requireReturn": false,
-              "requireParamDescription": false,
-              "requireReturnDescription": false,
-              "prefer": {
-                "return": "returns",
-                "augments": "extends",
-                "defaultvalue": "default",
-                "arg": "param",
-                "argument": "param",
-                "prop": "property"
-              },
-              "preferType": {
-                "string": "String",
-                "number": "Number",
-                "object": "Object",
-                "array": "Array",
-                "function": "Function"
-              }
+                "requireReturn": false,
+                "requireParamDescription": false,
+                "requireReturnDescription": false,
+                "prefer": {
+                    "return": "returns",
+                    "augments": "extends",
+                    "defaultvalue": "default",
+                    "arg": "param",
+                    "argument": "param",
+                    "prop": "property"
+                },
+                "preferType": {
+                    "string": "String",
+                    "number": "Number",
+                    "object": "Object",
+                    "array": "Array",
+                    "function": "Function"
+                }
             }
         ],
         "vars-on-top": "off",
