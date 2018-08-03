@@ -1,4 +1,5 @@
-# Honeymate
+# Honeymate [![Build Status](https://travis-ci.org/mishamyrt/honeymate.svg?branch=master)][ci]
+
 
 Dead simple loading animations
 
@@ -84,3 +85,5 @@ These options should be specified on the `div` with the `honey` class.
 ## Supported browsers
 
 We support IE 10+, Safari 9+ and the latest versions of Chrome, Firefox and Edge. Honeymate could work in the older versions too, but we don’t do anything specific to maintain its compatibility with them and don’t test it there.
+
+[ci]: https://travis-ci.org/mishamyrt/honeymate

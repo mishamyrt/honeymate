@@ -8,7 +8,6 @@ const license =
     `@homepage ${packageJson.homepage}\n` +
     `@license ${packageJson.license}\n`
 
-
 const plugins = [
     new webpack.BannerPlugin(license),
 ]
