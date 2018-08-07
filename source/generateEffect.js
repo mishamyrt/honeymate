@@ -40,7 +40,6 @@ const generateEffect = (parameters) => {
                 parameters.offset)
             effect.transformOrigin = parameters.origin
             break
-        default:
         case 'relax':
             effect.transition = generateTransition(
                 duration, {
@@ -49,6 +48,9 @@ const generateEffect = (parameters) => {
             effect.transform = `scaleY(${parameters.scale})`
             effect.transformOrigin = parameters.origin
             break
+        default:
+        case 'fade':
+            effect.transition = generateTransition(duration, { })
     }
     return effect
 }
