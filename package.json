@@ -4,7 +4,7 @@
     "description": "Dead simple loading animations",
     "main": "dist/honeymate-commonjs.js",
     "scripts": {
-        "build": "npx webpack -p",
+        "build": "npx rollup -c",
         "server": "node test/index.js",
         "test": "npm run check-codestyle",
         "check-codestyle": "eslint ./",
