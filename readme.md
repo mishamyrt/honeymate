@@ -1,9 +1,15 @@
 # Honeymate [![Build Status](https://travis-ci.org/mishamyrt/honeymate.svg?branch=master)][ci]
 
+<a href="http://mishamyrt.github.io/honeymate/"><img src="https://raw.githubusercontent.com/mishamyrt/honeymate/dev-readme-update/img/logo.png" align="right" alt="Honeymate logo" width="194" height="198"></a>
 
 Dead simple loading animations
 
-<p align="center"><img src="http://i.imgur.com/GDaTuQY.png"></p>
+**UX.** The main advantage is that the averto is not modal. 
+This means that the notification does not block the interface.
+
+**Small.** 1.8 kilobytes (minified and gzipped). No dependencies.
+
+**Accessible.** All options are used to increase availability.
 
 ## Take a look
 
