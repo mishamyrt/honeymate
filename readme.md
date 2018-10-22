@@ -86,7 +86,7 @@ node.isLoaded().then(() => node.expose())
 
 ## Options
 
-These options should be specified on the `div` with the `honey` class.
+These options should be specified on the block with the `honey` class.
 
 * `data-effect` — Current effect. Available effects: helix, fade (default), relax, zoom. 
 * `data-hold` — Hold on for this number of milliseconds (at least this much time should elapse after an element, which the given one was waiting for, have started emerging).
