@@ -109,11 +109,11 @@ const node = Honeymate.generateNode(
     document.querySelector('.node-selector')
 )
 
-node.setParameters({
+node.options = {
     effect: 'zoom',
     scale: 0.93,
     duration: 500,
-})
+}
 ```
 
 ## Supported browsers

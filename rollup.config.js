@@ -23,8 +23,6 @@ export default {
                     useBuiltIns: 'entry',
                 }],
             ],
-            plugins: ['external-helpers'],
-            externalHelpers: true,
         }),
         production && !amd ? terser() : false,
     ],

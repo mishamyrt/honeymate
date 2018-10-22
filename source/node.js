@@ -29,16 +29,22 @@ const parseParameters = (dataset) => ({
 })
 
 export default class HoneyNode {
-    constructor(node) {
+    constructor (node) {
         node.style.opacity = 0
         this.node = node
-        this.setParameters(node.dataset)
+        this.options = node.dataset
     }
-    setParameters(parameters) {
-        this.parameters = parseParameters(parameters)
+
+    set options (options) {
+        this.parameters = parseParameters(options)
         this.effect = generateEffect(this.parameters)
     }
-    applyEffect(effect) {
+
+    get options () {
+        return this.parameters
+    }
+
+    applyEffect (effect) {
         return new Promise((resolve) => {
             for (const key in effect) {
                 this.node.style[key] = effect[key]
@@ -46,12 +52,14 @@ export default class HoneyNode {
             resolve()
         })
     }
-    isLoaded() {
+
+    isLoaded () {
         return new Promise((resolve) => {
             waitImages(this.node).then(() => setTimeout(() => resolve(), this.parameters.hold))
         })
     }
-    animate(effect = this.effect) {
+
+    animate (effect = this.effect) {
         this.applyEffect(effect).then(() => {
             this.isLoaded().then(() => {
                 setTimeout(() => {
@@ -60,7 +68,8 @@ export default class HoneyNode {
             })
         })
     }
-    expose() {
+
+    expose () {
         this.applyEffect({
             transform: '',
             opacity: 1,
