@@ -40,12 +40,10 @@ export default class HoneyNode {
     }
     applyEffect(effect) {
         return new Promise((resolve) => {
-            let count = 0
             for (const key in effect) {
                 this.node.style[key] = effect[key]
-                count++
             }
-            resolve(count)
+            resolve()
         })
     }
     isLoaded() {
