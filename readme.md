@@ -12,7 +12,7 @@ Dead simple loading animations
 
 ## Take a look
 
-See Honeymate in action on its [homepage](https://myrt.co/tools/honeymate/).
+See Honeymate in action on its [homepage](http://mishamyrt.github.io/honeymate/).
 
 ## Get
 
@@ -40,7 +40,7 @@ If installed with npm:
         type="text/javascript"></script>
 ```
 
-Then, add to the pictured `div` class `honey`:
+Then, add to the image container class `honey`:
 
 ```html
 <div class="honey">
@@ -53,7 +53,7 @@ Honeymate will wait until all images will be loaded and then show block.
 
 ### Using as a AMD module
 
-Honeymate can be used as a AMD module, so you can use it within webpack or rollup build systems.
+Honeymate can be used as a AMD module, so you can use it within webpack or Rollup build systems.
 
 First, install Honeymate using npm:
 
@@ -70,13 +70,24 @@ import Honeymate from 'mishamyrt-honeymate'
 Honeymate.initiate()
 ```
 
-You can also control the event loo[] of the Honeymate manually:
+You can also control the event loop of the Honeymate manually:
 
 ```js
 import Honeymate from 'mishamyrt-honeymate'
 
-// Finds all honeymated blocks in the DOM and initializes them
-Honeymate.generateNode()
+// Creates an instance of the class HoneyNode
+const node = Honeymate.generateNode(
+    document.querySelector('.node-selector')
+)
+
+// Sets node parameters for animation
+node.setParameters({
+    effect: 'helix',
+    duration: 500
+})
+
+// Shows the node after loading images
+node.isLoaded().then(() => node.expose())
 ```
 
 ## Options
