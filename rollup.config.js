@@ -4,12 +4,15 @@ import { terser } from 'rollup-plugin-terser'
 /* eslint-env node */
 
 const production = process.env.prod || false
+const amd = process.env.module || false
+
+const exportName = amd ? 'honeymate-module' : 'honeymate'
 
 export default {
-    input: 'source/honeymate.js',
+    input: 'source/' + (amd ? 'index' : 'honeymate') + '.js',
     output: {
-        file: production ? 'dist/honeymate.js' : 'build/honeymate.js',
-        format: 'iife',
+        file: production ? `dist/${exportName}.js` : `build/${exportName}.js`,
+        format: amd ? 'amd' : 'iife',
     },
     plugins: [
         babel({
@@ -23,6 +26,6 @@ export default {
             plugins: ['external-helpers'],
             externalHelpers: true,
         }),
-        production ? terser() : false,
+        production && !amd ? terser() : false,
     ],
 }
