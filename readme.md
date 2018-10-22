@@ -80,12 +80,6 @@ const node = Honeymate.generateNode(
     document.querySelector('.node-selector')
 )
 
-// Sets node parameters for animation
-node.setParameters({
-    effect: 'helix',
-    duration: 500
-})
-
 // Shows the node after loading images
 node.isLoaded().then(() => node.expose())
 ```
@@ -100,6 +94,7 @@ These options should be specified on the `div` with the `honey` class.
 * `data-duration` — The animation duration in milliseconds. Default is 600 milliseconds.
 * `data-expose` — Wait until the user scrolls to the element. If a hold time is set, it is calculated from the moment when the element gets into view.
 * `data-await` — Wait for element with id from value to load (but not finish the animation). 
+* `data-scale` — For relax, zoom and helix effects, the initial scale. The default is 0.87. 
 
 ```html
 <div class="honey" data-effect="helix" data-delay="400">
@@ -107,8 +102,22 @@ These options should be specified on the `div` with the `honey` class.
 </div>
 ```
 
+They can also be a parameter when working with an AMD module. To do this, use the same parameters without the `data` prefix.
+
+```js
+const node = Honeymate.generateNode(
+    document.querySelector('.node-selector')
+)
+
+node.setParameters({
+    effect: 'zoom',
+    scale: 0.93,
+    duration: 500,
+})
+```
+
 ## Supported browsers
 
-I support Safari 11+ and the latest versions of Chrome, Firefox and Edge. Honeymate could work in the older versions too, but i don’t do anything specific to maintain its compatibility with them and don’t test it there.
+Latest Webkit, Blink browsers and Firefox fully supported. In unsupported browsers page will load as if there were no Emerge in the first place. Same thing with disabled Javascript.
 
 [ci]: https://travis-ci.org/mishamyrt/honeymate
