@@ -26,7 +26,7 @@ const findWaited = (parameters, i) => {
 }
 
 export default class Honeymate {
-    static initiate() {
+    static initiate () {
         const nodes = document.querySelectorAll('.honey')
         for (let i = 0; i < nodes.length; i++) {
             const honeyNode = addNode(nodes[i])
@@ -42,7 +42,7 @@ export default class Honeymate {
             }
         }
     }
-    static generateNode(node) {
+    static generateNode (node) {
         return new HoneyNode(node)
     }
 }
