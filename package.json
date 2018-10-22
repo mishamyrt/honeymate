@@ -8,7 +8,8 @@
         "server": "node test/index.js",
         "test": "npm run check-codestyle",
         "check-codestyle": "eslint ./",
-        "fix-codestyle": "eslint ./ --fix && npx js-beautify -r ./source/*"
+        "fix-codestyle": "eslint ./ --fix && npx js-beautify -r ./source/*",
+        "release": "npx rollup -c --environment prod"
     },
     "author": "Misha Myrt",
     "license": "MIT",
