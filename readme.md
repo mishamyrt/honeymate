@@ -4,12 +4,11 @@
 
 Dead simple loading animations
 
-**UX.** The main advantage is that the averto is not modal. 
-This means that the notification does not block the interface.
+**Simple.** Honeymate has declarative API therefore has a low entry threshold.
 
-**Small.** 1.8 kilobytes (minified and gzipped). No dependencies.
+**Small.** 1.7 kilobytes (minified and gzipped). No dependencies.
 
-**Accessible.** All options are used to increase availability.
+**Fast.** Only CSS animations wrapped in a `requestAnimationFrame` are used.
 
 ## Take a look
 
@@ -37,7 +36,7 @@ If downloaded directly:
 If installed with npm:
 
 ```html
-<script src="node_modules/mishamyrt-honeymate/release/honeymate.js"
+<script src="node_modules/mishamyrt-honeymate/dist/honeymate.js"
         type="text/javascript"></script>
 ```
 
@@ -52,9 +51,9 @@ Then, add to the pictured `div` class `honey`:
 Honeymate will wait until all images will be loaded and then show block.
 
 
-### Using as a ES6 module
+### Using as a AMD module
 
-Honeymate can be used as a ES6 module, so you can use it within webpack or browserify build systems.
+Honeymate can be used as a AMD module, so you can use it within webpack or rollup build systems.
 
 First, install Honeymate using npm:
 
@@ -69,6 +68,15 @@ import Honeymate from 'mishamyrt-honeymate'
 
 // Finds all honeymated blocks in the DOM and initializes them
 Honeymate.initiate()
+```
+
+You can also control the event loo[] of the Honeymate manually:
+
+```js
+import Honeymate from 'mishamyrt-honeymate'
+
+// Finds all honeymated blocks in the DOM and initializes them
+Honeymate.generateNode()
 ```
 
 ## Options
