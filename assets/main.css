@@ -1,0 +1,63 @@
+h1,
+h2,
+h3 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Segoe UI', sans-serif;
+    font-weight: 300;
+}
+
+body {
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+p {
+    margin: 0;
+}
+
+.header {
+    max-width: 237px;
+    margin: 65px auto 0;
+}
+
+.get {
+    margin-top: 38px;
+}
+
+.get-code {
+    font-family: IBM Plex Mono, monospace;
+    font-style: normal;
+    line-height: normal;
+    font-size: 18px;
+    color: #FFE900;
+    background: #0C2625;
+    border-radius: 4px;
+    padding: 22px 26px 24px;
+    display: inline-block;
+}
+
+.get-subInfo {
+    color: #C2C2C2;
+    margin-top: 17px;
+}
+
+.get-subInfo a {
+    color: #C2C2C2;
+    text-decoration: none;
+    border-bottom: 1px solid;
+    transition: color .3s ease-out;
+}
+
+.get-subInfo a:hover {
+    color: #2eb3ad;
+    transition: color 0s;
+}
+
+
+.header-title {
+    margin: 19px 0 16px;
+    font-size: 45px;
+}
+
+.header-logo {
+    max-width: 122px;
+}
