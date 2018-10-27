@@ -1,3 +1,5 @@
+import { generateSpinner, removeSpinner } from './spinner'
+import { applyStyle } from './style-helper'
 import generateEffect from './generateEffect'
 import waitImages from './wait'
 
@@ -26,6 +28,9 @@ const parseParameters = (dataset) => ({
     origin: dataset.origin ? dataset.origin : 'bottom',
     offset: dataset.up || dataset.down || dataset.left || dataset.right ?
         dataset.up || dataset.down || dataset.left || dataset.right : 32,
+    spin: dataset.spin === 'true' || false,
+    spinColor: dataset['spin-color'] || '#000',
+    spinSize: dataset['spin-size'] ? parseInt(dataset['spin-size'], 10) : 24,
 })
 
 export default class HoneyNode {
@@ -38,19 +43,13 @@ export default class HoneyNode {
     set options (options) {
         this.parameters = parseParameters(options)
         this.effect = generateEffect(this.parameters)
+        if (this.parameters.spin) {
+            this.spinner = generateSpinner(this)
+        }
     }
 
     get options () {
         return this.parameters
-    }
-
-    applyEffect (effect) {
-        return new Promise((resolve) => {
-            for (const key in effect) {
-                this.node.style[key] = effect[key]
-            }
-            resolve()
-        })
     }
 
     isLoaded () {
@@ -60,7 +59,7 @@ export default class HoneyNode {
     }
 
     animate (effect = this.effect) {
-        this.applyEffect(effect).then(() => {
+        applyStyle(this.node, effect).then(() => {
             this.isLoaded().then(() => {
                 setTimeout(() => {
                     this.expose()
@@ -70,9 +69,13 @@ export default class HoneyNode {
     }
 
     expose () {
-        this.applyEffect({
+        applyStyle(this.node, {
             transform: '',
             opacity: 1,
+        }).then(() => {
+            if (this.parameters.spin) {
+                removeSpinner(this.spinner)
+            }
         })
     }
 }

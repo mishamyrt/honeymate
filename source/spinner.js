@@ -1,15 +1,22 @@
 import { applyStyle } from './style-helper'
 
-const getSpinnerSvg = (size, color, clockwise) => `<svg width="${size}" height="24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-rolling"><circle cx="50" cy="50" fill="none" stroke="${color}" stroke-width="10" r="35" stroke-dasharray="164 56" transform="rotate(311.556 50 50)"><animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 50;${clockwise ? '' : '-'}360 50 50" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform></circle></svg>`
+let used = false
+
+const getSpinnerSvg = (size, color) => `<svg width="${size}" height="${size}" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" style="animation: honeySpin 1.7s linear infinite"><circle cx="50" cy="50" fill="none" stroke="${color}" stroke-width="10" r="35" stroke-dasharray="90 60"></circle></svg>`
 
 export const generateSpinner = (honeyNode) => {
+    if (!used) {
+        const style = document.createElement('style')
+        style.innerHTML = '@keyframes honeySpin{0%{transform:rotate(-360deg)}to{transform:rotate(360deg)}}'
+        document.head.appendChild(style)
+        used = true
+    }
     const { node, parameters } = honeyNode
     const rect = node.getBoundingClientRect()
     const spinNode = document.createElement('div')
     spinNode.innerHTML = getSpinnerSvg(
-        parameters['spin-size'],
-        parameters['spin-color'],
-        parameters['spin-direction'] === 'clockwise',
+        parameters.spinSize,
+        parameters.spinColor,
     )
     applyStyle(spinNode, {
         position: 'absolute',
