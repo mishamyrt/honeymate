@@ -1,36 +1,23 @@
+import { applyStyle, getDirection } from './helpers'
 import { generateSpinner, removeSpinner } from './spinner'
-import { applyStyle } from './style-helper'
 import generateEffect from './generateEffect'
 import waitImages from './wait'
 
-const getDirection = (dataset) => {
-    if (dataset.right) {
-        return 2
-    } else if (dataset.down) {
-        return 3
-    } else if (dataset.left) {
-        return 4
-    } else {
-        return 1
-    }
-}
-
 const parseParameters = (dataset) => ({
     direction: getDirection(dataset),
-    duration: dataset.duration ? dataset.duration : 640,
-    effect: dataset.effect ? dataset.effect : 'fade',
-    expose: dataset.expose ? dataset.expose === 'true' : false,
-    delay: dataset.delay ? parseInt(dataset.delay, 10) : 0,
-    hold: dataset.hold ? parseInt(dataset.hold, 10) : 0,
-    scale: dataset.scale ? dataset.scale : 0.87,
-    await: dataset.await ? dataset.await : null,
-    'continue': dataset.continue === 'true',
-    origin: dataset.origin ? dataset.origin : 'bottom',
+    duration: dataset.duration || '640',
+    effect: dataset.effect || 'fade',
+    delay: parseInt(dataset.delay, 10) || 0,
+    hold: parseInt(dataset.hold, 10) || 0,
+    scale: dataset.scale || '.87',
+    await: dataset.await || null,
+    origin: dataset.origin || 'bottom',
     offset: dataset.up || dataset.down || dataset.left || dataset.right ?
         dataset.up || dataset.down || dataset.left || dataset.right : 32,
-    spin: dataset.spin === 'true' || false,
+    spin: dataset.spin === 'true',
     spinColor: dataset['spin-color'] || '#000',
-    spinSize: dataset['spin-size'] ? parseInt(dataset['spin-size'], 10) : 24,
+    spinSize: dataset['spin-size'] || '24',
+    'continue': dataset.continue === 'true',
 })
 
 export default class HoneyNode {

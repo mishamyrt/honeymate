@@ -1,4 +1,4 @@
-import { applyStyle } from './style-helper'
+import { applyStyle } from './helpers'
 
 let used = false
 
