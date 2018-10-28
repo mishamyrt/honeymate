@@ -6,7 +6,7 @@ Dead simple loading animations
 
 **Simple.** Honeymate has declarative API therefore has a low entry threshold.
 
-**Small.** 1.7 kilobytes (minified and gzipped). No dependencies.
+**Small.** 2.4 kilobytes (minified and gzipped). No dependencies.
 
 **Fast.** Only CSS animations wrapped in a `requestAnimationFrame` are used.
 

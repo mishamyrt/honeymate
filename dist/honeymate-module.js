@@ -1,5 +1,70 @@
 define(function () { 'use strict';
 
+    var getDirection = function getDirection(dataset) {
+        if (dataset.right) {
+            return 2;
+        } else if (dataset.down) {
+            return 3;
+        } else if (dataset.left) {
+            return 4;
+        } else {
+            return 1;
+        }
+    };
+
+    var applyStyle = function applyStyle(node, style) {
+        return new Promise(function (resolve) {
+            for (var key in style) {
+                node.style[key] = style[key];
+            }
+            resolve();
+        });
+    };
+
+    var used = false;
+
+    var getSpinnerSvg = function getSpinnerSvg(size, color) {
+        return '<svg width="' + size + '" height="' + size + '" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" style="animation: honeySpin 1.7s linear infinite"><circle cx="50" cy="50" fill="none" stroke="' + color + '" stroke-width="10" r="35" stroke-dasharray="90 60"></circle></svg>';
+    };
+
+    var generateSpinner = function generateSpinner(honeyNode) {
+        if (!used) {
+            var style = document.createElement('style');
+            style.innerHTML = '@keyframes honeySpin{0%{transform:rotate(-360deg)}to{transform:rotate(360deg)}}';
+            document.head.appendChild(style);
+            used = true;
+        }
+        var node = honeyNode.node,
+            parameters = honeyNode.parameters;
+
+        var rect = node.getBoundingClientRect();
+        var spinNode = document.createElement('div');
+        spinNode.innerHTML = getSpinnerSvg(parameters.spinSize, parameters.spinColor);
+        applyStyle(spinNode, {
+            position: 'absolute',
+            top: rect.top + document.documentElement.scrollTop + 'px',
+            left: rect.left + document.documentElement.scrollLeft + 'px',
+            width: node.offsetWidth + 'px',
+            height: node.offsetHeight + 'px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'opacity .23s ease-out'
+        }).then(function () {
+            return document.body.appendChild(spinNode);
+        });
+        return spinNode;
+    };
+
+    var removeSpinner = function removeSpinner(spinNode) {
+        requestAnimationFrame(function () {
+            spinNode.style.opacity = 0;
+            setTimeout(function () {
+                document.body.removeChild(spinNode);
+            }, 1500);
+        });
+    };
+
     var generateTransition = function generateTransition(duration, properties) {
         properties.opacity = 'ease-out';
         var transitionString = '';
@@ -128,102 +193,99 @@ define(function () { 'use strict';
         });
     };
 
-    var getDirection = function getDirection(dataset) {
-        if (dataset.right) {
-            return 2;
-        } else if (dataset.down) {
-            return 3;
-        } else if (dataset.left) {
-            return 4;
-        } else {
-            return 1;
-        }
-    };
+    var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
     var parseParameters = function parseParameters(dataset) {
         return {
             direction: getDirection(dataset),
-            duration: dataset.duration ? dataset.duration : 640,
-            effect: dataset.effect ? dataset.effect : 'fade',
-            expose: dataset.expose ? dataset.expose === 'true' : false,
-            delay: dataset.delay ? parseInt(dataset.delay, 10) : 0,
-            hold: dataset.hold ? parseInt(dataset.hold, 10) : 0,
-            scale: dataset.scale ? dataset.scale : 0.87,
-            await: dataset.await ? dataset.await : null,
-            'continue': dataset.continue === 'true',
-            origin: dataset.origin ? dataset.origin : 'bottom',
-            offset: dataset.up || dataset.down || dataset.left || dataset.right ? dataset.up || dataset.down || dataset.left || dataset.right : 32
+            duration: dataset.duration || '640',
+            effect: dataset.effect || 'fade',
+            delay: parseInt(dataset.delay, 10) || 0,
+            hold: parseInt(dataset.hold, 10) || 0,
+            scale: dataset.scale || '.87',
+            await: dataset.await || null,
+            origin: dataset.origin || 'bottom',
+            offset: dataset.up || dataset.down || dataset.left || dataset.right ? dataset.up || dataset.down || dataset.left || dataset.right : 32,
+            spin: dataset.spin === 'true',
+            spinColor: dataset['spin-color'] || '#000',
+            spinSize: dataset['spin-size'] || '24',
+            'continue': dataset.continue === 'true'
         };
     };
 
     var HoneyNode = function () {
         function HoneyNode(node) {
-            babelHelpers.classCallCheck(this, HoneyNode);
+            _classCallCheck(this, HoneyNode);
 
             node.style.opacity = 0;
             this.node = node;
-            this.setParameters(node.dataset);
+            this.options = node.dataset;
         }
 
-        babelHelpers.createClass(HoneyNode, [{
-            key: 'setParameters',
-            value: function setParameters(parameters) {
-                this.parameters = parseParameters(parameters);
-                this.effect = generateEffect(this.parameters);
-            }
-        }, {
-            key: 'applyEffect',
-            value: function applyEffect(effect) {
+        _createClass(HoneyNode, [{
+            key: 'isLoaded',
+            value: function isLoaded() {
                 var _this = this;
 
                 return new Promise(function (resolve) {
-                    var count = 0;
-                    for (var key in effect) {
-                        _this.node.style[key] = effect[key];
-                        count++;
-                    }
-                    resolve(count);
-                });
-            }
-        }, {
-            key: 'isLoaded',
-            value: function isLoaded() {
-                var _this2 = this;
-
-                return new Promise(function (resolve) {
-                    waitImages(_this2.node).then(function () {
+                    waitImages(_this.node).then(function () {
                         return setTimeout(function () {
                             return resolve();
-                        }, _this2.parameters.hold);
+                        }, _this.parameters.hold);
                     });
                 });
             }
         }, {
             key: 'animate',
             value: function animate() {
-                var _this3 = this;
+                var _this2 = this;
 
                 var effect = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.effect;
 
-                this.applyEffect(effect).then(function () {
-                    _this3.isLoaded().then(function () {
+                applyStyle(this.node, effect).then(function () {
+                    _this2.isLoaded().then(function () {
                         setTimeout(function () {
-                            _this3.expose();
-                        }, _this3.parameters.delay);
+                            _this2.expose();
+                        }, _this2.parameters.delay);
                     });
                 });
             }
         }, {
             key: 'expose',
             value: function expose() {
-                this.applyEffect({
+                var _this3 = this;
+
+                applyStyle(this.node, {
                     transform: '',
                     opacity: 1
+                }).then(function () {
+                    if (_this3.parameters.spin) {
+                        removeSpinner(_this3.spinner);
+                    }
                 });
             }
+        }, {
+            key: 'options',
+            set: function set(options) {
+                this.parameters = parseParameters(options);
+                this.effect = generateEffect(this.parameters);
+                if (this.parameters.spin) {
+                    this.spinner = generateSpinner(this);
+                }
+            },
+            get: function get() {
+                return this.parameters;
+            }
         }]);
+
         return HoneyNode;
     }();
+
+    var _createClass$1 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+    function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
     var honeyNodes = new Map();
 
@@ -254,10 +316,10 @@ define(function () { 'use strict';
 
     var Honeymate = function () {
         function Honeymate() {
-            babelHelpers.classCallCheck(this, Honeymate);
+            _classCallCheck$1(this, Honeymate);
         }
 
-        babelHelpers.createClass(Honeymate, null, [{
+        _createClass$1(Honeymate, null, [{
             key: 'initiate',
             value: function initiate() {
                 var nodes = document.querySelectorAll('.honey');
@@ -286,6 +348,7 @@ define(function () { 'use strict';
                 return new HoneyNode(node);
             }
         }]);
+
         return Honeymate;
     }();
 
