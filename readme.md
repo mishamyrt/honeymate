@@ -31,7 +31,7 @@ Link the file `honeymate.js` from the compiled sources.
 If downloaded directly:
 ```html
 <script src="path/to/honeymate.js"
-				type="text/javascript"></script>
+		type="text/javascript"></script>
 ```
 
 If installed with npm:
