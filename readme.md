@@ -117,6 +117,8 @@ honeyNode.options = {
     effect: 'zoom',
     scale: 0.93,
     duration: 500,
+    spin: true,
+    'spin-color': '#663399',
 }
 ```
 
