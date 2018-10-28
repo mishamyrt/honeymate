@@ -100,8 +100,8 @@ These options could be specified on the block with the `honey` class.
 ```html
 <div class="honey"
      data-effect="helix"
-	 data-delay="400"
-	 data-spin="true">
+     data-delay="400"
+     data-spin="true">
     <img src="./img/foo.jpg">
 </div>
 ```
