@@ -31,7 +31,7 @@ Link the file `honeymate.js` from the compiled sources.
 If downloaded directly:
 ```html
 <script src="path/to/honeymate.js"
-		type="text/javascript"></script>
+        type="text/javascript"></script>
 ```
 
 If installed with npm:
@@ -74,12 +74,12 @@ You can also control Honeymate event loop manually:
 import Honeymate from 'mishamyrt-honeymate'
 
 // Creates an instance of the class HoneyNode
-const node = Honeymate.generateNode(
+const honeyNode = Honeymate.generateNode(
     document.querySelector('.node-selector')
 )
 
 // Shows the node after loading images
-node.isLoaded().then(() => node.expose())
+honeyNode.isLoaded().then(() => node.expose())
 ```
 
 ## Options
@@ -109,11 +109,11 @@ These options could be specified on the block with the `honey` class.
 Them can also be a parameter when working with an AMD module. To do this, use the same parameters without the `data` prefix.
 
 ```js
-const node = Honeymate.generateNode(
+const honeyNode = Honeymate.generateNode(
     document.querySelector('.node-selector')
 )
 
-node.options = {
+honeyNode.options = {
     effect: 'zoom',
     scale: 0.93,
     duration: 500,
