@@ -1,20 +1,18 @@
-import { applyStyle } from './helpers'
+import { applyStyle, getSpinnerSVG } from './helpers'
 
-let used = false
-
-const getSpinnerSvg = (size, color) => `<svg width="${size}" height="${size}" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" style="animation: honeySpin 1.7s linear infinite"><circle cx="50" cy="50" fill="none" stroke="${color}" stroke-width="10" r="35" stroke-dasharray="90 60"></circle></svg>`
+let firstUse = false
 
 export const generateSpinner = (honeyNode) => {
-    if (!used) {
+    if (firstUse) {
         const style = document.createElement('style')
         style.innerHTML = '@keyframes honeySpin{0%{transform:rotate(-360deg)}to{transform:rotate(360deg)}}'
         document.head.appendChild(style)
-        used = true
+        firstUse = false
     }
     const { node, parameters } = honeyNode
     const rect = node.getBoundingClientRect()
     const spinNode = document.createElement('div')
-    spinNode.innerHTML = getSpinnerSvg(
+    spinNode.innerHTML = getSpinnerSVG(
         parameters.spinSize,
         parameters.spinColor,
     )
