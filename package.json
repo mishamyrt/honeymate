@@ -1,8 +1,8 @@
 {
     "name": "mishamyrt-honeymate",
-    "version": "2.2.5",
+    "version": "2.2.6",
     "description": "Dead simple loading animations",
-    "main": "dist/honeymate-commonjs.js",
+    "main": "dist/honeymate-module.js",
     "scripts": {
         "build": "npx rollup -c & npx rollup -c --environment module:true",
         "server": "node test/index.js",
@@ -24,10 +24,8 @@
         "eslint": "^5.7.0",
         "js-beautify": "^1.7.5",
         "node-static": "^0.7.10",
-        "rollup-plugin-babel": "^3.0.7"
-    },
-    "dependencies": {
+        "rollup-plugin-babel": "^3.0.7",
         "rollup": "^0.64.0",
         "rollup-plugin-terser": "^1.0.1"
-    }
+    },
 }
