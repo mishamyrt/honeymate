@@ -10,10 +10,6 @@ Honeymate is a page load coordinator.
 
 **Fast.** Only CSS animations wrapped in a `requestAnimationFrame` are used.
 
-## Take a look
-
-See Honeymate in action on its [homepage](http://mishamyrt.github.io/honeymate/).
-
 ## Get
 
 [Download the repository code](https://github.com/mishamyrt/Honeymate/archive/master.zip) and move `dist/honeymate.js` to the desired directory.
