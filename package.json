@@ -27,5 +27,5 @@
         "rollup-plugin-babel": "^3.0.7",
         "rollup": "^0.64.0",
         "rollup-plugin-terser": "^1.0.1"
-    },
+    }
 }
