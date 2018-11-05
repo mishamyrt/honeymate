@@ -1,13 +1,14 @@
 # Honeymate [![Build Status](https://travis-ci.org/mishamyrt/honeymate.svg?branch=master)][ci]
 
+<a href="http://mishamyrt.github.io/honeymate/"><img src="./img/logo.svg" align="right" alt="Honeymate logo" width="150"></a>
 
-Dead simple loading animations
+Honeymate is a page load coordinator.
 
-<p align="center"><img src="http://i.imgur.com/GDaTuQY.png"></p>
+**Simple.** Honeymate has declarative API therefore has a low entry threshold.
 
-## Take a look
+**Small.** 2.4 kilobytes (minified and gzipped). No dependencies.
 
-See Honeymate in action on its [homepage](https://myrt.co/tools/honeymate/).
+**Fast.** Only CSS animations wrapped in a `requestAnimationFrame` are used.
 
 ## Get
 
@@ -25,30 +26,28 @@ Link the file `honeymate.js` from the compiled sources.
 
 If downloaded directly:
 ```html
-<script src="path/to/honeymate.js" type="text/javascript"></script>
+<script src="path/to/honeymate.js"
+        type="text/javascript"></script>
 ```
 
 If installed with npm:
 
 ```html
-<script src="node_modules/mishamyrt-honeymate/release/honeymate.js"
+<script src="node_modules/mishamyrt-honeymate/dist/honeymate.js"
         type="text/javascript"></script>
 ```
 
-Then, add to the pictured `div` class `honey`:
+Now any element with `class="honey"` will fade in after its contents are loaded:
 
 ```html
 <div class="honey">
-    <img src="./img/foo.jpg">
+  ... Show this only when it is ready ...
 </div>
 ```
 
-Honeymate will wait until all images will be loaded and then show block.
+### Using as a AMD module
 
-
-### Using as a ES6 module
-
-Honeymate can be used as a ES6 module, so you can use it within webpack or browserify build systems.
+Honeymate can be used as a AMD module, so you can use it within webpack or Rollup build systems.
 
 First, install Honeymate using npm:
 
@@ -56,7 +55,7 @@ First, install Honeymate using npm:
 $ npm install mishamyrt-honeymate --save
 ```
 
-Then, use it as ES6 module somewhere in your program:
+Then, use it somewhere in your program:
 
 ```js
 import Honeymate from 'mishamyrt-honeymate'
@@ -65,25 +64,62 @@ import Honeymate from 'mishamyrt-honeymate'
 Honeymate.initiate()
 ```
 
+You can also control Honeymate event loop manually:
+
+```js
+import Honeymate from 'mishamyrt-honeymate'
+
+// Creates an instance of the class HoneyNode
+const honeyNode = Honeymate.generateNode(
+    document.querySelector('.node-selector')
+)
+
+// Shows the node after loading images
+honeyNode.isLoaded().then(() => node.expose())
+```
+
 ## Options
 
-These options should be specified on the `div` with the `honey` class.
+These options could be specified on the block with the `honey` class.
 
 * `data-effect` — Current effect. Available effects: helix, fade (default), relax, zoom. 
 * `data-hold` — Hold on for this number of milliseconds (at least this much time should elapse after an element, which the given one was waiting for, have started emerging).
-* `data-origin` — For relax, zoom and helix effects, the transformation origin. Default is «top» for relax and «center center» for zoom and helix.
-* `data-duration` — The animation duration in milliseconds. Default is 600 milliseconds.
+* `data-origin` — For relax, zoom and helix effects, the transformation origin. Default is ‘top’ for relax and ‘center’ for zoom and helix.
+* `data-duration` — The animation duration in milliseconds. Default is 600.
 * `data-expose` — Wait until the user scrolls to the element. If a hold time is set, it is calculated from the moment when the element gets into view.
 * `data-await` — Wait for element with id from value to load (but not finish the animation). 
+* `data-scale` — For relax, zoom and helix effects, the initial scale. The default is 0.87. 
+* `data-spin` — Show loading indicator.
+* `data-spin-size` — Indicator diameter in pixels. Default is 24.
+* `data-spin-color` — Indicator colour. Default is black.
 
 ```html
-<div class="honey" data-effect="helix" data-delay="400">
+<div class="honey"
+     data-effect="helix"
+     data-delay="400"
+     data-spin="true">
     <img src="./img/foo.jpg">
 </div>
 ```
 
+Them can also be a parameter when working with an AMD module. To do this, use the same parameters without the `data` prefix.
+
+```js
+const honeyNode = Honeymate.generateNode(
+    document.querySelector('.node-selector')
+)
+
+honeyNode.options = {
+    effect: 'zoom',
+    scale: 0.93,
+    duration: 500,
+    spin: true,
+    'spin-color': '#663399',
+}
+```
+
 ## Supported browsers
 
-I support Safari 11+ and the latest versions of Chrome, Firefox and Edge. Honeymate could work in the older versions too, but i don’t do anything specific to maintain its compatibility with them and don’t test it there.
+Latest Webkit, Blink browsers and Firefox fully supported. In unsupported browsers page will load as if there were no Emerge in the first place. Same thing with disabled Javascript.
 
 [ci]: https://travis-ci.org/mishamyrt/honeymate

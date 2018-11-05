@@ -1,14 +1,15 @@
 {
     "name": "mishamyrt-honeymate",
-    "version": "2.2.4",
+    "version": "2.2.5",
     "description": "Dead simple loading animations",
     "main": "dist/honeymate-commonjs.js",
     "scripts": {
-        "build": "npx rollup -c",
+        "build": "npx rollup -c & npx rollup -c --environment module:true",
         "server": "node test/index.js",
         "test": "npm run check-codestyle",
-        "check-codestyle": "eslint ./",
-        "fix-codestyle": "eslint ./ --fix && npx js-beautify -r ./source/*"
+        "check-codestyle": "npx eslint ./",
+        "fix-codestyle": "npx eslint ./ --fix && npx js-beautify -r ./source/*",
+        "release": "npx rollup -c --environment prod & npx rollup -c --environment module --environment prod"
     },
     "author": "Misha Myrt",
     "license": "MIT",
@@ -20,7 +21,7 @@
         "babel-core": "^6.26.3",
         "babel-plugin-external-helpers": "^6.22.0",
         "babel-preset-env": "^1.7.0",
-        "eslint": "^5.2.0",
+        "eslint": "^5.7.0",
         "js-beautify": "^1.7.5",
         "node-static": "^0.7.10",
         "rollup-plugin-babel": "^3.0.7"

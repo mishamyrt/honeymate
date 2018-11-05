@@ -9,7 +9,7 @@ const PORT = 1337
 
 http.createServer((request, response) => {
     if (request.url === '/honeymate') {
-        handler.serveFile('../dist/honeymate.js', 200, {}, request, response)
+        handler.serveFile('../build/honeymate.js', 200, {}, request, response)
     } else {
         handler.serve(request, response)
     }

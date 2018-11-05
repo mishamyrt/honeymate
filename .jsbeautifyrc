@@ -39,6 +39,7 @@
         "max_preserve_newlines": 0,
         "preserve_newlines": true,
         "space_after_anon_function": true,
+        "space_after_named_function": true,
         "space_before_conditional": true,
         "space_in_empty_paren": true,
         "space_in_paren": false,
