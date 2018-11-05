@@ -1,1 +1,363 @@
-!function(){"use strict";var e=function(e,t){return new Promise(function(n){for(var r in t)e.style[r]=t[r];n()})},t=!1,n=function(e,t){t.opacity="ease-out";var n="";return Object.keys(t).forEach(function(r){n+=r+" "+e+"ms "+t[r]+", "}),n.substring(0,n.length-2)},r=/url\(\s*(['"]?)(.*)\1\s*\)/,i=function(e){var t=getComputedStyle(e);if(""!==t.background||""!==t.backgroundImage){var n=t.background.match(r);return n?n[2]:""}return""},o=function(e){return new Promise(function(t){var n=Array.from(e.querySelectorAll("*"));n.push(e);var r=function(e){var t=[],n=!0,r=!1,o=void 0;try{for(var a,s=e[Symbol.iterator]();!(n=(a=s.next()).done);n=!0){var u=a.value;if("IMG"===u.tagName)t.push(u.getAttribute("src"));else{var c=i(u);c&&t.push(c)}}}catch(e){r=!0,o=e}finally{try{!n&&s.return&&s.return()}finally{if(r)throw o}}return t}(n);if(0===r.length)t(0);else{var o=[];r.forEach(function(e){o.push(function(e){return new Promise(function(t){var n=new Image;n.onload=t,n.onerror=t,n.src=e})}(e))}),Promise.all(o).then(function(){t(r.length)})}})},a=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}();var s=function(){function r(e){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,r),e.style.opacity=0,this.node=e,this.options=e.dataset}return a(r,[{key:"isLoaded",value:function(){var e=this;return new Promise(function(t){o(e.node).then(function(){return setTimeout(function(){return t()},e.parameters.hold)})})}},{key:"animate",value:function(){var t=this,n=arguments.length>0&&void 0!==arguments[0]?arguments[0]:this.effect;e(this.node,n).then(function(){t.isLoaded().then(function(){setTimeout(function(){t.expose()},t.parameters.delay)})})}},{key:"expose",value:function(){var t=this;e(this.node,{transform:"",opacity:1}).then(function(){var e;t.parameters.spin&&(e=t.spinner,requestAnimationFrame(function(){e.style.opacity=0,setTimeout(function(){document.body.removeChild(e)},1500)}))})}},{key:"options",set:function(r){var i;this.parameters={direction:function(e){return e.right?2:e.down?3:e.left?4:1}(i=r),duration:i.duration||"640",effect:i.effect||"fade",delay:parseInt(i.delay,10)||0,hold:parseInt(i.hold,10)||0,scale:i.scale||".87",await:i.await||null,origin:i.origin||"bottom",offset:i.up||i.down||i.left||i.right?i.up||i.down||i.left||i.right:32,spin:"true"===i.spin,spinColor:i["spin-color"]||"#000",spinSize:i["spin-size"]||"24",continue:"true"===i.continue},this.effect=function(e){var t,r,i,o=e.duration,a={};switch(e.effect){case"zoom":a.transition=n(o,{transform:"cubic-bezier(0, 0.7, 0.3, 1)"}),a.transform="scale("+e.scale+")";break;case"helix":a.transition=n(o,{transform:"cubic-bezier(0, 0.75, 0.25, 1)"}),a.transform="scale("+e.scale+") rotate(90deg)";break;case"slide":a.transition=n(o,{transform:"cubic-bezier(0, 0.9, 0.1, 1)"}),a.transform=(t=e.direction,r=e.offset,i=1===t||3===t?"Y":"X","translate"+(i+=1===t||2===t?"(-":"(")+r+"px)"),a.transformOrigin=e.origin;break;case"relax":a.transition=n(o,{transform:"cubic-bezier(0, 0, 0.001, 1)"}),a.transform="scaleY("+e.scale+")",a.transformOrigin=e.origin;break;default:case"fade":a.transition=n(o,{})}return a}(this.parameters),this.parameters.spin&&(this.spinner=function(n){if(!t){var r=document.createElement("style");r.innerHTML="@keyframes honeySpin{0%{transform:rotate(-360deg)}to{transform:rotate(360deg)}}",document.head.appendChild(r),t=!0}var i,o,a=n.node,s=n.parameters,u=a.getBoundingClientRect(),c=document.createElement("div");return c.innerHTML=(i=s.spinSize,o=s.spinColor,'<svg width="'+i+'" height="'+i+'" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" style="animation: honeySpin 1.7s linear infinite"><circle cx="50" cy="50" fill="none" stroke="'+o+'" stroke-width="10" r="35" stroke-dasharray="90 60"></circle></svg>'),e(c,{position:"absolute",top:u.top+document.documentElement.scrollTop+"px",left:u.left+document.documentElement.scrollLeft+"px",width:a.offsetWidth+"px",height:a.offsetHeight+"px",display:"flex",alignItems:"center",justifyContent:"center",transition:"opacity .23s ease-out"}).then(function(){return document.body.appendChild(c)}),c}(this))},get:function(){return this.parameters}}]),r}(),u=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}();var c=new Map,f=function(e){if(c.has(e))return c[e];var t=new s(e);return c.set(e,t),t},l=function(e,t){if(e.continue&&t>1)return function(e){return c.get(Array.from(c.keys())[e])}(t-1);if(e.await){var n=document.getElementById(e.await);if(n)return f(n)}return-1},d=function(){function e(){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e)}return u(e,null,[{key:"initiate",value:function(){for(var e=document.querySelectorAll(".honey"),t=function(t){var n=f(e[t]),r=l(n.parameters,t);-1===r?n.animate():r.isLoaded().then(function(){setTimeout(function(){n.animate()},n.parameters.hold)})},n=0;n<e.length;n++)t(n)}},{key:"generateNode",value:function(e){return new s(e)}}]),e}();document.addEventListener("DOMContentLoaded",function(){var e=document.createElement("style");e.innerHTML=".honey{opacity:0}",document.head.appendChild(e),d.initiate()})}();
+(function () {
+    'use strict';
+
+    var getDirection = function getDirection(dataset) {
+        if (dataset.right) {
+            return 2;
+        } else if (dataset.down) {
+            return 3;
+        } else if (dataset.left) {
+            return 4;
+        } else {
+            return 1;
+        }
+    };
+
+    var parseParameters = function parseParameters(dataset) {
+        return {
+            direction: getDirection(dataset),
+            duration: dataset.duration || '640',
+            effect: dataset.effect || 'fade',
+            delay: parseInt(dataset.delay, 10) || 0,
+            hold: parseInt(dataset.hold, 10) || 0,
+            scale: dataset.scale || '.87',
+            await: dataset.await || null,
+            origin: dataset.origin || 'bottom',
+            offset: dataset.up || dataset.down || dataset.left || dataset.right ? dataset.up || dataset.down || dataset.left || dataset.right : 32,
+            spin: dataset.spin === 'true',
+            spinColor: dataset['spin-color'] || '#000',
+            spinSize: dataset['spin-size'] || '24',
+            'continue': dataset.continue === 'true'
+        };
+    };
+
+    var applyStyle = function applyStyle(node, style) {
+        return new Promise(function (resolve) {
+            for (var key in style) {
+                node.style[key] = style[key];
+            }
+            resolve();
+        });
+    };
+
+    var getSpinnerSVG = function getSpinnerSVG(size, color) {
+        return '<svg width="' + size + '" height="' + size + '" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" style="animation: honeySpin 1.7s linear infinite"><circle cx="50" cy="50" fill="none" stroke="' + color + '" stroke-width="10" r="35" stroke-dasharray="90 60"></circle></svg>';
+    };
+
+    var firstUse = false;
+
+    var generateSpinner = function generateSpinner(honeyNode) {
+        if (firstUse) {
+            var style = document.createElement('style');
+            style.innerHTML = '@keyframes honeySpin{0%{transform:rotate(-360deg)}to{transform:rotate(360deg)}}';
+            document.head.appendChild(style);
+            firstUse = false;
+        }
+        var node = honeyNode.node,
+            parameters = honeyNode.parameters;
+
+        var rect = node.getBoundingClientRect();
+        var spinNode = document.createElement('div');
+        spinNode.innerHTML = getSpinnerSVG(parameters.spinSize, parameters.spinColor);
+        applyStyle(spinNode, {
+            position: 'absolute',
+            top: rect.top + document.documentElement.scrollTop + 'px',
+            left: rect.left + document.documentElement.scrollLeft + 'px',
+            width: node.offsetWidth + 'px',
+            height: node.offsetHeight + 'px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'opacity .23s ease-out'
+        }).then(function () {
+            return document.body.appendChild(spinNode);
+        });
+        return spinNode;
+    };
+
+    var removeSpinner = function removeSpinner(spinNode) {
+        requestAnimationFrame(function () {
+            spinNode.style.opacity = 0;
+            setTimeout(function () {
+                document.body.removeChild(spinNode);
+            }, 1500);
+        });
+    };
+
+    var generateTransition = function generateTransition(duration, properties) {
+        properties.opacity = 'ease-out';
+        var transitionString = '';
+        Object.keys(properties).forEach(function (key) {
+            transitionString += key + ' ' + duration + 'ms ' + properties[key] + ', ';
+        });
+        return transitionString.substring(0, transitionString.length - 2);
+    };
+
+    var generateSlide = function generateSlide(direction, offset) {
+        var transformString = direction === 1 || direction === 3 ? 'Y' : 'X';
+        transformString += direction === 1 || direction === 2 ? '(-' : '(';
+        return 'translate' + transformString + offset + 'px)';
+    };
+
+    var generateEffect = function generateEffect(parameters) {
+        var duration = parameters.duration;
+        var effect = {};
+        switch (parameters.effect) {
+            case 'zoom':
+                effect.transition = generateTransition(duration, {
+                    transform: 'cubic-bezier(0, 0.7, 0.3, 1)'
+                });
+                effect.transform = 'scale(' + parameters.scale + ')';
+                break;
+            case 'helix':
+                effect.transition = generateTransition(duration, {
+                    transform: 'cubic-bezier(0, 0.75, 0.25, 1)'
+                });
+                effect.transform = 'scale(' + parameters.scale + ') rotate(90deg)';
+                break;
+            case 'slide':
+                effect.transition = generateTransition(duration, {
+                    transform: 'cubic-bezier(0, 0.9, 0.1, 1)'
+                });
+                effect.transform = generateSlide(parameters.direction, parameters.offset);
+                effect.transformOrigin = parameters.origin;
+                break;
+            case 'relax':
+                effect.transition = generateTransition(duration, {
+                    transform: 'cubic-bezier(0, 0, 0.001, 1)'
+                });
+                effect.transform = 'scaleY(' + parameters.scale + ')';
+                effect.transformOrigin = parameters.origin;
+                break;
+            default:
+            case 'fade':
+                effect.transition = generateTransition(duration, {});
+        }
+        return effect;
+    };
+
+    var bgRegex = /url\(\s*(['"]?)(.*)\1\s*\)/;
+
+    var getBackgroundImage = function getBackgroundImage(node) {
+        var style = getComputedStyle(node);
+        if (style.background !== '' || style.backgroundImage !== '') {
+            var uri = style.background.match(bgRegex);
+            return uri ? uri[2] : '';
+        }
+        return '';
+    };
+
+    var waitForImage = function waitForImage(url) {
+        return new Promise(function (resolve) {
+            var image = new Image();
+            image.onload = resolve;
+            image.onerror = resolve;
+            image.src = url;
+        });
+    };
+
+    var getImagesUrl = function getImagesUrl(nodes) {
+        var images = [];
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+            for (var _iterator = nodes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                var node = _step.value;
+
+                if (node.tagName === 'IMG') {
+                    images.push(node.getAttribute('src'));
+                } else {
+                    var url = getBackgroundImage(node);
+                    if (url) {
+                        images.push(url);
+                    }
+                }
+            }
+        } catch (err) {
+            _didIteratorError = true;
+            _iteratorError = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion && _iterator.return) {
+                    _iterator.return();
+                }
+            } finally {
+                if (_didIteratorError) {
+                    throw _iteratorError;
+                }
+            }
+        }
+
+        return images;
+    };
+
+    var waitImages = function waitImages(node) {
+        return new Promise(function (resolve) {
+            var checkableNodes = Array.from(node.querySelectorAll('*'));
+            checkableNodes.push(node);
+            var images = getImagesUrl(checkableNodes);
+            if (images.length === 0) {
+                resolve(0);
+            } else {
+                var promises = [];
+                images.forEach(function (url) {
+                    promises.push(waitForImage(url));
+                });
+                Promise.all(promises).then(function () {
+                    resolve(images.length);
+                });
+            }
+        });
+    };
+
+    var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+    var HoneyNode = function () {
+        function HoneyNode(node) {
+            _classCallCheck(this, HoneyNode);
+
+            node.style.opacity = 0;
+            this.node = node;
+            this.options = node.dataset;
+        }
+
+        _createClass(HoneyNode, [{
+            key: 'isLoaded',
+            value: function isLoaded() {
+                var _this = this;
+
+                return new Promise(function (resolve) {
+                    waitImages(_this.node).then(function () {
+                        return setTimeout(function () {
+                            return resolve();
+                        }, _this.parameters.hold);
+                    });
+                });
+            }
+        }, {
+            key: 'animate',
+            value: function animate() {
+                var _this2 = this;
+
+                var effect = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.effect;
+
+                applyStyle(this.node, effect).then(function () {
+                    _this2.isLoaded().then(function () {
+                        setTimeout(function () {
+                            _this2.expose();
+                        }, _this2.parameters.delay);
+                    });
+                });
+            }
+        }, {
+            key: 'expose',
+            value: function expose() {
+                var _this3 = this;
+
+                applyStyle(this.node, {
+                    transform: '',
+                    opacity: 1
+                }).then(function () {
+                    if (_this3.parameters.spin) {
+                        removeSpinner(_this3.spinner);
+                    }
+                });
+            }
+        }, {
+            key: 'options',
+            set: function set(options) {
+                this.parameters = parseParameters(options);
+                this.effect = generateEffect(this.parameters);
+                if (this.parameters.spin) {
+                    this.spinner = generateSpinner(this);
+                }
+            },
+            get: function get() {
+                return this.parameters;
+            }
+        }]);
+
+        return HoneyNode;
+    }();
+
+    var _createClass$1 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+    function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+    var honeyNodes = new Map();
+
+    var nodeByIndex = function nodeByIndex(i) {
+        return honeyNodes.get(Array.from(honeyNodes.keys())[i]);
+    };
+
+    var addNode = function addNode(node) {
+        if (honeyNodes.has(node)) {
+            return honeyNodes[node];
+        }
+        var honeyNode = new HoneyNode(node);
+        honeyNodes.set(node, honeyNode);
+        return honeyNode;
+    };
+
+    var findWaited = function findWaited(parameters, i) {
+        if (parameters.continue && i > 1) {
+            return nodeByIndex(i - 1);
+        } else if (parameters.await) {
+            var node = document.getElementById(parameters.await);
+            if (node) {
+                return addNode(node);
+            }
+        }
+        return -1;
+    };
+
+    var Honeymate = function () {
+        function Honeymate() {
+            _classCallCheck$1(this, Honeymate);
+        }
+
+        _createClass$1(Honeymate, null, [{
+            key: 'initiate',
+            value: function initiate() {
+                var nodes = document.querySelectorAll('.honey');
+
+                var _loop = function _loop(i) {
+                    var honeyNode = addNode(nodes[i]);
+                    var waited = findWaited(honeyNode.parameters, i);
+                    if (waited === -1) {
+                        honeyNode.animate();
+                    } else {
+                        waited.isLoaded().then(function () {
+                            setTimeout(function () {
+                                honeyNode.animate();
+                            }, honeyNode.parameters.hold);
+                        });
+                    }
+                };
+
+                for (var i = 0; i < nodes.length; i++) {
+                    _loop(i);
+                }
+            }
+        }, {
+            key: 'generateNode',
+            value: function generateNode(node) {
+                return new HoneyNode(node);
+            }
+        }]);
+
+        return Honeymate;
+    }();
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var style = document.createElement('style');
+        style.innerHTML = '.honey{opacity:0}';
+        document.head.appendChild(style);
+        Honeymate.initiate();
+    });
+
+}());

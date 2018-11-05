@@ -12,6 +12,24 @@ define(function () { 'use strict';
         }
     };
 
+    var parseParameters = function parseParameters(dataset) {
+        return {
+            direction: getDirection(dataset),
+            duration: dataset.duration || '640',
+            effect: dataset.effect || 'fade',
+            delay: parseInt(dataset.delay, 10) || 0,
+            hold: parseInt(dataset.hold, 10) || 0,
+            scale: dataset.scale || '.87',
+            await: dataset.await || null,
+            origin: dataset.origin || 'bottom',
+            offset: dataset.up || dataset.down || dataset.left || dataset.right ? dataset.up || dataset.down || dataset.left || dataset.right : 32,
+            spin: dataset.spin === 'true',
+            spinColor: dataset['spin-color'] || '#000',
+            spinSize: dataset['spin-size'] || '24',
+            'continue': dataset.continue === 'true'
+        };
+    };
+
     var applyStyle = function applyStyle(node, style) {
         return new Promise(function (resolve) {
             for (var key in style) {
@@ -21,25 +39,25 @@ define(function () { 'use strict';
         });
     };
 
-    var used = false;
-
-    var getSpinnerSvg = function getSpinnerSvg(size, color) {
+    var getSpinnerSVG = function getSpinnerSVG(size, color) {
         return '<svg width="' + size + '" height="' + size + '" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" style="animation: honeySpin 1.7s linear infinite"><circle cx="50" cy="50" fill="none" stroke="' + color + '" stroke-width="10" r="35" stroke-dasharray="90 60"></circle></svg>';
     };
 
+    var firstUse = false;
+
     var generateSpinner = function generateSpinner(honeyNode) {
-        if (!used) {
+        if (firstUse) {
             var style = document.createElement('style');
             style.innerHTML = '@keyframes honeySpin{0%{transform:rotate(-360deg)}to{transform:rotate(360deg)}}';
             document.head.appendChild(style);
-            used = true;
+            firstUse = false;
         }
         var node = honeyNode.node,
             parameters = honeyNode.parameters;
 
         var rect = node.getBoundingClientRect();
         var spinNode = document.createElement('div');
-        spinNode.innerHTML = getSpinnerSvg(parameters.spinSize, parameters.spinColor);
+        spinNode.innerHTML = getSpinnerSVG(parameters.spinSize, parameters.spinColor);
         applyStyle(spinNode, {
             position: 'absolute',
             top: rect.top + document.documentElement.scrollTop + 'px',
@@ -196,24 +214,6 @@ define(function () { 'use strict';
     var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
     function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-    var parseParameters = function parseParameters(dataset) {
-        return {
-            direction: getDirection(dataset),
-            duration: dataset.duration || '640',
-            effect: dataset.effect || 'fade',
-            delay: parseInt(dataset.delay, 10) || 0,
-            hold: parseInt(dataset.hold, 10) || 0,
-            scale: dataset.scale || '.87',
-            await: dataset.await || null,
-            origin: dataset.origin || 'bottom',
-            offset: dataset.up || dataset.down || dataset.left || dataset.right ? dataset.up || dataset.down || dataset.left || dataset.right : 32,
-            spin: dataset.spin === 'true',
-            spinColor: dataset['spin-color'] || '#000',
-            spinSize: dataset['spin-size'] || '24',
-            'continue': dataset.continue === 'true'
-        };
-    };
 
     var HoneyNode = function () {
         function HoneyNode(node) {
