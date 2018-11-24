@@ -1,6 +1,6 @@
 import { applyStyle, getSpinnerSVG } from './helpers'
 
-let firstUse = false
+let firstUse = true
 
 export const generateSpinner = (honeyNode) => {
     if (firstUse) {
