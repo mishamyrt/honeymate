@@ -24,6 +24,6 @@ export default {
                 }],
             ],
         }),
-        production && !amd ? terser() : false,
+        production && !cjs ? terser() : false,
     ],
 }
