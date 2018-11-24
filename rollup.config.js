@@ -4,15 +4,15 @@ import { terser } from 'rollup-plugin-terser'
 /* eslint-env node */
 
 const production = process.env.prod || false
-const amd = process.env.module || false
+const cjs = process.env.module || false
 
-const exportName = amd ? 'honeymate-module' : 'honeymate'
+const exportName = cjs ? 'honeymate-module' : 'honeymate'
 
 export default {
-    input: 'source/' + (amd ? 'index' : 'honeymate') + '.js',
+    input: 'source/' + (cjs ? 'index' : 'honeymate') + '.js',
     output: {
         file: production ? `dist/${exportName}.js` : `build/${exportName}.js`,
-        format: amd ? 'amd' : 'iife',
+        format: cjs ? 'cjs' : 'iife',
     },
     plugins: [
         babel({
