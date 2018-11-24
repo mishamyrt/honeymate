@@ -18,11 +18,13 @@ export default {
         babel({
             exclude: 'node_modules/**',
             presets: [
-                ['env', {
+                ['@babel/preset-env', {
                     modules: false,
                     useBuiltIns: 'entry',
                 }],
             ],
+            externalHelpers: true,
+            plugins: ['@babel/plugin-external-helpers'],
         }),
         production && !cjs ? terser() : false,
     ],
