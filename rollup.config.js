@@ -15,7 +15,7 @@ export default {
         format: cjs ? 'cjs' : 'iife',
     },
     plugins: [
-        babel({
+        cjs ? false : babel({
             exclude: 'node_modules/**',
             presets: [
                 ['@babel/preset-env', {
