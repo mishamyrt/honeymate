@@ -35,9 +35,9 @@ export default class Honeymate {
                 honeyNode.animate()
             } else {
                 waited.isLoaded().then(() => {
-                    setTimeout(() => {
-                        honeyNode.animate()
-                    }, honeyNode.parameters.hold)
+                    setTimeout(
+                        () => honeyNode.animate(), honeyNode.parameters.hold
+                    )
                 })
             }
         }
