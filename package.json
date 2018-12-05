@@ -4,12 +4,13 @@
     "description": "Dead simple loading animations",
     "main": "dist/honeymate-commonjs.js",
     "scripts": {
-        "build": "npx rollup -c & npx rollup -c --environment module:true",
+        "dev": "npx rollup -c & npx rollup -c --environment module:true",
+        "build": "npx rollup -c --environment prod & npx rollup -c --environment module --environment prod",
         "server": "node test/index.js",
-        "test": "npm run check-codestyle && npx mocha --exit",
+        "test": "npm run integration-tests && npm run check-codestyle",
         "check-codestyle": "npx eslint ./",
-        "fix-codestyle": "npx eslint ./ --fix && npx js-beautify -r ./source/*",
-        "release": "npx rollup -c --environment prod & npx rollup -c --environment module --environment prod"
+        "integration-tests": "npx mocha test/index.js",
+        "fix-codestyle": "npx eslint ./ --fix && npx js-beautify -r ./source/*"
     },
     "author": "Misha Myrt",
     "license": "MIT",
