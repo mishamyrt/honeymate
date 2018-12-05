@@ -20,21 +20,21 @@ const generateEffect = (parameters) => {
         case 'zoom':
             effect.transition = generateTransition(
                 duration, {
-                    transform: 'cubic-bezier(0, 0.7, 0.3, 1)',
+                    transform: 'cubic-bezier(0,.7,.3,1)',
                 })
             effect.transform = `scale(${parameters.scale})`
             break
         case 'helix':
             effect.transition = generateTransition(
                 duration, {
-                    transform: 'cubic-bezier(0, 0.75, 0.25, 1)',
+                    transform: 'cubic-bezier(0,.75,.25,1)',
                 })
             effect.transform = `scale(${parameters.scale}) rotate(90deg)`
             break
         case 'slide':
             effect.transition = generateTransition(
                 duration, {
-                    transform: 'cubic-bezier(0, 0.9, 0.1, 1)',
+                    transform: 'cubic-bezier(0,.9,.1,1)',
                 })
             effect.transform = generateSlide(parameters.direction,
                 parameters.offset)
@@ -43,7 +43,7 @@ const generateEffect = (parameters) => {
         case 'relax':
             effect.transition = generateTransition(
                 duration, {
-                    transform: 'cubic-bezier(0, 0, 0.001, 1)',
+                    transform: 'cubic-bezier(0,0,.001,1)',
                 })
             effect.transform = `scaleY(${parameters.scale})`
             effect.transformOrigin = parameters.origin

@@ -1,18 +1,62 @@
-/* eslint-env node */
-/* eslint no-console: 0 */
+'use strict'
 
-const staticServer = require('node-static')
-const http = require('http')
+const {
+    before,
+    after,
+    describe,
+    it,
+} = require('mocha')
+const selenium = require('selenium-webdriver')
+const startServer = require('./utils/startServer')
+const expect = require('chai').use(require('chai-as-promised')).expect
+require('chromedriver')
+const until = require('selenium-webdriver/lib/until')
 
-const handler = new staticServer.Server('test/')
-const PORT = 1337
+const getPage = (driver, pageName) => {
+    return driver.get('http://127.0.0.1:1337/test/files/' + pageName + '.html')
+}
 
-http.createServer((request, response) => {
-    if (request.url === '/honeymate') {
-        handler.serveFile('../build/honeymate.js', 200, {}, request, response)
-    } else {
-        handler.serve(request, response)
-    }
-}).listen(PORT)
+const waitUntilHoneymateInitialized = (driver) => {
+    return driver.wait(until.elementLocated({ css: '.honey_ready' }), 20000)
+}
 
-console.log('Server is listening on 127.0.0.1:' + PORT)
+describe('Honeymate', () => {
+    let driver
+
+    before(() => {
+        driver = new selenium.Builder()
+            .forBrowser('chrome')
+            .build()
+
+        startServer()
+    })
+
+    after(() => {
+        return driver.quit()
+    })
+
+    describe('initialization', () => {
+        it('should initialize automatically', () => {
+            getPage(driver, 'initialization')
+            return waitUntilHoneymateInitialized(driver)
+                .then(() => driver.findElements({ css: '.honey' }))
+                .then((allHoneyNodes) => {
+                    return expect(driver.findElements({ css: '.honey_ready' })).to.eventually.have.lengthOf(allHoneyNodes.length)
+                })
+        })
+
+        it('should initialize manually', () => {
+            getPage(driver, 'manual-initialization')
+            return waitUntilHoneymateInitialized(driver)
+                .then(() => driver.executeScript(
+                    `const honeyNode = Honeymate.generateNode(
+                        document.querySelector('.nohoney')
+                    )`
+                ))
+                .then(() => driver.findElements({ css: '.nohoney' }))
+                .then((allHoneyNodes) => {
+                    return expect(driver.findElements({ css: '.honey_ready' })).to.eventually.have.lengthOf(allHoneyNodes.length + 1)
+                })
+        })
+    })
+})

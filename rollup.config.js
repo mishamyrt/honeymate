@@ -20,12 +20,13 @@ export default {
             presets: [
                 ['@babel/preset-env', {
                     modules: false,
-                    useBuiltIns: 'entry',
                 }],
             ],
-            externalHelpers: true,
-            plugins: ['@babel/plugin-external-helpers'],
         }),
-        production && !cjs ? terser() : false,
+        production && !cjs ? terser({
+            compress: {
+                unsafe: true,
+            },
+        }) : false,
     ],
 }
