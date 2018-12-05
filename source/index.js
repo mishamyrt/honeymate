@@ -6,7 +6,7 @@ const nodeByIndex = (i) => honeyNodes.get(Array.from(honeyNodes.keys())[i])
 
 const addNode = (node) => {
     if (honeyNodes.has(node)) {
-        return honeyNodes[node]
+        return honeyNodes.get(node)
     }
     const honeyNode = new HoneyNode(node)
     honeyNodes.set(node, honeyNode)
@@ -18,9 +18,7 @@ const findWaited = (parameters, i) => {
         return nodeByIndex(i - 1)
     } else if (parameters.await) {
         const node = document.getElementById(parameters.await)
-        if (node) {
-            return addNode(node)
-        }
+        return node ? addNode(node) : -1
     }
     return -1
 }
