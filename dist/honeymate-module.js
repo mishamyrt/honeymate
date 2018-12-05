@@ -103,21 +103,21 @@ const generateEffect = (parameters) => {
         case 'zoom':
             effect.transition = generateTransition(
                 duration, {
-                    transform: 'cubic-bezier(0, 0.7, 0.3, 1)',
+                    transform: 'cubic-bezier(0,.7,.3,1)',
                 });
             effect.transform = `scale(${parameters.scale})`;
             break
         case 'helix':
             effect.transition = generateTransition(
                 duration, {
-                    transform: 'cubic-bezier(0, 0.75, 0.25, 1)',
+                    transform: 'cubic-bezier(0,.75,.25,1)',
                 });
             effect.transform = `scale(${parameters.scale}) rotate(90deg)`;
             break
         case 'slide':
             effect.transition = generateTransition(
                 duration, {
-                    transform: 'cubic-bezier(0, 0.9, 0.1, 1)',
+                    transform: 'cubic-bezier(0,.9,.1,1)',
                 });
             effect.transform = generateSlide(parameters.direction,
                 parameters.offset);
@@ -126,7 +126,7 @@ const generateEffect = (parameters) => {
         case 'relax':
             effect.transition = generateTransition(
                 duration, {
-                    transform: 'cubic-bezier(0, 0, 0.001, 1)',
+                    transform: 'cubic-bezier(0,0,.001,1)',
                 });
             effect.transform = `scaleY(${parameters.scale})`;
             effect.transformOrigin = parameters.origin;
@@ -196,6 +196,7 @@ class HoneyNode {
     constructor (node) {
         node.style.opacity = 0;
         this.node = node;
+        this.node.classList.add('honey_ready');
         this.options = node.dataset;
     }
 
@@ -245,7 +246,7 @@ const nodeByIndex = (i) => honeyNodes.get(Array.from(honeyNodes.keys())[i]);
 
 const addNode = (node) => {
     if (honeyNodes.has(node)) {
-        return honeyNodes[node]
+        return honeyNodes.get(node)
     }
     const honeyNode = new HoneyNode(node);
     honeyNodes.set(node, honeyNode);
@@ -257,9 +258,7 @@ const findWaited = (parameters, i) => {
         return nodeByIndex(i - 1)
     } else if (parameters.await) {
         const node = document.getElementById(parameters.await);
-        if (node) {
-            return addNode(node)
-        }
+        return node ? addNode(node) : -1
     }
     return -1
 };
@@ -274,9 +273,9 @@ class Honeymate {
                 honeyNode.animate();
             } else {
                 waited.isLoaded().then(() => {
-                    setTimeout(() => {
-                        honeyNode.animate();
-                    }, honeyNode.parameters.hold);
+                    setTimeout(
+                        () => honeyNode.animate(), honeyNode.parameters.hold
+                    );
                 });
             }
         }
