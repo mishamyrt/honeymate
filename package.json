@@ -7,7 +7,7 @@
         "dev": "npx rollup -c & npx rollup -c --environment module:true",
         "build": "npx rollup -c --environment prod & npx rollup -c --environment module --environment prod",
         "server": "node test/index.js",
-        "test": "npm run integration-tests && npm run check-codestyle",
+        "test": "npm run check-codestyle && npm run build && npm run integration-tests",
         "check-codestyle": "npx eslint ./",
         "integration-tests": "npx mocha test/index.js --timeout 20000 --exit",
         "fix-codestyle": "npx eslint ./ --fix && npx js-beautify -r ./source/*"
