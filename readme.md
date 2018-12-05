@@ -47,7 +47,7 @@ Now any element with `class="honey"` will fade in after its contents are loaded:
 
 ### Using as a module
 
-Honeymate can be used as a AMD module, so you can use it within webpack or Rollup build systems.
+Honeymate can be used as a CommonJS module, so you can use it within webpack or Rollup build systems.
 
 First, install Honeymate using npm:
 
