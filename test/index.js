@@ -36,7 +36,6 @@ describe('Honeymate', () => {
     })
 
     describe('initialization', function () {
-        this.timeout(20000)
 
         it('should initialize automatically', () => {
             getPage(driver, 'initialization')
@@ -45,7 +44,7 @@ describe('Honeymate', () => {
                 .then((allHoneyNodes) => {
                     return expect(driver.findElements({ css: '.honey_ready' })).to.eventually.have.lengthOf(allHoneyNodes.length)
                 })
-        })
+        }).timeout(20000)
 
         it('should initialize manually', () => {
             getPage(driver, 'manual-initialization')
@@ -59,6 +58,6 @@ describe('Honeymate', () => {
                 .then((allHoneyNodes) => {
                     return expect(driver.findElements({ css: '.honey_ready' })).to.eventually.have.lengthOf(allHoneyNodes.length + 1)
                 })
-        })
+        }).timeout(20000)
     })
 })
