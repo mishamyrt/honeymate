@@ -7,6 +7,7 @@ export default class HoneyNode {
     constructor (node) {
         node.style.opacity = 0
         this.node = node
+        this.node.classList.add('honey_ready')
         this.options = node.dataset
     }
 
