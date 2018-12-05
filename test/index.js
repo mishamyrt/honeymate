@@ -17,7 +17,7 @@ const getPage = (driver, pageName) => {
 }
 
 const waitUntilHoneymateInitialized = (driver) => {
-    return driver.wait(until.elementLocated({ css: '.honey_ready' }), 1500)
+    return driver.wait(until.elementLocated({ css: '.honey_ready' }), 20000)
 }
 
 describe('Honeymate', () => {
