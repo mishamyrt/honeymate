@@ -86,7 +86,6 @@ These options could be specified on the block with the `honey` class.
 * `data-hold` — Hold on for this number of milliseconds (at least this much time should elapse after an element, which the given one was waiting for, have started emerging).
 * `data-origin` — For relax, zoom and helix effects, the transformation origin. Default is ‘top’ for relax and ‘center’ for zoom and helix.
 * `data-duration` — The animation duration in milliseconds. Default is 600.
-* `data-expose` — Wait until the user scrolls to the element. If a hold time is set, it is calculated from the moment when the element gets into view.
 * `data-await` — Wait for element with id from value to load (but not finish the animation). 
 * `data-scale` — For relax, zoom and helix effects, the initial scale. The default is 0.87. 
 * `data-spin` — Show loading indicator.
