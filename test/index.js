@@ -35,7 +35,9 @@ describe('Honeymate', () => {
         return driver.quit()
     })
 
-    describe('initialization', () => {
+    describe('initialization', function () {
+        this.timeout(20000)
+
         it('should initialize automatically', () => {
             getPage(driver, 'initialization')
             return waitUntilHoneymateInitialized(driver)
@@ -47,15 +49,15 @@ describe('Honeymate', () => {
 
         it('should initialize manually', () => {
             getPage(driver, 'manual-initialization')
-            return driver.executeScript(
-                `const honeyNode = Honeymate.generateNode(
-                    document.querySelector('.nohoney')
-                )`
-            )
-                .then(() => waitUntilHoneymateInitialized(driver))
+            return waitUntilHoneymateInitialized(driver)
+                .then(() => driver.executeScript(
+                    `const honeyNode = Honeymate.generateNode(
+                        document.querySelector('.nohoney')
+                    )`
+                ))
                 .then(() => driver.findElements({ css: '.nohoney' }))
                 .then((allHoneyNodes) => {
-                    return expect(driver.findElements({ css: '.honey_ready' })).to.eventually.have.lengthOf(allHoneyNodes.length)
+                    return expect(driver.findElements({ css: '.honey_ready' })).to.eventually.have.lengthOf(allHoneyNodes.length + 1)
                 })
         })
     })

@@ -9,7 +9,7 @@
         "server": "node test/index.js",
         "test": "npm run integration-tests && npm run check-codestyle",
         "check-codestyle": "npx eslint ./",
-        "integration-tests": "npx mocha test/index.js",
+        "integration-tests": "npx mocha test/index.js --exit",
         "fix-codestyle": "npx eslint ./ --fix && npx js-beautify -r ./source/*"
     },
     "author": "Misha Myrt",
