@@ -19,8 +19,8 @@
     "homepage": "https://misha.myrt.co/tools/honeymate/",
     "devDependencies": {
         "@babel/core": "^7.1.6",
-        "@babel/plugin-external-helpers": "^7.0.0",
         "@babel/preset-env": "^7.1.6",
+        "browserslist": "^4.3.5",
         "chai": "^4.2.0",
         "chai-as-promised": "^7.1.1",
         "chromedriver": "^2.44.1",

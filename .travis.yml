@@ -2,6 +2,5 @@ language: node_js
 node_js:
   - "node"
 script:
-  npm run check-codestyle
   npm run build
-  npx mocha --exit
+  npm run test
