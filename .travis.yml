@@ -1,12 +1,10 @@
 dist: trusty
-sudo: false
+sudo: required
 language: node_js
 node_js:
   - "node"
 addons:
-  apt:
-    packages:
-      - google-chrome-stable
+  chrome: stable
 
 before_script:
   - export DISPLAY=:99.0
