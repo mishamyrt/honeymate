@@ -15,7 +15,7 @@ const getDirection = (dataset) => {
 const parseParameters = (dataset) => ({
     direction: getDirection(dataset),
     duration: dataset.duration || 640,
-    effect: dataset.effect || 'fade',
+    effect: dataset.effect || '',
     delay: parseInt(dataset.delay, 10) || 0,
     hold: parseInt(dataset.hold, 10) || 0,
     scale: dataset.scale || '.87',
@@ -177,15 +177,13 @@ const waitImages = (node) => {
         checkableNodes.push(node);
         const images = getImagesUrl(checkableNodes);
         if (images.length === 0) {
-            resolve(0);
+            resolve();
         } else {
             const promises = [];
             images.forEach((url) => {
                 promises.push(waitForImage(url));
             });
-            Promise.all(promises).then(() => {
-                resolve(images.length);
-            });
+            Promise.all(promises).then(resolve);
         }
     })
 };
@@ -223,9 +221,7 @@ class HoneyNode {
     animate (effect = this.effect) {
         applyStyle(this.node, effect).then(() => {
             this.isLoaded().then(() => {
-                setTimeout(() => {
-                    this.expose();
-                }, this.parameters.delay);
+                setTimeout(() => this.expose(), this.parameters.delay);
             });
         });
     }

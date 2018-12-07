@@ -13,7 +13,7 @@ export const getDirection = (dataset) => {
 export const parseParameters = (dataset) => ({
     direction: getDirection(dataset),
     duration: dataset.duration || 640,
-    effect: dataset.effect || 'fade',
+    effect: dataset.effect || '',
     delay: parseInt(dataset.delay, 10) || 0,
     hold: parseInt(dataset.hold, 10) || 0,
     scale: dataset.scale || '.87',
