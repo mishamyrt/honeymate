@@ -1,15 +1,6 @@
 import { applyStyle, getSpinnerSVG } from './helpers'
 
-let firstUse = true
-
 export const generateSpinner = (honeyNode) => {
-    if (firstUse) {
-        document.head.appendChild(
-            document.createElement('style')
-                .innerHTML = '@keyframes honeySpin{0%{transform:rotate(-360deg)}to{transform:rotate(360deg)}}'
-        )
-        firstUse = false
-    }
     const { node } = honeyNode
     const rect = node.getBoundingClientRect()
     const spinNode = document.createElement('div')

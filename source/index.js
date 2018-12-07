@@ -17,7 +17,7 @@ const findWaited = (parameters, i) => {
     if (parameters.continue && i > 1) {
         return nodeByIndex(i - 1)
     } else if (parameters.await) {
-        const node = document.getElementById(parameters.await)
+        const node = document.querySelectorAll('#' + parameters.await)[0]
         return node ? addNode(node) : -1
     }
     return -1
