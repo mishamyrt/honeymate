@@ -19,8 +19,14 @@ export const parseParameters = (dataset) => ({
     scale: dataset.scale || '.87',
     await: dataset.await || null,
     origin: dataset.origin || 'bottom',
-    offset: dataset.up || dataset.down || dataset.left || dataset.right ?
-        dataset.up || dataset.down || dataset.left || dataset.right : 32,
+    offset: dataset.up ||
+            dataset.down ||
+            dataset.left ||
+            dataset.right ?
+        dataset.up ||
+        dataset.down ||
+        dataset.left ||
+        dataset.right : 32,
     spin: dataset.spin === 'true',
     spinColor: dataset['spin-color'] || '#000',
     spinSize: dataset['spin-size'] || '24',
