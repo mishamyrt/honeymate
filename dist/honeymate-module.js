@@ -14,18 +14,24 @@ const getDirection = (dataset) => {
 
 const parseParameters = (dataset) => ({
     direction: getDirection(dataset),
-    duration: dataset.duration || '640',
-    effect: dataset.effect || 'fade',
+    duration: dataset.duration || 640,
+    effect: dataset.effect || '',
     delay: parseInt(dataset.delay, 10) || 0,
     hold: parseInt(dataset.hold, 10) || 0,
     scale: dataset.scale || '.87',
     await: dataset.await || null,
     origin: dataset.origin || 'bottom',
-    offset: dataset.up || dataset.down || dataset.left || dataset.right ?
-        dataset.up || dataset.down || dataset.left || dataset.right : 32,
+    offset: dataset.up ||
+            dataset.down ||
+            dataset.left ||
+            dataset.right ?
+        dataset.up ||
+        dataset.down ||
+        dataset.left ||
+        dataset.right : 32,
     spin: dataset.spin === 'true',
     spinColor: dataset['spin-color'] || '#000',
-    spinSize: dataset['spin-size'] || '24',
+    spinSize: dataset['spin-size'] || 24,
     'continue': dataset.continue === 'true',
 });
 
@@ -40,26 +46,19 @@ const applyStyle = (node, style) => {
 
 const getSpinnerSVG = (size, color) => `<svg width="${size}" height="${size}" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" style="animation: honeySpin 1.7s linear infinite"><circle cx="50" cy="50" fill="none" stroke="${color}" stroke-width="10" r="35" stroke-dasharray="90 60"></circle></svg>`;
 
-let firstUse = true;
-
 const generateSpinner = (honeyNode) => {
-    if (firstUse) {
-        const style = document.createElement('style');
-        style.innerHTML = '@keyframes honeySpin{0%{transform:rotate(-360deg)}to{transform:rotate(360deg)}}';
-        document.head.appendChild(style);
-        firstUse = false;
-    }
-    const { node, parameters } = honeyNode;
+    const { node } = honeyNode;
     const rect = node.getBoundingClientRect();
     const spinNode = document.createElement('div');
+    const element = document.documentElement;
     spinNode.innerHTML = getSpinnerSVG(
-        parameters.spinSize,
-        parameters.spinColor,
+        honeyNode.parameters.spinSize,
+        honeyNode.parameters.spinColor,
     );
     applyStyle(spinNode, {
         position: 'absolute',
-        top: (rect.top + document.documentElement.scrollTop) + 'px',
-        left: (rect.left + document.documentElement.scrollLeft) + 'px',
+        top: (rect.top + element.scrollTop) + 'px',
+        left: (rect.left + element.scrollLeft) + 'px',
         width: node.offsetWidth + 'px',
         height: node.offsetHeight + 'px',
         display: 'flex',
@@ -77,7 +76,7 @@ const removeSpinner = (spinNode) => {
         spinNode.style.opacity = 0;
         setTimeout(() => {
             document.body.removeChild(spinNode);
-        }, 1500);
+        }, 500);
     });
 };
 
@@ -132,7 +131,6 @@ const generateEffect = (parameters) => {
             effect.transformOrigin = parameters.origin;
             break
         default:
-        case 'fade':
             effect.transition = generateTransition(duration, { });
     }
     return effect
@@ -160,11 +158,11 @@ const waitForImage = (url) => {
 
 const getImagesUrl = (nodes) => {
     const images = [];
-    for (const node of nodes) {
-        if (node.tagName === 'IMG') {
-            images.push(node.getAttribute('src'));
+    for (let i = 0; i < nodes.length; i++) {
+        if (nodes[i].tagName === 'IMG') {
+            images.push(nodes[i].src);
         } else {
-            const url = getBackgroundImage(node);
+            const url = getBackgroundImage(nodes[i]);
             if (url) {
                 images.push(url);
             }
@@ -179,15 +177,13 @@ const waitImages = (node) => {
         checkableNodes.push(node);
         const images = getImagesUrl(checkableNodes);
         if (images.length === 0) {
-            resolve(0);
+            resolve();
         } else {
             const promises = [];
             images.forEach((url) => {
                 promises.push(waitForImage(url));
             });
-            Promise.all(promises).then(() => {
-                resolve(images.length);
-            });
+            Promise.all(promises).then(resolve);
         }
     })
 };
@@ -214,16 +210,18 @@ class HoneyNode {
 
     isLoaded () {
         return new Promise((resolve) => {
-            waitImages(this.node).then(() => setTimeout(() => resolve(), this.parameters.hold));
+            waitImages(this.node).then(
+                () => setTimeout(
+                    () => resolve(), this.parameters.hold
+                )
+            );
         })
     }
 
     animate (effect = this.effect) {
         applyStyle(this.node, effect).then(() => {
             this.isLoaded().then(() => {
-                setTimeout(() => {
-                    this.expose();
-                }, this.parameters.delay);
+                setTimeout(() => this.expose(), this.parameters.delay);
             });
         });
     }
@@ -257,7 +255,7 @@ const findWaited = (parameters, i) => {
     if (parameters.continue && i > 1) {
         return nodeByIndex(i - 1)
     } else if (parameters.await) {
-        const node = document.getElementById(parameters.await);
+        const node = document.querySelectorAll('#' + parameters.await)[0];
         return node ? addNode(node) : -1
     }
     return -1

@@ -12,18 +12,24 @@ export const getDirection = (dataset) => {
 
 export const parseParameters = (dataset) => ({
     direction: getDirection(dataset),
-    duration: dataset.duration || '640',
-    effect: dataset.effect || 'fade',
+    duration: dataset.duration || 640,
+    effect: dataset.effect || '',
     delay: parseInt(dataset.delay, 10) || 0,
     hold: parseInt(dataset.hold, 10) || 0,
     scale: dataset.scale || '.87',
     await: dataset.await || null,
     origin: dataset.origin || 'bottom',
-    offset: dataset.up || dataset.down || dataset.left || dataset.right ?
-        dataset.up || dataset.down || dataset.left || dataset.right : 32,
+    offset: dataset.up ||
+            dataset.down ||
+            dataset.left ||
+            dataset.right ?
+        dataset.up ||
+        dataset.down ||
+        dataset.left ||
+        dataset.right : 32,
     spin: dataset.spin === 'true',
     spinColor: dataset['spin-color'] || '#000',
-    spinSize: dataset['spin-size'] || '24',
+    spinSize: dataset['spin-size'] || 24,
     'continue': dataset.continue === 'true',
 })
 

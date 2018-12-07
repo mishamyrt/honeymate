@@ -1,34 +1,28 @@
 import { applyStyle, getSpinnerSVG } from './helpers'
 
-let firstUse = true
-
 export const generateSpinner = (honeyNode) => {
-    if (firstUse) {
-        const style = document.createElement('style')
-        style.innerHTML = '@keyframes honeySpin{0%{transform:rotate(-360deg)}to{transform:rotate(360deg)}}'
-        document.head.appendChild(style)
-        firstUse = false
-    }
-    const { node, parameters } = honeyNode
+    const { node } = honeyNode
     const rect = node.getBoundingClientRect()
     const spinNode = document.createElement('div')
+    const element = document.documentElement
     spinNode.innerHTML = getSpinnerSVG(
-        parameters.spinSize,
-        parameters.spinColor,
+        honeyNode.parameters.spinSize,
+        honeyNode.parameters.spinColor,
     )
-    applyStyle(spinNode, {
-        position: 'absolute',
-        top: (rect.top + document.documentElement.scrollTop) + 'px',
-        left: (rect.left + document.documentElement.scrollLeft) + 'px',
-        width: node.offsetWidth + 'px',
-        height: node.offsetHeight + 'px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        transition: 'opacity .23s ease-out',
-    }).then(
-        () => document.body.appendChild(spinNode)
-    )
+    setTimeout(() =>
+        applyStyle(spinNode, {
+            position: 'absolute',
+            top: (rect.top + element.scrollTop) + 'px',
+            left: (rect.left + element.scrollLeft) + 'px',
+            width: node.offsetWidth + 'px',
+            height: node.offsetHeight + 'px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'opacity .23s ease-out',
+        }).then(
+            () => document.body.appendChild(spinNode)
+        ), 200)
     return spinNode
 }
 
@@ -37,6 +31,6 @@ export const removeSpinner = (spinNode) => {
         spinNode.style.opacity = 0
         setTimeout(() => {
             document.body.removeChild(spinNode)
-        }, 1500)
+        }, 500)
     })
 }
