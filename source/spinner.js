@@ -4,9 +4,10 @@ let firstUse = true
 
 export const generateSpinner = (honeyNode) => {
     if (firstUse) {
-        const style = document.createElement('style')
-        style.innerHTML = '@keyframes honeySpin{0%{transform:rotate(-360deg)}to{transform:rotate(360deg)}}'
-        document.head.appendChild(style)
+        document.head.appendChild(
+            document.createElement('style')
+                .innerHTML = '@keyframes honeySpin{0%{transform:rotate(-360deg)}to{transform:rotate(360deg)}}'
+        )
         firstUse = false
     }
     const { node, parameters } = honeyNode
