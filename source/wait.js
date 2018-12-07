@@ -39,15 +39,13 @@ const waitImages = (node) => {
         checkableNodes.push(node)
         const images = getImagesUrl(checkableNodes)
         if (images.length === 0) {
-            resolve(0)
+            resolve()
         } else {
             const promises = []
             images.forEach((url) => {
                 promises.push(waitForImage(url))
             })
-            Promise.all(promises).then(() => {
-                resolve(images.length)
-            })
+            Promise.all(promises).then(resolve)
         }
     })
 }

@@ -36,9 +36,7 @@ export default class HoneyNode {
     animate (effect = this.effect) {
         applyStyle(this.node, effect).then(() => {
             this.isLoaded().then(() => {
-                setTimeout(() => {
-                    this.expose()
-                }, this.parameters.delay)
+                setTimeout(() => this.expose(), this.parameters.delay)
             })
         })
     }
