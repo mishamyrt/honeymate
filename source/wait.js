@@ -20,11 +20,11 @@ const waitForImage = (url) => {
 
 const getImagesUrl = (nodes) => {
     const images = []
-    for (const node of nodes) {
-        if (node.tagName === 'IMG') {
-            images.push(node.getAttribute('src'))
+    for (let i = 0; i < nodes.length; i++) {
+        if (nodes[i].tagName === 'IMG') {
+            images.push(nodes[i].getAttribute('src'))
         } else {
-            const url = getBackgroundImage(node)
+            const url = getBackgroundImage(nodes[i])
             if (url) {
                 images.push(url)
             }
