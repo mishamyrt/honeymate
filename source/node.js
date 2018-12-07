@@ -25,7 +25,11 @@ export default class HoneyNode {
 
     isLoaded () {
         return new Promise((resolve) => {
-            waitImages(this.node).then(() => setTimeout(() => resolve(), this.parameters.hold))
+            waitImages(this.node).then(
+                () => setTimeout(
+                    () => resolve(), this.parameters.hold
+                )
+            )
         })
     }
 
