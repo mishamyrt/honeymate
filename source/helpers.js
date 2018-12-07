@@ -12,7 +12,7 @@ export const getDirection = (dataset) => {
 
 export const parseParameters = (dataset) => ({
     direction: getDirection(dataset),
-    duration: dataset.duration || '640',
+    duration: dataset.duration || 640,
     effect: dataset.effect || 'fade',
     delay: parseInt(dataset.delay, 10) || 0,
     hold: parseInt(dataset.hold, 10) || 0,
@@ -29,7 +29,7 @@ export const parseParameters = (dataset) => ({
         dataset.right : 32,
     spin: dataset.spin === 'true',
     spinColor: dataset['spin-color'] || '#000',
-    spinSize: dataset['spin-size'] || '24',
+    spinSize: dataset['spin-size'] || 24,
     'continue': dataset.continue === 'true',
 })
 
