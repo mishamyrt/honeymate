@@ -4,14 +4,15 @@ export const generateSpinner = (honeyNode) => {
     const { node } = honeyNode
     const rect = node.getBoundingClientRect()
     const spinNode = document.createElement('div')
+    const element = document.documentElement
     spinNode.innerHTML = getSpinnerSVG(
         honeyNode.parameters.spinSize,
         honeyNode.parameters.spinColor,
     )
     applyStyle(spinNode, {
         position: 'absolute',
-        top: (rect.top + document.documentElement.scrollTop) + 'px',
-        left: (rect.left + document.documentElement.scrollLeft) + 'px',
+        top: (rect.top + element.scrollTop) + 'px',
+        left: (rect.left + element.scrollLeft) + 'px',
         width: node.offsetWidth + 'px',
         height: node.offsetHeight + 'px',
         display: 'flex',
