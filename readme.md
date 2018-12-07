@@ -6,7 +6,7 @@ Honeymate is a page load coordinator.
 
 **Simple.** Honeymate has declarative API therefore has a low entry threshold.
 
-**Small.** 2.4 kilobytes (minified and gzipped). No dependencies.
+**Small.** 2.2 kilobytes (minified and gzipped). No dependencies.
 
 **Fast.** Only CSS animations wrapped in a `requestAnimationFrame` are used.
 
