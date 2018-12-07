@@ -10,12 +10,12 @@ export const generateSpinner = (honeyNode) => {
         )
         firstUse = false
     }
-    const { node, parameters } = honeyNode
+    const { node } = honeyNode
     const rect = node.getBoundingClientRect()
     const spinNode = document.createElement('div')
     spinNode.innerHTML = getSpinnerSVG(
-        parameters.spinSize,
-        parameters.spinColor,
+        honeyNode.parameters.spinSize,
+        honeyNode.parameters.spinColor,
     )
     applyStyle(spinNode, {
         position: 'absolute',
@@ -38,6 +38,6 @@ export const removeSpinner = (spinNode) => {
         spinNode.style.opacity = 0
         setTimeout(() => {
             document.body.removeChild(spinNode)
-        }, 1500)
+        }, 500)
     })
 }
