@@ -49,7 +49,6 @@ const generateEffect = (parameters) => {
             effect.transformOrigin = parameters.origin
             break
         default:
-        case 'fade':
             effect.transition = generateTransition(duration, { })
     }
     return effect
