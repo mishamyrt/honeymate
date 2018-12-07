@@ -22,7 +22,7 @@ const getImagesUrl = (nodes) => {
     const images = []
     for (let i = 0; i < nodes.length; i++) {
         if (nodes[i].tagName === 'IMG') {
-            images.push(nodes[i].getAttribute('src'))
+            images.push(nodes[i].src)
         } else {
             const url = getBackgroundImage(nodes[i])
             if (url) {
