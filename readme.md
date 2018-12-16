@@ -23,8 +23,6 @@
     <a href="https://www.codacy.com/app/mishamyrt/honeymate?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mishamyrt/honeymate&amp;utm_campaign=Badge_Grade">
         <img src="https://api.codacy.com/project/badge/Grade/84b678784f7e49e4b2e12ad6a0bc7839" alt="Codacy Badge" height="18">
     </a>
-
-
 </p>
 
 
@@ -109,15 +107,15 @@ honeyNode.isLoaded().then(() => node.expose())
 
 These options could be specified on the block with the `honey` class.
 
-* `data-effect` — Current effect. Available effects: helix, fade (default), relax, zoom. 
-* `data-hold` — Hold on for this number of milliseconds (at least this much time should elapse after an element, which the given one was waiting for, have started emerging).
-* `data-origin` — For relax, zoom and helix effects, the transformation origin. Default is ‘top’ for relax and ‘center’ for zoom and helix.
-* `data-duration` — The animation duration in milliseconds. Default is 600.
-* `data-await` — Wait for element with id from value to load (but not finish the animation). 
-* `data-scale` — For relax, zoom and helix effects, the initial scale. The default is 0.87. 
-* `data-spin` — Show loading indicator.
-* `data-spin-size` — Indicator diameter in pixels. Default is 24.
-* `data-spin-color` — Indicator colour. Default is black.
+  * `data-effect` — Current effect. Available effects: helix, fade (default), relax, zoom. 
+  * `data-hold` — Hold on for this number of milliseconds (at least this much time should elapse after an element, which the given one was waiting for, have started emerging).
+  * `data-origin` — For relax, zoom and helix effects, the transformation origin. Default is ‘top’ for relax and ‘center’ for zoom and helix.
+  * `data-duration` — The animation duration in milliseconds. Default is 600.
+  * `data-await` — Wait for element with id from value to load (but not finish the animation). 
+  * `data-scale` — For relax, zoom and helix effects, the initial scale. The default is 0.87. 
+  * `data-spin` — Show loading indicator.
+  * `data-spin-size` — Indicator diameter in pixels. Default is 24.
+  * `data-spin-color` — Indicator colour. Default is black.
 
 ```html
 <div class="honey"
