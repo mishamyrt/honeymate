@@ -1,8 +1,26 @@
-# Honeymate [![Build Status](https://travis-ci.org/mishamyrt/honeymate.svg?branch=master)][ci]
+<h1 align="center">
+<br>
+    <a href="http://mishamyrt.github.io/honeymate/">
+        <img src="./img/logo.svg" alt="Honeymate logo" width="200">
+    </a>
+<br>
+  Honeymate
+<br>
+</h1>
 
-<a href="http://mishamyrt.github.io/honeymate/"><img src="./img/logo.svg" align="right" alt="Honeymate logo" width="150"></a>
+<h4 align="center">
+    Beautiful page load coordinator.
+</h4>
 
-Honeymate is a page load coordinator.
+<p align="center">
+    <a href="https://travis-ci.org/mishamyrt/honeymate">
+        <img src="https://travis-ci.org/mishamyrt/honeymate.svg?branch=master">
+    </a>
+</p>
+
+
+
+
 
 **Simple.** Honeymate has declarative API therefore has a low entry threshold.
 
@@ -120,5 +138,3 @@ honeyNode.options = {
 ## Supported browsers
 
 Latest Webkit, Blink browsers and Firefox fully supported. In unsupported browsers page will load as if there were no Emerge in the first place. Same thing with disabled Javascript.
-
-[ci]: https://travis-ci.org/mishamyrt/honeymate
