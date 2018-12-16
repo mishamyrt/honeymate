@@ -55,19 +55,20 @@ const generateSpinner = (honeyNode) => {
         honeyNode.parameters.spinSize,
         honeyNode.parameters.spinColor,
     );
-    applyStyle(spinNode, {
-        position: 'absolute',
-        top: (rect.top + element.scrollTop) + 'px',
-        left: (rect.left + element.scrollLeft) + 'px',
-        width: node.offsetWidth + 'px',
-        height: node.offsetHeight + 'px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        transition: 'opacity .23s ease-out',
-    }).then(
-        () => document.body.appendChild(spinNode)
-    );
+    setTimeout(() =>
+        applyStyle(spinNode, {
+            position: 'absolute',
+            top: (rect.top + element.scrollTop) + 'px',
+            left: (rect.left + element.scrollLeft) + 'px',
+            width: node.offsetWidth + 'px',
+            height: node.offsetHeight + 'px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'opacity .23s ease-out',
+        }).then(
+            () => document.body.appendChild(spinNode)
+        ), 200);
     return spinNode
 };
 
