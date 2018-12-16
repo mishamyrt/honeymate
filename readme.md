@@ -16,6 +16,15 @@
     <a href="https://travis-ci.org/mishamyrt/honeymate">
         <img src="https://travis-ci.org/mishamyrt/honeymate.svg?branch=master">
     </a>
+    <a href="https://badge.fury.io/js/mishamyrt-honeymate">
+        <img src="https://badge.fury.io/js/mishamyrt-honeymate.svg" alt="npm version" height="18">
+    </a>
+    <img src="https://david-dm.org/mishamyrt/honeymate.svg" alt="David's dependencies control" height="18">
+    <a href="https://www.codacy.com/app/mishamyrt/honeymate?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mishamyrt/honeymate&amp;utm_campaign=Badge_Grade">
+        <img src="https://api.codacy.com/project/badge/Grade/84b678784f7e49e4b2e12ad6a0bc7839" alt="Codacy Badge" height="18">
+    </a>
+
+
 </p>
 
 
