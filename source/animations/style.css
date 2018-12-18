@@ -9,7 +9,6 @@
 }
 
 .animations-container {
-    opacity: 0;
     transition: opacity .35s ease-out;
 }
 

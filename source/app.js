@@ -5,13 +5,13 @@ const animations = () => {
         setTimeout(() => {
             animationsNode.classList.add('is__visible')
             setTimeout(() => {
-                animationsNode.style.opacity = '';
+                animationsNode.style.opacity = '0';
                 setTimeout(() => {
                     animationsNode.classList.remove('is__visible')
                 }, 500)
             }, 1500)
         }, 1000)
-    }, 3200)
+    }, 3100)
     // setTimeout(() => {
     //     animationsNode.classList.toggle('is__visible')
     // }, 4000)
