@@ -7,22 +7,22 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Honeymate</title>
     <link rel="stylesheet" href="./source/styles.css">
-    <!-- <script src="./assets/app.js"></script> -->
+    <script src="https://unpkg.com/mishamyrt-honeymate/dist/honeymate.js"></script>
 </head>
 
 <body>
-    <header class="header">
+    <header class="header honey" data-hold="20000" data-bottom="30px" data-offset="90px" data-effect="slide" data-origin="top">
         <img class="header-logo" src="./img/logo.svg">
         <h1 class="header-title">Honeymate</h1>
         <p>Dead simple loading animations for modern web.</p>
     </header>
-    <div class="get">
+    <div class="get honey" data-hold="300" data-bottom="190px" data-origin="bottom" data-effect="slide"> 
         <code class="get-code">
             npm install mishamyrt-honeymate --save-dev
         </code>
         <p class="get-subInfo">Or get from <a href="https://github.com/mishamyrt/honeymate">GitHub</a></p>
     </div>
-    <div class="example">
+    <div class="example honey" data-spin="true" data-effect="relax" data-spin-size="32px">
         <div class="example-elevator">
             <button class="example-restart">
                 <img src="./img/spin.svg">
@@ -173,7 +173,7 @@
             </div>
         </div>
     </div>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:200" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,400" rel="stylesheet">
     <script src="./source/app.js"></script>
 </body>
 
