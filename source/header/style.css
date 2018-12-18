@@ -1,0 +1,13 @@
+.header {
+    max-width: 237px;
+    margin: 65px auto 0;
+}
+
+.header-title {
+    margin: 19px 0 16px;
+    font-size: 45px;
+}
+
+.header-logo {
+    max-width: 122px;
+}

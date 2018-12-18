@@ -1,0 +1,83 @@
+.animations h2 {
+    font-size: 30px;
+    margin-bottom: 10px;
+    font-weight: normal;
+}
+
+.animations {
+    margin-top: 90px;
+}
+
+.animations-container {
+    opacity: 0;
+    transition: opacity .35s ease-out;
+}
+
+.animations-row {
+    max-width: 620px;
+    margin: 0 auto;
+    display: flex;
+}
+
+.animations-item {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    justify-content: center;
+    font-size: 25px;
+    font-weight: 200;
+    opacity: 0;
+    flex: 1;
+    height: 35vh;
+    background-color: #EEEEEE;
+}
+
+.animations p {
+    margin-bottom: 25px;
+}
+
+.animations-container.is__visible .animations-item {
+    transform: translateY(0);
+    transition-duration: .6s;
+    opacity: 1;
+}
+
+.animations-item.__relax {
+    transform: scaleY(0.87);
+}
+
+.animations-container.is__visible .animations-item.__relax {
+    transition-property: transform, opacity;
+    transition-timing-function: cubic-bezier(0,0,.001,1);
+    transform-origin: top;
+}
+
+.animations-item.__zoom {
+    transform: scale(0.87);
+}
+
+.animations-container.is__visible .animations-item.__zoom {
+    transition-property: transform, opacity;
+    transition-timing-function: cubic-bezier(0,.7,.3,1);
+    transform-origin: center;
+}
+
+.animations-item.__helix {
+    transform: scale(0.87) rotate(90deg);
+}
+
+.animations-container.is__visible .animations-item.__helix {
+    transition-property: transform, opacity;
+    transition-timing-function: cubic-bezier(0,.75,.25,1);
+    transform-origin: center;
+}
+
+.animations-item.__slide {
+    transform: translateX(-32px);
+}
+
+.animations-container.is__visible .animations-item.__slide {
+    transition-property: transform, opacity;
+    transition-timing-function: cubic-bezier(0,.9,.1,1);
+    transform-origin: center;
+}

@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Honeymate</title>
-    <link rel="stylesheet" href="./assets/main.css">
-    <script src="./assets/app.js"></script>
+    <link rel="stylesheet" href="./source/styles.css">
+    <!-- <script src="./assets/app.js"></script> -->
 </head>
+
 <body>
     <header class="header">
-        <img class="header-logo" src="./assets/img/logo.svg">
+        <img class="header-logo" src="./img/logo.svg">
         <h1 class="header-title">Honeymate</h1>
         <p>Dead simple loading animations for modern web.</p>
     </header>
@@ -20,7 +22,159 @@
         </code>
         <p class="get-subInfo">Or get from <a href="https://github.com/mishamyrt/honeymate">GitHub</a></p>
     </div>
-    
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
+    <div class="example">
+        <div class="example-elevator">
+            <button class="example-restart">
+                <img src="./img/spin.svg">
+                <span>Replay</span>
+            </button>
+        </div>
+        <div>
+            <h3>Without Honeymate</h3>
+            <div class="example-block">
+                <div class="example-module __full">
+                    <img srcset="./img/6.jpg,
+                                     ./img/6@2x.jpg 2x" src="./img/6.jpg"
+                        alt="Honey in spoon">
+                </div>
+                <div class="example-wrapper">
+                    <div class="example-module __row">
+                        <div class="example-module __col __quarter __left">
+                            <div class="example-module">
+                                <img srcset="./img/5.jpg,
+                                                 ./img/5@2x.jpg 2x"
+                                    src="./img/5.jpg" alt="Cup of tea">
+                                <span class="example-line"></span>
+                                <span class="example-line"></span>
+                                <span class="example-line"></span>
+                            </div>
+                            <div class="example-module">
+                                <img srcset="./img/1.jpg,
+                                                    ./img/1@2x.jpg 2x"
+                                    src="./img/1.jpg" alt="Bee on sunflower">
+                                <span class="example-line"></span>
+                                <span class="example-line"></span>
+                                <span class="example-line"></span>
+                            </div>
+                        </div>
+                        <div class="example-module __two-thirds __right">
+                            <img srcset="./img/3.jpg,
+                                                 ./img/3@2x.jpg 2x"
+                                src="./img/3.jpg" alt="Honey">
+                            <span class="example-line __heading"></span>
+                            <span class="example-line"></span>
+                            <span class="example-line"></span>
+                            <span class="example-line"></span>
+                            <span class="example-line __half"></span>
+                            <span class="example-line __half"></span>
+                            <span class="example-line __half"></span>
+                        </div>
+                    </div>
+                    <div class="example-module __row __crop">
+                        <div class="example-module __two-thirds __left">
+                            <img srcset="./img/2.jpg,
+                                             ./img/2@2x.jpg 2x"
+                                src="./img/2.jpg" alt="Honey">
+                        </div>
+                        <div class="example-module __col __pull __quarter __right">
+                            <div class="example-module">
+                                <img srcset="./img/4.jpg,
+                                                 ./img/4@2x.jpg 2x"
+                                    src="./img/4.jpg" alt="Cup of tea">
+                                <span class="example-line"></span>
+                                <span class="example-line"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h3>With Honeymate</h3>
+            <div class="example-block __honey">
+
+                <div class="example-module __full">
+                    <img srcset="./img/6.jpg,
+                                         ./img/6@2x.jpg 2x" src="./img/6.jpg"
+                        alt="Honey in spoon">
+                </div>
+                <div class="example-wrapper">
+                    <div class="example-module __row">
+                        <div class="example-module __col __quarter __left">
+                            <div class="example-module">
+                                <img srcset="./img/5.jpg,
+                                                     ./img/5@2x.jpg 2x"
+                                    src="./img/5.jpg" alt="Cup of tea">
+                                <span class="example-line"></span>
+                                <span class="example-line"></span>
+                                <span class="example-line"></span>
+                            </div>
+                            <div class="example-module">
+                                <img srcset="./img/1.jpg,
+                                                        ./img/1@2x.jpg 2x"
+                                    src="./img/1.jpg" alt="Bee on sunflower">
+                                <span class="example-line"></span>
+                                <span class="example-line"></span>
+                                <span class="example-line"></span>
+                            </div>
+                        </div>
+                        <div class="example-module __two-thirds __right">
+                            <img srcset="./img/3.jpg,
+                                                     ./img/3@2x.jpg 2x"
+                                src="./img/3.jpg" alt="Honey">
+                            <span class="example-line __heading"></span>
+                            <span class="example-line"></span>
+                            <span class="example-line"></span>
+                            <span class="example-line"></span>
+                            <span class="example-line __half"></span>
+                            <span class="example-line __half"></span>
+                            <span class="example-line __half"></span>
+                        </div>
+                    </div>
+                    <div class="example-module __row __crop">
+                        <div class="example-module __two-thirds __left">
+                            <img srcset="./img/2.jpg,
+                                                 ./img/2@2x.jpg 2x"
+                                src="./img/2.jpg" alt="Honey">
+                        </div>
+                        <div class="example-module __col __pull __quarter __right">
+                            <div class="example-module">
+                                <img srcset="./img/4.jpg,
+                                                     ./img/4@2x.jpg 2x"
+                                    src="./img/4.jpg" alt="Cup of tea">
+                                <span class="example-line"></span>
+                                <span class="example-line"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="animations">
+        <h2>Effects</h2>
+        <p>There are 4 effects in the Honeymate</p>
+        <div class="animations-container">
+            <div class="animations-row">
+                <div class="animations-item __relax">
+                    Relax
+                </div>
+                <div class="animations-item __zoom">
+                    Zoom
+                </div>
+            </div>
+            <div class="animations-row">
+                <div class="animations-item __slide">
+                    Slide
+                </div>
+                <div class="animations-item __helix">
+                    Helix
+                </div>
+            </div>
+        </div>
+    </div>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:200" rel="stylesheet">
+    <script src="./source/app.js"></script>
 </body>
+
 </html>

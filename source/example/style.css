@@ -1,0 +1,128 @@
+.example {
+    display: flex;
+    position: relative;
+    margin-top: 55px;
+    --gap: 1.5vw;
+    --line-color: #e7e8e9;
+}
+
+.example-elevator {
+    position: absolute;
+    width: 100%;
+    height: calc(100% + 18.5px);
+}
+
+.example-block {
+    border: 4px solid var(--line-color);
+    border-radius: 4px;
+}
+
+.example-block img {
+    max-width: 100%;
+}
+
+.example-block:first-child {
+    margin-right: 5px;
+}
+
+.example-block:last-child {
+    margin-left: 5px;
+}
+
+.example-module.__quarter {
+    flex: 1;
+}
+
+.example-module.__left {
+    margin-right: calc(var(--gap) / 2);
+}
+
+.example-module.__right {
+    margin-left: calc(var(--gap) / 2);
+}
+
+.example-module.__two-thirds {
+    flex: 2;
+}
+
+.example-module {
+    margin-bottom: var(--gap);
+    display: flex;
+    flex-direction: column;
+}
+
+.example-module.__col {
+    flex-direction: column;
+    margin-bottom: 0;
+}
+
+.example-module.__pull {
+    margin-top: calc(var(--gap) * -4 + 4px);
+}
+
+.example-module.__row {
+    flex-direction: row;
+    margin-bottom: 0;
+}
+
+.example-wrapper {
+    padding: 0 var(--gap);
+}
+
+.example-module img {
+    margin-bottom: var(--gap);
+}
+
+.example-module.__full img {
+    margin: 0;
+}
+
+.example-line {
+    display: block;
+    margin-bottom: var(--gap);
+    border-bottom: 2px solid var(--line-color);
+}
+
+.example-line:last-child {
+    margin: 0;
+    width: 70%;
+}
+
+.example-line.__half {
+    width: calc(50% - var(--gap));
+}
+
+.example-line.__heading {
+    border-bottom: 8px solid var(--line-color);
+}
+
+.example-module.__crop .__two-thirds img,
+.example-module.__crop .example-module {
+    margin-bottom: 0;
+}
+
+.example-restart {
+    background-color: #2EB3AD;
+    -webkit-appearance: unset;
+    border: none;
+    top: calc(100% - 50px);
+    box-shadow: 0 5px 15px rgba(46, 179, 173, 0.24);
+    color: white;
+    font-size: 16px;
+    border-radius: 100px;
+    position: -webkit-sticky;
+    transition: box-shadow .25s ease-out, background-color .25s ease-out;
+    padding: 8px 15px 10px 11px;
+}
+
+.example-restart:hover {
+    background-color: #31c0b9;
+    transition: box-shadow 0s, background-color 0s;
+    box-shadow: 0 5px 15px rgba(48, 185, 179, 0.48);
+}
+
+.example-restart img {
+    position: relative;
+    top: 2px;
+    margin-right: 5px;
+}

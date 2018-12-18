@@ -1,24 +1,3 @@
-h1,
-h2,
-h3 {
-    font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Segoe UI', sans-serif;
-    font-weight: 300;
-}
-
-body {
-    text-align: center;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-}
-
-p {
-    margin: 0;
-}
-
-.header {
-    max-width: 237px;
-    margin: 65px auto 0;
-}
-
 .get {
     margin-top: 38px;
 }
@@ -50,14 +29,4 @@ p {
 .get-subInfo a:hover {
     color: #2eb3ad;
     transition: color 0s;
-}
-
-
-.header-title {
-    margin: 19px 0 16px;
-    font-size: 45px;
-}
-
-.header-logo {
-    max-width: 122px;
 }
