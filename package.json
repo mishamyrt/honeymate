@@ -1,0 +1,12 @@
+{
+    "dependencies": {
+        "browser-sync": "^2.26.3",
+        "eslint": "^5.10.0",
+        "html-minifier": "^3.5.21",
+        "parcel-bundler": "^1.11.0"
+    },
+    "scripts": {
+        "build": "node build.js --once",
+        "dev": "node build.js"
+    }
+}
