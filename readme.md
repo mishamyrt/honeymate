@@ -100,7 +100,7 @@ const honeyNode = Honeymate.generateNode(
 )
 
 // Shows the node after loading images
-honeyNode.isLoaded().then(() => node.expose())
+honeyNode.isLoaded().then(() => honeyNode.expose())
 ```
 
 ## Options
