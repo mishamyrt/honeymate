@@ -8,15 +8,9 @@ action "Build" {
   args = "install"
 }
 
-action "Test" {
-  needs = "Build"
-  uses = "actions/npm@master"
-  args = "test"
-}
-
 # Filter for a new tag
 action "Tag" {
-  needs = "Test"
+  needs = "Build"
   uses = "actions/bin/filter@master"
   args = "tag"
 }
