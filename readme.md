@@ -14,7 +14,7 @@
 
 <p align="center">
     <a href="https://travis-ci.org/mishamyrt/honeymate">
-        <img src="https://travis-ci.org/mishamyrt/honeymate.svg?branch=master">
+        <img height="18" src="https://travis-ci.org/mishamyrt/honeymate.svg?branch=master">
     </a>
     <a href="https://badge.fury.io/js/mishamyrt-honeymate">
         <img src="https://badge.fury.io/js/mishamyrt-honeymate.svg" alt="npm version" height="18">
