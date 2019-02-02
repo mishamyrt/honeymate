@@ -23,6 +23,7 @@
     <a href="https://www.codacy.com/app/mishamyrt/honeymate?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mishamyrt/honeymate&amp;utm_campaign=Badge_Grade">
         <img src="https://api.codacy.com/project/badge/Grade/84b678784f7e49e4b2e12ad6a0bc7839" alt="Codacy Badge" height="18">
     </a>
+    <img src="https://wdp9fww0r9.execute-api.us-west-2.amazonaws.com/production/badge/mishamyrt/honeymate" alt="Actions Status" height="18">
 </p>
 
 
