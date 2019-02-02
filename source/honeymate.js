@@ -1,9 +1,5 @@
 import Honeymate from './index.js'
 
 window.Honeymate = Honeymate
-document.addEventListener('DOMContentLoaded', () => {
-    const style = document.createElement('style')
-    style.innerHTML = '.honey{opacity:0}'
-    document.head.appendChild(style)
-    Honeymate.initiate()
-})
+document.addEventListener('DOMContentLoaded', Honeymate.initiate)
+document.write('<style>.honey{opacity:0}@keyframes honeySpin{0%{transform:rotate(-360deg)}to{transform:rotate(360deg)}}</style>')

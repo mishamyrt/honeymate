@@ -1,6 +1,6 @@
 {
     "name": "mishamyrt-honeymate",
-    "version": "2.4.1",
+    "version": "2.4.2",
     "description": "Dead simple loading animations",
     "main": "dist/honeymate-module.js",
     "scripts": {
@@ -17,19 +17,19 @@
     "bugs": {
         "url": "https://github.com/mishamyrt/honeymate/issues"
     },
-    "homepage": "https://misha.myrt.co/tools/honeymate/",
     "devDependencies": {
-        "@babel/core": "^7.1.6",
-        "@babel/preset-env": "^7.1.6",
-        "browserslist": "^4.3.5",
+        "@babel/core": "^7.2.2",
+        "@babel/preset-env": "^7.2.0",
+        "browserslist": "^4.3.6",
         "chai": "^4.2.0",
         "chai-as-promised": "^7.1.1",
-        "chromedriver": "^2.44.1",
-        "eslint": "^5.9.0",
-        "js-beautify": "^1.7.5",
+        "chromedriver": "^2.45.0",
+        "eslint": "^5.10.0",
+        "js-beautify": "^1.8.9",
         "mocha": "^5.2.0",
         "node-static": "^0.7.10",
-        "rollup-plugin-babel": "^4.0.3",
+        "rollup": "^0.67.4",
+        "rollup-plugin-babel": "^4.1.0",
         "rollup-plugin-terser": "^1.0.1",
         "selenium-webdriver": "^4.0.0-alpha.1",
         "static-server": "^2.2.1"
