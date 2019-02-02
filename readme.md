@@ -25,10 +25,6 @@
     </a>
 </p>
 
-
-
-
-
 **Simple.** Honeymate has declarative API therefore has a low entry threshold.
 
 **Small.** 2.2 kilobytes (minified and gzipped). No dependencies.
