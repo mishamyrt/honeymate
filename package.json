@@ -1,6 +1,6 @@
 {
     "name": "mishamyrt-honeymate",
-    "version": "2.4.1",
+    "version": "2.4.2",
     "description": "Dead simple loading animations",
     "main": "dist/honeymate-module.js",
     "scripts": {
@@ -17,7 +17,6 @@
     "bugs": {
         "url": "https://github.com/mishamyrt/honeymate/issues"
     },
-    "homepage": "https://misha.myrt.co/tools/honeymate/",
     "devDependencies": {
         "@babel/core": "^7.2.2",
         "@babel/preset-env": "^7.2.0",
