@@ -1,9 +1,9 @@
 import { applyStyle, parseParameters } from './helpers'
 import { generateSpinner, removeSpinner } from './spinner'
-import generateEffect from './generateEffect'
-import waitImages from './wait'
+import { generateEffect } from './generateEffect'
+import { waitImages } from './wait'
 
-export default class HoneyNode {
+export class HoneyNode {
     constructor (node) {
         node.style.opacity = 0
         this.node = node

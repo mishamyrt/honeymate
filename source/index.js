@@ -1,4 +1,4 @@
-import HoneyNode from './node.js'
+import { HoneyNode } from './node.js'
 
 const honeyNodes = new Map()
 
@@ -23,7 +23,7 @@ const findWaited = (parameters, i) => {
     return -1
 }
 
-export default class Honeymate {
+export class Honeymate {
     static initiate () {
         const nodes = document.querySelectorAll('.honey')
         for (let i = 0; i < nodes.length; i++) {

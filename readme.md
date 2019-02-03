@@ -79,7 +79,7 @@ $ npm install mishamyrt-honeymate --save
 Then, use it somewhere in your program:
 
 ```js
-import Honeymate from 'mishamyrt-honeymate'
+import { Honeymate } from 'mishamyrt-honeymate'
 
 // Finds all honeymated blocks in the DOM and initializes them
 Honeymate.initiate()

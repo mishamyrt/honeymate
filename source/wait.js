@@ -33,7 +33,7 @@ const getImagesUrl = (nodes) => {
     return images
 }
 
-const waitImages = (node) => {
+export const waitImages = (node) => {
     return new Promise((resolve) => {
         const checkableNodes = Array.from(node.querySelectorAll('*'))
         checkableNodes.push(node)
@@ -49,5 +49,3 @@ const waitImages = (node) => {
         }
     })
 }
-
-export default waitImages
