@@ -13,7 +13,7 @@ const generateSlide = (direction, offset) => {
     return `translate${transformString}${offset}px)`
 }
 
-const generateEffect = (parameters) => {
+export const generateEffect = (parameters) => {
     const duration = parameters.duration
     const effect = {}
     switch (parameters.effect) {
@@ -54,4 +54,3 @@ const generateEffect = (parameters) => {
     return effect
 }
 
-export default generateEffect

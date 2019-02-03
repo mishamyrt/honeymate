@@ -1,8 +1,27 @@
-# Honeymate [![Build Status](https://travis-ci.org/mishamyrt/honeymate.svg?branch=master)][ci]
+<h1 align="center">
+<br>
+    <img src="https://mishamyrt.github.io/honeymate/img/logo.svg" alt="Honeymate logo" width="150">
+<br>
+  Honeymate
+<br>
+</h1>
 
-<a href="http://mishamyrt.github.io/honeymate/"><img src="./img/logo.svg" align="right" alt="Honeymate logo" width="150"></a>
+<h4 align="center">
+    Beautiful page load coordinator.
+</h4>
 
-Honeymate is a page load coordinator.
+<p align="center">
+    <a href="https://travis-ci.org/mishamyrt/honeymate">
+        <img height="18" src="https://travis-ci.org/mishamyrt/honeymate.svg?branch=master">
+    </a>
+    <a href="https://badge.fury.io/js/mishamyrt-honeymate">
+        <img src="https://badge.fury.io/js/mishamyrt-honeymate.svg" alt="npm version" height="18">
+    </a>
+    <img src="https://david-dm.org/mishamyrt/honeymate.svg" alt="David's dependencies control" height="18">
+    <a href="https://www.codacy.com/app/mishamyrt/honeymate?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mishamyrt/honeymate&amp;utm_campaign=Badge_Grade">
+        <img src="https://api.codacy.com/project/badge/Grade/84b678784f7e49e4b2e12ad6a0bc7839" alt="Codacy Badge" height="18">
+    </a>
+</p>
 
 **Simple.** Honeymate has declarative API therefore has a low entry threshold.
 
@@ -58,7 +77,7 @@ $ npm install mishamyrt-honeymate --save
 Then, use it somewhere in your program:
 
 ```js
-import Honeymate from 'mishamyrt-honeymate'
+import { Honeymate } from 'mishamyrt-honeymate'
 
 // Finds all honeymated blocks in the DOM and initializes them
 Honeymate.initiate()
@@ -75,22 +94,22 @@ const honeyNode = Honeymate.generateNode(
 )
 
 // Shows the node after loading images
-honeyNode.isLoaded().then(() => node.expose())
+honeyNode.isLoaded().then(() => honeyNode.expose())
 ```
 
 ## Options
 
 These options could be specified on the block with the `honey` class.
 
-* `data-effect` — Current effect. Available effects: helix, fade (default), relax, zoom. 
-* `data-hold` — Hold on for this number of milliseconds (at least this much time should elapse after an element, which the given one was waiting for, have started emerging).
-* `data-origin` — For relax, zoom and helix effects, the transformation origin. Default is ‘top’ for relax and ‘center’ for zoom and helix.
-* `data-duration` — The animation duration in milliseconds. Default is 600.
-* `data-await` — Wait for element with id from value to load (but not finish the animation). 
-* `data-scale` — For relax, zoom and helix effects, the initial scale. The default is 0.87. 
-* `data-spin` — Show loading indicator.
-* `data-spin-size` — Indicator diameter in pixels. Default is 24.
-* `data-spin-color` — Indicator colour. Default is black.
+  * `data-effect` — Current effect. Available effects: helix, fade (default), relax, zoom. 
+  * `data-hold` — Hold on for this number of milliseconds (at least this much time should elapse after an element, which the given one was waiting for, have started emerging).
+  * `data-origin` — For relax, zoom and helix effects, the transformation origin. Default is ‘top’ for relax and ‘center’ for zoom and helix.
+  * `data-duration` — The animation duration in milliseconds. Default is 600.
+  * `data-await` — Wait for element with id from value to load (but not finish the animation). 
+  * `data-scale` — For relax, zoom and helix effects, the initial scale. The default is 0.87. 
+  * `data-spin` — Show loading indicator.
+  * `data-spin-size` — Indicator diameter in pixels. Default is 24.
+  * `data-spin-color` — Indicator colour. Default is black.
 
 ```html
 <div class="honey"
@@ -120,5 +139,3 @@ honeyNode.options = {
 ## Supported browsers
 
 Latest Webkit, Blink browsers and Firefox fully supported. In unsupported browsers page will load as if there were no Emerge in the first place. Same thing with disabled Javascript.
-
-[ci]: https://travis-ci.org/mishamyrt/honeymate

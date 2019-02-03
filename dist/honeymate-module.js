@@ -1,5 +1,7 @@
 'use strict';
 
+Object.defineProperty(exports, '__esModule', { value: true });
+
 const getDirection = (dataset) => {
     if (dataset.right) {
         return 2
@@ -284,4 +286,4 @@ class Honeymate {
     }
 }
 
-module.exports = Honeymate;
+exports.Honeymate = Honeymate;
