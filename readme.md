@@ -1,8 +1,6 @@
 <h1 align="center">
 <br>
-    <a href="http://mishamyrt.github.io/honeymate/">
-        <img src="https://mishamyrt.github.io/honeymate/img/logo.svg" alt="Honeymate logo" width="150">
-    </a>
+    <img src="https://mishamyrt.github.io/honeymate/img/logo.svg" alt="Honeymate logo" width="150">
 <br>
   Honeymate
 <br>
