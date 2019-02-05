@@ -18,6 +18,7 @@ const parseParameters = (dataset) => ({
     direction: getDirection(dataset),
     duration: dataset.duration || 640,
     effect: dataset.effect || '',
+    expose: dataset.expose === 'true' && 'IntersectionObserver' in window,
     delay: parseInt(dataset.delay, 10) || 0,
     hold: parseInt(dataset.hold, 10) || 0,
     scale: dataset.scale || '.87',
@@ -221,9 +222,29 @@ class HoneyNode {
         })
     }
 
+    isInView () {
+        return new Promise((resolve) => {
+            const observer = new IntersectionObserver(
+                (data) => {
+                    if (data[0].isIntersecting && data[0].time > 70) {
+                        resolve();
+                        observer.disconnect();
+                    }
+                },
+                {
+                    threshold: 0.1,
+                }
+            );
+            observer.observe(this.node);
+        })
+    }
+
     animate (effect = this.effect) {
         applyStyle(this.node, effect).then(() => {
-            this.isLoaded().then(() => {
+            Promise.all([
+                this.parameters.expose ? this.isInView() : null,
+                this.isLoaded(),
+            ]).then(() => {
                 setTimeout(() => this.expose(), this.parameters.delay);
             });
         });
