@@ -230,9 +230,6 @@ class HoneyNode {
                         resolve();
                         observer.disconnect();
                     }
-                },
-                {
-                    threshold: 0.1,
                 }
             );
             observer.observe(this.node);
