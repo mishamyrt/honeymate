@@ -137,6 +137,9 @@ honeyNode.options = {
 }
 ```
 
+## Credits
+The original idea belongs to Ilya Birman, who made the “[Emerge](https://ilyabirman.ru/projects/emerge/)”. I have only made a free alternative that focuses on performance and does not depend on a jQuery.
+
 ## Supported browsers
 
 Latest Webkit, Blink browsers and Firefox fully supported. In unsupported browsers page will load as if there were no Emerge in the first place. Same thing with disabled Javascript.
