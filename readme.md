@@ -142,4 +142,4 @@ The original idea belongs to Ilya Birman, who made the “[Emerge](https://ilyab
 
 ## Supported browsers
 
-Latest Webkit, Blink browsers and Firefox fully supported. In unsupported browsers page will load as if there were no Emerge in the first place. Same thing with disabled Javascript.
+Honeymate supports the latest versions of Safari, Chrome and Firefox. In unsupported browsers, the page will load as if the library was not linked.
