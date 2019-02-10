@@ -18,9 +18,9 @@ const findWaited = (parameters, i) => {
         return nodeByIndex(i - 1)
     } else if (parameters.await) {
         const node = document.querySelectorAll('#' + parameters.await)[0]
-        return node ? addNode(node) : -1
+        return node ? addNode(node) : undefined
     }
-    return -1
+    return undefined
 }
 
 export class Honeymate {
@@ -29,14 +29,14 @@ export class Honeymate {
         for (let i = 0; i < nodes.length; i++) {
             const honeyNode = addNode(nodes[i])
             const waited = findWaited(honeyNode.parameters, i)
-            if (waited === -1) {
-                honeyNode.animate()
-            } else {
+            if (waited) {
                 waited.isLoaded().then(() => {
                     setTimeout(
                         () => honeyNode.animate(), honeyNode.parameters.hold
                     )
                 })
+            } else {
+                honeyNode.animate()
             }
         }
     }
