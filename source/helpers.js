@@ -14,6 +14,7 @@ export const parseParameters = (dataset) => ({
     direction: getDirection(dataset),
     duration: dataset.duration || 640,
     effect: dataset.effect || '',
+    expose: dataset.expose === 'true' && 'IntersectionObserver' in window,
     delay: parseInt(dataset.delay, 10) || 0,
     hold: parseInt(dataset.hold, 10) || 0,
     scale: dataset.scale || '.87',
