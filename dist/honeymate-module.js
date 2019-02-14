@@ -47,14 +47,14 @@ const applyStyle = (node, style) => {
     })
 };
 
-const getSpinnerSVG = (size, color) => `<svg width="${size}" height="${size}" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" style="animation: honeySpin 1.7s linear infinite"><circle cx="50" cy="50" fill="none" stroke="${color}" stroke-width="10" r="35" stroke-dasharray="90 60"></circle></svg>`;
+const getSpinner = (size, color) => `<svg width="${size}" height="${size}" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" style="animation: honeySpin 1.7s linear infinite"><circle cx="50" cy="50" fill="none" stroke="${color}" stroke-width="10" r="35" stroke-dasharray="90 60"></circle></svg>`;
 
 const generateSpinner = (honeyNode) => {
     const { node } = honeyNode;
     const rect = node.getBoundingClientRect();
     const spinNode = document.createElement('div');
     const element = document.documentElement;
-    spinNode.innerHTML = getSpinnerSVG(
+    spinNode.innerHTML = getSpinner(
         honeyNode.parameters.spinSize,
         honeyNode.parameters.spinColor,
     );

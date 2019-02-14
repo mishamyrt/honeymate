@@ -1,4 +1,4 @@
-import { applyStyle, getSpinnerSVG } from './helpers'
+import { applyStyle, getSpinner } from './helpers'
 
 /**
  * Generates spinner node in DOM
@@ -10,7 +10,7 @@ export const generateSpinner = (honeyNode) => {
     const rect = node.getBoundingClientRect()
     const spinNode = document.createElement('div')
     const element = document.documentElement
-    spinNode.innerHTML = getSpinnerSVG(
+    spinNode.innerHTML = getSpinner(
         honeyNode.parameters.spinSize,
         honeyNode.parameters.spinColor,
     )
