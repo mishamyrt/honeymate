@@ -2,6 +2,11 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+/**
+ * Converts the text direction to a number
+ * @param {Object} dataset HTMLElement dataset
+ * @returns {Number}
+ */
 const getDirection = (dataset) => {
     if (dataset.right) {
         return 2
@@ -14,6 +19,11 @@ const getDirection = (dataset) => {
     }
 };
 
+/**
+ * Transform dataset to HoneyNode parameters
+ * @param {Object} dataset HTMLElement dataset
+ * @returns {Object}
+ */
 const parseParameters = (dataset) => ({
     direction: getDirection(dataset),
     duration: dataset.duration || 640,
@@ -38,6 +48,12 @@ const parseParameters = (dataset) => ({
     'continue': dataset.continue === 'true',
 });
 
+/**
+ * Applies CSS styles to the node
+ * @param {HTMLElement} node HTMLElement
+ * @param {Object} style CSS styles
+ * @returns {Promise} Resolves when styles is applied
+ */
 const applyStyle = (node, style) => {
     return new Promise((resolve) => {
         for (const key in style) {
@@ -47,8 +63,19 @@ const applyStyle = (node, style) => {
     })
 };
 
+/**
+ * Generates spinner SVG string
+ * @param {Number} size Spinner size
+ * @param {color} color Spinner color
+ * @returns {String}
+ */
 const getSpinner = (size, color) => `<svg width="${size}" height="${size}" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" style="animation: honeySpin 1.7s linear infinite"><circle cx="50" cy="50" fill="none" stroke="${color}" stroke-width="10" r="35" stroke-dasharray="90 60"></circle></svg>`;
 
+/**
+ * Generates spinner node in DOM
+ * @param {HoneyNode} honeyNode Source node
+ * @returns {HTMLElement}
+ */
 const generateSpinner = (honeyNode) => {
     const { node } = honeyNode;
     const rect = node.getBoundingClientRect();
@@ -75,6 +102,10 @@ const generateSpinner = (honeyNode) => {
     return spinNode
 };
 
+/**
+ * Hides and removes spinner from DOM
+ * @param {HTMLElement} spinNode Spinner node in DOM
+ */
 const removeSpinner = (spinNode) => {
     requestAnimationFrame(() => {
         spinNode.style.opacity = 0;
@@ -84,6 +115,12 @@ const removeSpinner = (spinNode) => {
     });
 };
 
+/**
+ * Generates CSS transition string
+ * @param {Number} duration Transition duration
+ * @param {Object} properties Properties that shoud be transitioned
+ * @returns {String}
+ */
 const generateTransition = (duration, properties) => {
     properties.opacity = 'ease-out';
     let transitionString = '';
@@ -93,12 +130,23 @@ const generateTransition = (duration, properties) => {
     return transitionString.substring(0, transitionString.length - 2)
 };
 
+/**
+ * Generates CSS transform string for slide transition
+ * @param {Number} direction Slide direction
+ * @param {Number} offset Offset in pixels
+ * @returns {String}
+ */
 const generateSlide = (direction, offset) => {
     let transformString = direction === 1 || direction === 3 ? 'Y' : 'X';
     transformString += direction === 1 || direction === 2 ? '(-' : '(';
     return `translate${transformString}${offset}px)`
 };
 
+/**
+ * Generates effect start point.
+ * @param {Object} parameters Slide direction
+ * @returns {Object} CSS style object
+ */
 const generateEffect = (parameters) => {
     const duration = parameters.duration;
     const effect = {};
@@ -135,22 +183,32 @@ const generateEffect = (parameters) => {
             effect.transformOrigin = parameters.origin;
             break
         default:
-            effect.transition = generateTransition(duration, { });
+            effect.transition = generateTransition(duration, {});
     }
     return effect
 };
 
 const bgRegex = /url\(\s*(['"]?)(.*)\1\s*\)/;
 
+/**
+ * Finds background image on node
+ * @param {HTMLElement} node
+ * @returns {String|undefined}
+ */
 const getBackgroundImage = (node) => {
     const style = getComputedStyle(node);
     if (style.background !== '' || style.backgroundImage !== '') {
         const uri = style.background.match(bgRegex);
         return uri ? uri[2] : ''
     }
-    return ''
+    return undefined
 };
 
+/**
+ * Checks if image is loaded
+ * @param {String} url Image URL
+ * @returns {Promise} Resolves when loaded, never rejects
+ */
 const waitForImage = (url) => {
     return new Promise((resolve) => {
         const image = new Image();
@@ -160,6 +218,11 @@ const waitForImage = (url) => {
     })
 };
 
+/**
+ * Checks if image is loaded
+ * @param {HTMLElement[]} nodes Array of HTMLElement
+ * @returns {String[]} URLs of all finded images
+ */
 const getImagesUrl = (nodes) => {
     const images = [];
     for (let i = 0; i < nodes.length; i++) {
@@ -175,6 +238,11 @@ const getImagesUrl = (nodes) => {
     return images
 };
 
+/**
+ * Checks if all images in node are loaded
+ * @param {HTMLElement} node
+ * @returns {Promise}
+ */
 const waitImages = (node) => {
     return new Promise((resolve) => {
         const checkableNodes = Array.from(node.querySelectorAll('*'));
@@ -193,6 +261,9 @@ const waitImages = (node) => {
 };
 
 class HoneyNode {
+    /**
+     * @param {HTMLElement} node The original node
+     */
     constructor (node) {
         node.style.opacity = 0;
         this.node = node;
@@ -200,6 +271,10 @@ class HoneyNode {
         this.options = node.dataset;
     }
 
+    /**
+    * Options setter. Parses parameters after set
+    * @param {Object} options Raw HoneyNode options
+    */
     set options (options) {
         this.parameters = parseParameters(options);
         this.effect = generateEffect(this.parameters);
@@ -208,10 +283,19 @@ class HoneyNode {
         }
     }
 
+    /**
+    * Options getter
+    * @param {Object} options Raw HoneyNode options
+    * @returns {Object} Current options
+    */
     get options () {
         return this.parameters
     }
 
+    /**
+    * Checks if all images in node are loaded
+    * @returns {Promise} Resolves when loaded, never rejects
+    */
     isLoaded () {
         return new Promise((resolve) => {
             waitImages(this.node).then(
@@ -222,6 +306,10 @@ class HoneyNode {
         })
     }
 
+    /**
+    * Checks if node is in user's view
+    * @returns {Promise} Resolves when HoneyNode in view
+    */
     isInView () {
         return new Promise((resolve) => {
             const observer = new IntersectionObserver(
@@ -236,6 +324,10 @@ class HoneyNode {
         })
     }
 
+    /**
+    * Waits for all conditions and displays the node
+    * @param {Object} effect Generated effect. Default is built on current parameters
+    */
     animate (effect = this.effect) {
         applyStyle(this.node, effect).then(() => {
             Promise.all([
@@ -247,6 +339,9 @@ class HoneyNode {
         });
     }
 
+    /**
+    * Exposes the node by applying basic transform and opacity
+    */
     expose () {
         applyStyle(this.node, {
             transform: '',
@@ -263,6 +358,11 @@ const honeyNodes = new Map();
 
 const nodeByIndex = (i) => honeyNodes.get(Array.from(honeyNodes.keys())[i]);
 
+/**
+ * Creates a new HoneyNode and adds it to the map
+ * @param {HTMLElement} node The original node
+ * @returns {HoneyNode}
+ */
 const addNode = (node) => {
     if (honeyNodes.has(node)) {
         return honeyNodes.get(node)
@@ -272,9 +372,15 @@ const addNode = (node) => {
     return honeyNode
 };
 
-const findWaited = (parameters, i) => {
-    if (parameters.continue && i > 1) {
-        return nodeByIndex(i - 1)
+/**
+ * Finds the node that the source node expects
+ * @param {Object} parameters HoneyNode parsed parameters
+ * @param {Number} index Source node index
+ * @returns {HoneyNode|undefined} returns undefined if there is no reason to wait
+ */
+const findWaited = (parameters, index) => {
+    if (parameters.continue && index > 1) {
+        return nodeByIndex(index - 1)
     } else if (parameters.await) {
         const node = document.querySelectorAll('#' + parameters.await)[0];
         return node ? addNode(node) : undefined
@@ -283,6 +389,9 @@ const findWaited = (parameters, i) => {
 };
 
 class Honeymate {
+    /**
+     * Finds all nodes with .honey class and initiate them
+     */
     static initiate () {
         const nodes = document.querySelectorAll('.honey');
         for (let i = 0; i < nodes.length; i++) {
@@ -299,6 +408,12 @@ class Honeymate {
             }
         }
     }
+
+    /**
+     * Generates HoneyNode from HTMLElement
+     * @param {HTMLElement} node source node
+     * @returns {HoneyNode}
+     */
     static generateNode (node) {
         return new HoneyNode(node)
     }
