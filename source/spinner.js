@@ -1,5 +1,10 @@
 import { applyStyle, getSpinnerSVG } from './helpers'
 
+/**
+ * Generates spinner node in DOM
+ * @param {HoneyNode} honeyNode Source node
+ * @returns {HTMLElement}
+ */
 export const generateSpinner = (honeyNode) => {
     const { node } = honeyNode
     const rect = node.getBoundingClientRect()
@@ -26,6 +31,10 @@ export const generateSpinner = (honeyNode) => {
     return spinNode
 }
 
+/**
+ * Hides and removes spinner from DOM
+ * @param {HTMLElement} spinNode Spinner node in DOM
+ */
 export const removeSpinner = (spinNode) => {
     requestAnimationFrame(() => {
         spinNode.style.opacity = 0
