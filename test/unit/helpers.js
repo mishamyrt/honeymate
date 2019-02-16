@@ -5,6 +5,7 @@ const {
     describe,
     it,
 } = require('mocha')
+const expect = require('chai').expect
 
 const {
     getDirection,
@@ -13,17 +14,17 @@ const {
     getSpinner,
 } = requireES('../../source/helpers.mjs')
 
-const expect = require('chai').expect
+const spinnerSVG = '<svg width="32" height="32" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" style="animation: honeySpin 1.7s linear infinite"><circle cx="50" cy="50" fill="none" stroke="#F00" stroke-width="10" r="35" stroke-dasharray="90 60"></circle></svg>'
 
-describe('helpers', () => {
+describe('Helper functions', () => {
     it('should translate transition direction', () => {
-        expect(getDirection({
+        return expect(getDirection({
             down: 10,
         })).equal(3)
     })
 
     it('should parse dataset', () => {
-        expect(parseParameters({
+        return expect(parseParameters({
             hold: '10',
             right: '10',
             spinSize: '10',
@@ -61,6 +62,6 @@ describe('helpers', () => {
         })
     })
     it('should generate SVG spinner', () => {
-        expect(getSpinner(32, '#F00')).equal('<svg width="32" height="32" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" style="animation: honeySpin 1.7s linear infinite"><circle cx="50" cy="50" fill="none" stroke="#F00" stroke-width="10" r="35" stroke-dasharray="90 60"></circle></svg>')
+        return expect(getSpinner(32, '#F00')).equal(spinnerSVG)
     })
 })
