@@ -28,7 +28,6 @@ export class HoneyNode {
 
     /**
     * Options getter
-    * @param {Object} options Raw HoneyNode options
     * @returns {Object} Current options
     */
     get options () {
