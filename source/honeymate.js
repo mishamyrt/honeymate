@@ -1,4 +1,4 @@
-import { Honeymate } from './index.js'
+import { Honeymate } from './index.mjs'
 
 window.Honeymate = Honeymate
 document.addEventListener('DOMContentLoaded', Honeymate.initiate)

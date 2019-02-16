@@ -1,4 +1,4 @@
-import { applyStyle, getSpinner } from './helpers'
+import { applyStyle, getSpinner } from './helpers.mjs'
 
 /**
  * Generates spinner node in DOM

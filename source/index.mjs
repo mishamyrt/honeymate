@@ -1,4 +1,4 @@
-import { HoneyNode } from './node.js'
+import { HoneyNode } from './node.mjs'
 
 const honeyNodes = new Map()
 

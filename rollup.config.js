@@ -9,7 +9,7 @@ const cjs = process.env.module || false
 const exportName = cjs ? 'honeymate-module' : 'honeymate'
 
 export default {
-    input: 'source/' + (cjs ? 'index' : 'honeymate') + '.js',
+    input: 'source/' + (cjs ? 'index.mjs' : 'honeymate.js'),
     output: {
         file: production ? `dist/${exportName}.js` : `build/${exportName}.js`,
         format: cjs ? 'cjs' : 'iife',

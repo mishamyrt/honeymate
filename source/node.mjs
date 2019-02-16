@@ -1,7 +1,7 @@
-import { applyStyle, parseParameters } from './helpers'
-import { generateSpinner, removeSpinner } from './spinner'
-import { generateEffect } from './generateEffect'
-import { waitImages } from './wait'
+import { applyStyle, parseParameters } from './helpers.mjs'
+import { generateSpinner, removeSpinner } from './spinner.mjs'
+import { generateEffect } from './generateEffect.mjs'
+import { waitImages } from './wait.mjs'
 
 export class HoneyNode {
     /**
