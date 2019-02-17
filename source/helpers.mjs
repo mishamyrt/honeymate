@@ -55,7 +55,7 @@ export const applyStyle = (node, style) => {
         for (const key in style) {
             node.style[key] = style[key]
         }
-        resolve()
+        resolve(node)
     })
 }
 
