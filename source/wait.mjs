@@ -1,15 +1,18 @@
-const bgRegex = /url\(\s*(['"]?)(.*)\1\s*\)/
+const cssUrlPattern = /url\(\s*(['"]?)(.*)\1\s*\)/
 
 /**
  * Finds background image on node
  * @param {HTMLElement} node
  * @returns {String|undefined}
  */
-const getBackgroundImage = (node) => {
+export const getBackgroundImage = (node) => {
     const style = getComputedStyle(node)
-    if (style.background !== '' || style.backgroundImage !== '') {
-        const uri = style.background.match(bgRegex)
-        return uri ? uri[2] : ''
+    if (style.background && style.background !== '') {
+        const url = style.background.match(cssUrlPattern)
+        return url ? url[2] : ''
+    } else if (style.backgroundImage && style.backgroundImage !== '') {
+        const url = style.backgroundImage.match(cssUrlPattern)
+        return url ? url[2] : ''
     }
     return undefined
 }
@@ -19,7 +22,7 @@ const getBackgroundImage = (node) => {
  * @param {String} url Image URL
  * @returns {Promise} Resolves when loaded, never rejects
  */
-const waitForImage = (url) => {
+export const waitForImage = (url) => {
     return new Promise((resolve) => {
         const image = new Image()
         image.onload = resolve
@@ -33,7 +36,7 @@ const waitForImage = (url) => {
  * @param {HTMLElement[]} nodes Array of HTMLElement
  * @returns {String[]} URLs of all finded images
  */
-const getImagesUrl = (nodes) => {
+export const getImagesUrl = (nodes) => {
     const images = []
     for (let i = 0; i < nodes.length; i++) {
         if (nodes[i].tagName === 'IMG') {
