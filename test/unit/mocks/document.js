@@ -28,6 +28,10 @@ class HTMLElement {
         this.offsetWidth = 100
         this.offsetHeight = 100
         this.children = []
+        this.classList = {
+            add: this.addClass,
+        }
+        this.dataset = {}
 
         let id = ''
         for (let i = 0; i < 5; i++) {
@@ -55,6 +59,13 @@ class HTMLElement {
             return undefined
         }
         return this.children[finded]
+    }
+
+    addClass (className) {
+        if (this._classList === undefined) {
+            this._classList = []
+        }
+        this._classList.push(className)
     }
 
     removeChild (node) {

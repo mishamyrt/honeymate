@@ -37,6 +37,6 @@ describe('Spinner functions', () => {
                 document.body._getElementByUnique(spinnerId)
             ).to.be.an('undefined')
             done()
-        }, 510)
+        }, 600)
     })
 })
