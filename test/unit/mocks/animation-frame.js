@@ -1,4 +1,6 @@
 'use strict'
 /* eslint no-global-assign: "off"*/
 
-global.requestAnimationFrame = (callback) => setTimeout(callback, 1)
+const frameTime = 1000 / 60
+
+global.requestAnimationFrame = (callback) => setTimeout(callback, frameTime)
