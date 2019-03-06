@@ -9,6 +9,9 @@
 <h4 align="center">
     Beautiful page load coordinator.
 </h4>
+<p align="center">
+    Honeymate waits for loading images in blocks and then shows with the selected animation. Allows you to easily manage the page load order, indicating the order in which items are displayed
+<p>
 
 <p align="center">
     <a href="https://travis-ci.org/mishamyrt/honeymate">
