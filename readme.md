@@ -70,9 +70,9 @@ Now any element with `class="honey"` will fade in after its contents are loaded:
 </div>
 ```
 
-### Using as a module
+### Using as a ES module
 
-Honeymate can be used as a CommonJS module, so you can use it within webpack or Rollup build systems.
+Honeymate can be used as a ES module, so you can use it within webpack or Rollup build systems.
 
 First, install Honeymate using npm:
 
@@ -92,7 +92,7 @@ Honeymate.initiate()
 You can also control Honeymate event loop manually:
 
 ```js
-import Honeymate from 'mishamyrt-honeymate'
+import { Honeymate } from 'mishamyrt-honeymate'
 
 // Creates an instance of the class HoneyNode
 const honeyNode = Honeymate.generateNode(
@@ -127,7 +127,7 @@ These options could be specified on the block with the `honey` class.
 </div>
 ```
 
-Them can also be a parameter when working with an AMD module. To do this, use the same parameters without the `data` prefix.
+Them can also be a parameter when working with an ES module. To do this, use the same parameters without the `data` prefix.
 
 ```js
 const honeyNode = Honeymate.generateNode(

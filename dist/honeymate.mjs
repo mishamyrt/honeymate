@@ -1,7 +1,3 @@
-'use strict';
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
 /**
  * Converts the text direction to a number
  * @param {Object} dataset HTMLElement dataset
@@ -59,7 +55,7 @@ const applyStyle = (node, style) => {
         for (const key in style) {
             node.style[key] = style[key];
         }
-        resolve();
+        resolve(node);
     })
 };
 
@@ -188,7 +184,7 @@ const generateEffect = (parameters) => {
     return effect
 };
 
-const bgRegex = /url\(\s*(['"]?)(.*)\1\s*\)/;
+const cssUrlPattern = /url\(\s*(['"]?)(.*)\1\s*\)/;
 
 /**
  * Finds background image on node
@@ -197,9 +193,12 @@ const bgRegex = /url\(\s*(['"]?)(.*)\1\s*\)/;
  */
 const getBackgroundImage = (node) => {
     const style = getComputedStyle(node);
-    if (style.background !== '' || style.backgroundImage !== '') {
-        const uri = style.background.match(bgRegex);
-        return uri ? uri[2] : ''
+    if (style.background && style.background !== '') {
+        const url = style.background.match(cssUrlPattern);
+        return url ? url[2] : ''
+    } else if (style.backgroundImage && style.backgroundImage !== '') {
+        const url = style.backgroundImage.match(cssUrlPattern);
+        return url ? url[2] : ''
     }
     return undefined
 };
@@ -285,7 +284,6 @@ class HoneyNode {
 
     /**
     * Options getter
-    * @param {Object} options Raw HoneyNode options
     * @returns {Object} Current options
     */
     get options () {
@@ -419,4 +417,4 @@ class Honeymate {
     }
 }
 
-exports.Honeymate = Honeymate;
+export { Honeymate };

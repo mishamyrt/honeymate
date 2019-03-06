@@ -4,18 +4,18 @@ import { terser } from 'rollup-plugin-terser'
 /* eslint-env node */
 
 const production = process.env.prod || false
-const cjs = process.env.module || false
+const esm = process.env.module || false
 
-const exportName = cjs ? 'honeymate-module' : 'honeymate'
+const exportName = esm ? 'honeymate.mjs' : 'honeymate.js'
 
 export default {
-    input: 'source/' + (cjs ? 'index.mjs' : 'honeymate.js'),
+    input: 'source/' + (esm ? 'index.mjs' : 'honeymate.js'),
     output: {
-        file: production ? `dist/${exportName}.js` : `build/${exportName}.js`,
-        format: cjs ? 'cjs' : 'iife',
+        file: production ? `dist/${exportName}` : `build/${exportName}.js`,
+        format: esm ? 'esm' : 'iife',
     },
     plugins: [
-        cjs ? false : babel({
+        esm ? false : babel({
             exclude: 'node_modules/**',
             presets: [
                 ['@babel/preset-env', {
@@ -23,7 +23,7 @@ export default {
                 }],
             ],
         }),
-        production && !cjs ? terser({
+        production && !esm ? terser({
             compress: {
                 unsafe: true,
             },
