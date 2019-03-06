@@ -11,7 +11,7 @@ const exportName = esm ? 'honeymate.mjs' : 'honeymate.js'
 export default {
     input: 'source/' + (esm ? 'index.mjs' : 'honeymate.js'),
     output: {
-        file: production ? `dist/${exportName}` : `build/${exportName}.js`,
+        file: production ? `dist/${exportName}` : `build/${exportName}`,
         format: esm ? 'esm' : 'iife',
     },
     plugins: [
