@@ -2,7 +2,7 @@
     "name": "mishamyrt-honeymate",
     "version": "2.4.4",
     "description": "Dead simple loading animations",
-    "main": "dist/honeymate-module.js",
+    "module": "dist/honeymate.mjs",
     "scripts": {
         "dev": "npx rollup -c & npx rollup -c --environment module:true",
         "build": "npx rollup -c --environment prod & npx rollup -c --environment module --environment prod",
