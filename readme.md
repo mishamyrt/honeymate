@@ -23,6 +23,8 @@
     </a>
 </p>
 
+<img src="https://mishamyrt.github.io/honeymate/img/preview.gif" alt="Honeymate logo">
+
 **Simple.** Honeymate has declarative API therefore has a low entry threshold.
 
 **Small.** 2.2 kilobytes (minified and gzipped). No dependencies.
