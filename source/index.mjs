@@ -2,6 +2,11 @@ import { HoneyNode } from './node.mjs'
 
 const honeyNodes = new Map()
 
+/**
+ * Searches node by index
+ * @param {Number} i index
+ * @returns {HoneyNode}
+ */
 const nodeByIndex = (i) => honeyNodes.get(Array.from(honeyNodes.keys())[i])
 
 /**
