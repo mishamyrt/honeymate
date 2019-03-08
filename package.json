@@ -38,6 +38,7 @@
         "node-static": "^0.7.10",
         "remark-cli": "^6.0.1",
         "remark-lint": "^6.0.4",
+        "remark-preset-lint-recommended": "^3.0.2",
         "rollup": "^0.67.4",
         "rollup-plugin-babel": "^4.1.0",
         "rollup-plugin-terser": "^1.0.1",
