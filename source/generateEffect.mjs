@@ -60,7 +60,7 @@ export const generateEffect = (parameters) => {
         case 'relax':
             effect.transition = generateTransition(
                 duration, {
-                    transform: 'cubic-bezier(0,0,.001,1)',
+                    transform: 'cubic-bezier(0,0,0,1)',
                 })
             effect.transform = `scaleY(${parameters.scale})`
             effect.transformOrigin = parameters.origin
