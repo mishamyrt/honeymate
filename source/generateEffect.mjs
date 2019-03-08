@@ -7,9 +7,9 @@
 const generateTransition = (duration, properties) => {
     properties.opacity = 'ease-out'
     let transitionString = ''
-    Object.entries(properties).forEach((key, value) => {
-        transitionString += `${key} ${duration}ms ${value}, `
-    })
+    for (const [property, transition] of Object.entries(properties)) {
+        transitionString += `${property} ${duration}ms ${transition}, `
+    }
     return transitionString.substring(0, transitionString.length - 2)
 }
 
