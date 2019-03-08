@@ -15,7 +15,7 @@
         "build": "npx rollup -c --environment prod & npx rollup -c --environment module --environment prod",
         "server": "node test/index.js",
         "test": "npm run check-codestyle && npm run unit-tests && npm run dev && npm run integration-tests",
-        "check-codestyle": "npx eslint ./ && npx markdownlint *.md",
+        "check-codestyle": "npx eslint ./ && npx remark *.md",
         "unit-tests": "npx mocha test/unit/* --timeout 20000 --exit",
         "integration-tests": "npx mocha test/index.js --timeout 20000 --exit",
         "fix-codestyle": "npx eslint ./ --fix"
