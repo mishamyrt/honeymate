@@ -46,9 +46,9 @@ describe('Helper functions', () => {
         })
     })
 
-    it('should apply styles to node', () => {
+    it('should apply styles to node', async () => {
         const transformString = 'translateY(10px)'
-        applyStyle({
+        const node = await applyStyle({
             style: {
                 opacity: 0,
                 transform: '',
@@ -56,10 +56,10 @@ describe('Helper functions', () => {
         }, {
             opacity: 1,
             transform: transformString,
-        }).then((node) => {
-            return expect(node.style.opacity).to.be.equal(1) &&
-            expect(node.style.transform).to.be.equal(transformString)
         })
+
+        return expect(node.style.opacity).to.be.equal(1) &&
+        expect(node.style.transform).to.be.equal(transformString)
     })
     it('should generate SVG spinner', () => {
         return expect(getSpinner(32, '#F00')).equal(spinnerSVG)

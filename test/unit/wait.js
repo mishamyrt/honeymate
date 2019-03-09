@@ -63,27 +63,13 @@ describe('Image wait functions', () => {
         expect(getImagesUrl(nodes)).to.have.lengthOf(nodes.length - 1)
     })
 
-    it('should wait until single image is loaded', (done) => {
-        waitForImage(imageUrl.link)
-            .then(() => {
-                expect(true).equals(true)
-                done()
-            })
-        return setTimeout(() => {
-            expect(true).equals(false)
-            done()
-        }, 300)
+    it('should wait until single image is loaded', async () => {
+        await waitForImage(imageUrl.link)
+        expect(true).equals(true)
     })
 
-    it('should wait until all images are loaded', (done) => {
-        waitImages(getNode())
-            .then(() => {
-                expect(true).equals(true)
-                done()
-            })
-        return setTimeout(() => {
-            expect(true).equals(false)
-            done()
-        }, 500)
+    it('should wait until all images are loaded', async () => {
+        await waitImages(getNode())
+        expect(true).equals(true)
     })
 })
