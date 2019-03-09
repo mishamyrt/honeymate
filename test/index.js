@@ -36,11 +36,12 @@ describe('Honeymate', () => {
         })
 
         it('should initialize manually', async () => {
-            await page.init('manual-initialization')
+            await page.init('initialization')
             await page.initManual('.nohoney')
             const readyNodes = await page.find('.honey_ready')
             const manualNodes = await page.find('.nohoney')
-            expect(readyNodes.length).to.equals(manualNodes.length + 1)
+            const autoNodes = await page.find('.honey')
+            expect(readyNodes.length).to.equals(manualNodes.length + autoNodes.length)
         })
     })
 })
