@@ -12,17 +12,24 @@ class Page {
         })
         await this.page.goto(
             `http://127.0.0.1:1337/test/files/${filename}.html`,
-            { waitUntil: 'load' }
+            { waitUntil: 'networkidle0' }
         )
         await this.page.waitForSelector('.honey_ready')
     }
 
     async initManual (selector) {
         await this.page.evaluate(
-            `const honeyNode = Honeymate.generateNode(
+            `Honeymate.generateNode(
                 document.querySelector('${selector}')
             )`
         )
+    }
+
+    async getStyle (selector, property) {
+        return await this.page.evaluate(({ selector, property }) => {
+            const node = document.querySelector(selector)
+            return node.style[property]
+        }, { selector, property })
     }
 
     async die () {
@@ -30,7 +37,7 @@ class Page {
     }
 
     async findOne (selector) {
-        return await this.page.$$(selector)[0]
+        return await this.page.$(selector)
     }
 
     async find (selector) {
