@@ -11,7 +11,7 @@
         "coordinator"
     ],
     "scripts": {
-        "dev": "npx rollup -c & npx rollup -c --environment module:true",
+        "dev": "npx rollup -c && npx rollup -c --environment module:true",
         "build": "npx rollup -c --environment prod & npx rollup -c --environment module --environment prod",
         "server": "node test/index.js",
         "test": "npm run check-codestyle && npm run unit-tests && npm run dev && npm run integration-tests",
