@@ -7,9 +7,9 @@
 const generateTransition = (duration, properties) => {
     properties.opacity = 'ease-out'
     let transitionString = ''
-    Object.keys(properties).forEach((key) => {
-        transitionString += `${key} ${duration}ms ${properties[key]}, `
-    })
+    for (const [property, easing] of Object.entries(properties)) {
+        transitionString += `${property} ${duration}ms ${easing}, `
+    }
     return transitionString.substring(0, transitionString.length - 2)
 }
 
@@ -60,7 +60,7 @@ export const generateEffect = (parameters) => {
         case 'relax':
             effect.transition = generateTransition(
                 duration, {
-                    transform: 'cubic-bezier(0,0,.001,1)',
+                    transform: 'cubic-bezier(0,0,0,1)',
                 })
             effect.transform = `scaleY(${parameters.scale})`
             effect.transformOrigin = parameters.origin

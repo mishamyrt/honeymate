@@ -120,9 +120,9 @@ const removeSpinner = (spinNode) => {
 const generateTransition = (duration, properties) => {
     properties.opacity = 'ease-out';
     let transitionString = '';
-    Object.keys(properties).forEach((key) => {
-        transitionString += `${key} ${duration}ms ${properties[key]}, `;
-    });
+    for (const [property, transition] of Object.entries(properties)) {
+        transitionString += `${property} ${duration}ms ${transition}, `;
+    }
     return transitionString.substring(0, transitionString.length - 2)
 };
 
@@ -173,7 +173,7 @@ const generateEffect = (parameters) => {
         case 'relax':
             effect.transition = generateTransition(
                 duration, {
-                    transform: 'cubic-bezier(0,0,.001,1)',
+                    transform: 'cubic-bezier(0,0,0,1)',
                 });
             effect.transform = `scaleY(${parameters.scale})`;
             effect.transformOrigin = parameters.origin;
@@ -354,6 +354,11 @@ class HoneyNode {
 
 const honeyNodes = new Map();
 
+/**
+ * Searches node by index
+ * @param {Number} i index
+ * @returns {HoneyNode}
+ */
 const nodeByIndex = (i) => honeyNodes.get(Array.from(honeyNodes.keys())[i]);
 
 /**

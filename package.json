@@ -1,14 +1,21 @@
 {
     "name": "mishamyrt-honeymate",
-    "version": "3.0.1",
+    "version": "3.0.2",
     "description": "Dead simple loading animations",
     "module": "dist/honeymate.mjs",
+    "keywords": [
+        "js",
+        "animations",
+        "esm",
+        "vanillajs",
+        "coordinator"
+    ],
     "scripts": {
-        "dev": "npx rollup -c & npx rollup -c --environment module:true",
+        "dev": "npx rollup -c && npx rollup -c --environment module:true",
         "build": "npx rollup -c --environment prod & npx rollup -c --environment module --environment prod",
         "server": "node test/index.js",
         "test": "npm run check-codestyle && npm run unit-tests && npm run dev && npm run integration-tests",
-        "check-codestyle": "npx eslint ./",
+        "check-codestyle": "npx eslint ./ && npx remark *.md",
         "unit-tests": "npx mocha test/unit/* --timeout 20000 --exit",
         "integration-tests": "npx mocha test/index.js --timeout 20000 --exit",
         "fix-codestyle": "npx eslint ./ --fix"
@@ -24,15 +31,17 @@
         "browserslist": "^4.4.2",
         "chai": "^4.2.0",
         "chai-as-promised": "^7.1.1",
-        "chromedriver": "^2.46.0",
         "eslint": "^5.15.1",
         "esm": "^3.2.11",
         "mocha": "^5.2.0",
         "node-static": "^0.7.10",
+        "puppeteer": "^1.13.0",
+        "remark-cli": "^6.0.1",
+        "remark-lint": "^6.0.4",
+        "remark-preset-lint-recommended": "^3.0.2",
         "rollup": "^0.67.4",
         "rollup-plugin-babel": "^4.1.0",
         "rollup-plugin-terser": "^1.0.1",
-        "selenium-webdriver": "^4.0.0-alpha.1",
         "static-server": "^2.2.1"
     }
 }

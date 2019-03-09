@@ -15,7 +15,7 @@ const transitions = {
     fade: 'opacity 400ms ease-out',
     slide: 'transform 400ms cubic-bezier(0,.9,.1,1), opacity 400ms ease-out',
     helix: 'transform 400ms cubic-bezier(0,.75,.25,1), opacity 400ms ease-out',
-    relax: 'transform 400ms cubic-bezier(0,0,.001,1), opacity 400ms ease-out',
+    relax: 'transform 400ms cubic-bezier(0,0,0,1), opacity 400ms ease-out',
 }
 
 const transforms = {
