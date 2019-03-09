@@ -12,6 +12,8 @@ const startServer = require('./utils/start-server')
 const { expect } = require('chai').use(require('chai-as-promised'))
 const Page = require('./utils/page')
 
+const sleep = (timeout) => new Promise((resolve) => setTimeout(resolve, timeout))
+
 describe('Honeymate', () => {
     let page
 
@@ -50,16 +52,44 @@ describe('Honeymate', () => {
     describe('display', () => {
         beforeEach(async () => {
             await page.init('expose')
+            await sleep(100)
         })
 
         it('should display block on images load', async () => {
-            const style = await page.getStyle('.honey.images_right', 'opacity')
-            expect(style).to.equals('1')
+            expect(
+                await page.isExposed('.images_right')
+            ).to.equal(true)
         })
 
         it('should display block on images error', async () => {
-            const style = await page.getStyle('.honey.images_wrong', 'opacity')
-            expect(style).to.equals('1')
+            expect(
+                await page.isExposed('.images_wrong')
+            ).to.equal(true)
+        })
+
+        it('should display block on mixed load', async () => {
+            expect(
+                await page.isExposed('.images_mixed')
+            ).to.equal(true)
+        })
+    })
+
+    describe('await', () => {
+        beforeEach(async () => {
+            await page.init('order')
+        })
+
+        it('should be hidden first', async () => {
+            return expect(
+                await page.isExposed('.awaiter')
+            ).to.equal(false)
+        })
+
+        it('should be exposed after pending node', async () => {
+            await sleep(600)
+            return expect(
+                await page.isExposed('.awaiter')
+            ).to.equal(true)
         })
     })
 })

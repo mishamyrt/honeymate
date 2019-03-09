@@ -12,7 +12,7 @@ class Page {
         })
         await this.page.goto(
             `http://127.0.0.1:1337/test/files/${filename}.html`,
-            { waitUntil: 'networkidle0' }
+            { waitUntil: 'domcontentloaded' }
         )
         await this.page.waitForSelector('.honey_ready')
     }
@@ -25,11 +25,11 @@ class Page {
         )
     }
 
-    async getStyle (selector, property) {
-        return await this.page.evaluate(({ selector, property }) => {
+    async isExposed (selector) {
+        return await this.page.evaluate(({ selector }) => {
             const node = document.querySelector(selector)
-            return node.style[property]
-        }, { selector, property })
+            return node.style.opacity === '1'
+        }, { selector })
     }
 
     async die () {
