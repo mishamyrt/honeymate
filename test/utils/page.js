@@ -5,6 +5,11 @@ class Page {
     async init (filename) {
         this.browser = await puppeteer.launch()
         this.page = await this.browser.newPage()
+        // The size of the viewport like an iPhone X
+        this.page.setViewport({
+            width: 375,
+            height: 635,
+        })
         await this.page.goto(
             `http://127.0.0.1:1337/test/files/${filename}.html`,
             { waitUntil: 'load' }
