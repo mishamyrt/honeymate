@@ -27,16 +27,16 @@ const addNode = (node) => {
  * Finds the node that the source node expects
  * @param {Object} parameters HoneyNode parsed parameters
  * @param {Number} index Source node index
- * @returns {HoneyNode|undefined} returns undefined if there is no reason to wait
+ * @returns {HoneyNode|null} returns null if there is no reason to wait
  */
 const findWaited = (parameters, index) => {
     if (parameters.continue && index > 1) {
         return nodeByIndex(index - 1)
     } else if (parameters.await) {
         const node = document.querySelectorAll('#' + parameters.await)[0]
-        return node ? addNode(node) : undefined
+        return node ? addNode(node) : null
     }
-    return undefined
+    return null
 }
 
 export class Honeymate {
