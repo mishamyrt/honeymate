@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "isolatedModules": true,
+        "experimentalDecorators": true,
+        "esModuleInterop": true,
+        "strict": true,
+        "noUncheckedIndexedAccess": true,
+        "skipLibCheck": true,
+        "lib": ["DOM", "ES2020"]
+    }
+}
