@@ -34,6 +34,9 @@ devDependencies:
   esm:
     specifier: ^3.2.25
     version: 3.2.25
+  lightningcss-cli:
+    specifier: ^1.20.0
+    version: 1.20.0
   mocha:
     specifier: ^10.2.0
     version: 10.2.0
@@ -2973,6 +2976,96 @@ packages:
     dependencies:
       prelude-ls: 1.2.1
       type-check: 0.4.0
+    dev: true
+
+  /lightningcss-cli-darwin-arm64@1.20.0:
+    resolution: {integrity: sha512-9e0TDne3sXgLYawyGlyNPO1DbpPsn+mmlhiv3ZLF/uvi8ATF/glW7uQg/5hg7S79Qlk3KfXGc06OW0tSo0zP1g==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [arm64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-cli-darwin-x64@1.20.0:
+    resolution: {integrity: sha512-lectbQ/faA9W4MWxdBs0eyvt2/XFMreXcSc+t8+CNgGUkS9uYBRhTwXOs74gPOj1Jl6HI2jiYIBgsjvcmYxHTg==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-cli-linux-arm-gnueabihf@1.20.0:
+    resolution: {integrity: sha512-hsoCX/BsXRBiUGjwANAqSAejNV2rLTN/RH8O+cXoSBc9GrsoHUVM1paaHZdNELJqUIbtA+eAc2wf1gWJQVufOg==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [arm]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-cli-linux-arm64-gnu@1.20.0:
+    resolution: {integrity: sha512-OI+cYAKZnEiXhvI4tiga+H/OBZQJtCK1cPFQbI4eIwAcJ4LZ/4ToG06mCRV/7TEO5loG0RqiBwH/fUsgEI7dtw==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-cli-linux-arm64-musl@1.20.0:
+    resolution: {integrity: sha512-eO0/2cBeZOv2EN+NbH5h93jLqab+EA9iUrcl740tM9epoG0A3OIsVOJqA5sQf0Hakxs565lRzsL5mrch0Yy+BQ==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-cli-linux-x64-gnu@1.20.0:
+    resolution: {integrity: sha512-ajuu3RO7P+pPpHpvdNKbQtdZYXq2ahmdaK3W79aFlVTcOzPIglrG3yRPKXZaiccwRto2eXxs4q8/7cMFKwtwIw==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-cli-linux-x64-musl@1.20.0:
+    resolution: {integrity: sha512-VZwvSKIJldFkSPNpv/Eg7TtS1YO1/RsasGapffuuxNEzertefsX2/hbI1gknW6qMx9kr1kWIH5V0+keR2t/+CA==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-cli-win32-x64-msvc@1.20.0:
+    resolution: {integrity: sha512-ztjrhdJwL5X4iYgLyDkRVGLtdG1UJpCSnkfyfc1huyL+8i2pDTlr00G4kkr0QCMRKeWAZDLAWgQoSlPDI2vGFw==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [x64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-cli@1.20.0:
+    resolution: {integrity: sha512-jB72KR3P35dotpi7LLy6LGa4uMaTJdkXcBXjuVn6hBCzs6S0FV7nhnUt4bLhbSJnT/J1T1JExY4soN/mzgZXDA==}
+    engines: {node: '>= 12.0.0'}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      detect-libc: 1.0.3
+    optionalDependencies:
+      lightningcss-cli-darwin-arm64: 1.20.0
+      lightningcss-cli-darwin-x64: 1.20.0
+      lightningcss-cli-linux-arm-gnueabihf: 1.20.0
+      lightningcss-cli-linux-arm64-gnu: 1.20.0
+      lightningcss-cli-linux-arm64-musl: 1.20.0
+      lightningcss-cli-linux-x64-gnu: 1.20.0
+      lightningcss-cli-linux-x64-musl: 1.20.0
+      lightningcss-cli-win32-x64-msvc: 1.20.0
     dev: true
 
   /lightningcss-darwin-arm64@1.20.0:

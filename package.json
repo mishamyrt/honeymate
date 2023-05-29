@@ -1,54 +1,63 @@
 {
-    "name": "honeymate",
-    "version": "4.0.0",
-    "description": "Dead simple loading animations",
-    "module": "dist/honeymate.mjs",
-    "keywords": [
-        "js",
-        "animations",
-        "esm",
-        "coordinator"
-    ],
-    "scripts": {
-        "dev": "npx rollup -c && npx rollup -c --environment module:true",
-        "build": "pnpm parcel build",
-        "server": "rm -f test/files/honeymate.js && ln lib/index.esm.js test/files/honeymate.js && node test/index.js",
-        "test": "npm run check-codestyle && npm run unit-tests && npm run dev && npm run integration-tests",
-        "check-codestyle": "npx eslint ./ && npx remark *.md",
-        "unit-tests": "npx mocha test/unit/* --timeout 20000 --exit",
-        "integration-tests": "npx mocha test/index.js --timeout 20000 --exit",
-        "fix-codestyle": "npx eslint ./ --fix"
-    },
-    "source": "src/index.ts",
-    "main": "lib/index.esm.js",
-    "types": "lib/index.d.ts",
-    "targets": {
-        "main": {
-          "optimize": true
-        }
-    },
-    "author": "Khrustik Mikhael",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/mishamyrt/honeymate/issues"
-    },
-    "devDependencies": {
-        "@parcel/packager-ts": "2.9.1",
-        "@parcel/transformer-typescript-types": "2.9.1",
-        "@typescript-eslint/eslint-plugin": "^5.43.0",
-        "chai": "^4.3.7",
-        "chai-as-promised": "^7.1.1",
-        "eslint": "^8.41.0",
-        "eslint-config-standard-with-typescript": "^34.0.1",
-        "eslint-plugin-import": "^2.25.2",
-        "eslint-plugin-n": "^15.0.0",
-        "eslint-plugin-promise": "^6.0.0",
-        "esm": "^3.2.25",
-        "mocha": "^10.2.0",
-        "node-static": "^0.7.11",
-        "parcel": "^2.9.1",
-        "puppeteer": "^20.4.0",
-        "static-server": "^2.2.1",
-        "typescript": "^5.0.4"
+  "name": "honeymate",
+  "version": "4.0.0",
+  "description": "Dead simple loading animations",
+  "type": "module",
+  "keywords": [
+    "js",
+    "animations",
+    "esm",
+    "coordinator"
+  ],
+  "scripts": {
+    "dev": "npx rollup -c && npx rollup -c --environment module:true",
+    "build": "pnpm run '/^build:.*/'",
+    "build:js": "pnpm parcel build",
+    "build:css": "pnpm lightningcss -m src/styles.css -o lib/honeymate.css",
+    "server": "rm -f test/files/honeymate.js && ln lib/index.esm.js test/files/honeymate.js && node test/index.js",
+    "test": "npm run check-codestyle && npm run unit-tests && npm run dev && npm run integration-tests",
+    "check-codestyle": "npx eslint ./ && npx remark *.md",
+    "unit-tests": "npx mocha test/unit/* --timeout 20000 --exit",
+    "integration-tests": "npx mocha test/index.js --timeout 20000 --exit",
+    "fix-codestyle": "npx eslint ./ --fix"
+  },
+  "source": "src/index.ts",
+  "main": "lib/index.esm.js",
+  "types": "lib/index.d.ts",
+  "targets": {
+    "main": {
+      "optimize": true
     }
+  },
+  "files": [
+    "lib",
+    "package.json",
+    "LICENSE",
+    "README.md"
+  ],
+  "author": "Khrustik Mikhael",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mishamyrt/honeymate/issues"
+  },
+  "devDependencies": {
+    "@parcel/packager-ts": "2.9.1",
+    "@parcel/transformer-typescript-types": "2.9.1",
+    "@typescript-eslint/eslint-plugin": "^5.43.0",
+    "chai": "^4.3.7",
+    "chai-as-promised": "^7.1.1",
+    "eslint": "^8.41.0",
+    "eslint-config-standard-with-typescript": "^34.0.1",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "esm": "^3.2.25",
+    "lightningcss-cli": "^1.20.0",
+    "mocha": "^10.2.0",
+    "node-static": "^0.7.11",
+    "parcel": "^2.9.1",
+    "puppeteer": "^20.4.0",
+    "static-server": "^2.2.1",
+    "typescript": "^5.0.4"
+  }
 }

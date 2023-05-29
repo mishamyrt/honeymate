@@ -7,19 +7,48 @@
   <title>Document</title>
 </head>
 <body>
+  <button id="replay">Проиграть заново</button>
   <div class="container">
-    <div class="image-wrapper">
-      <img src="https://placehold.co/600x400?text=Hlo+World" />
+    <div data-hold="200" class="image-wrapper honey">
+      <img src="https://placekitten.com/640/360" />
     </div>
-    <div class="image-wrapper">
-      <img src="https://placehold.co/600x400?text=Hlo+Wod" />
+    <div data-hold="200" class="image-wrapper honey">
+      <img src="https://placekitten.com/641/360" />
     </div>
-    <div class="image-wrapper">
-      <img src="https://placehold.co/600x400?text=Hlo+Wold" />
+    <div data-hold="200"  class="image-wrapper honey">
+      <img src="https://placekitten.com/640/361" />
     </div>
-    <div class="image-wrapper">
-      <img src="https://placehold.co/600x400?text=lo+od" />
+    <div data-hold="200"  class="image-wrapper honey">
+      <img src="https://placekitten.com/642/350" />
+    </div>
+    <div data-hold="200"  class="image-wrapper honey">
+      <img src="https://placekitten.com/643/350" />
+    </div>
+    <div data-hold="200"  class="image-wrapper honey">
+      <img src="https://placekitten.com/644/350" />
     </div>
   </div>
+  <style>
+    .container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    img {
+      width: 100%;
+    }
+    .honey {
+      opacity: 0;
+    }
+  </style>
 </body>
+<script type="module">
+  import { animate, reset } from './honeymate.js';
+  animate()
+
+  const button = document.getElementById('replay')
+  button.onclick = () => {
+
+  }
+</script>
 </html>

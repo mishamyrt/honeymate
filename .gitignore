@@ -1,5 +1,6 @@
 node_modules/
 lib/
+dist/
 .parcel-cache/
 
 # Symlink

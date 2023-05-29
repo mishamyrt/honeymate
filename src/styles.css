@@ -1,0 +1,20 @@
+.honey {
+  opacity: 0;
+}
+
+.honey.__visible {
+  opacity: 1;
+}
+
+:root {
+  --honey-spinner: black;
+}
+
+@keyframes honeySpin {
+  from {
+    transform:rotate(-360deg)
+  }
+  to {
+    transform:rotate(360deg)
+  }
+}
