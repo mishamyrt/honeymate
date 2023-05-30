@@ -50,7 +50,7 @@ export function parseDataParams (data: DOMStringMap): AnimationParams {
   return {
     direction: directionFromData(data),
     duration: safeParseInt(data.duration, 640),
-    effect: data.effect ? data.effect as unknown as AnimationEffect : 'fade',
+    effect: data.effect ? data.effect as unknown as AnimationEffect : 'slide',
     expose: supportsExpose && (data as Record<string, string>).hasOwnProperty('expose'),
     delay: safeParseInt(data.delay, 0),
     hold: safeParseInt(data.hold, 0),
