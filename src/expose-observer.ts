@@ -8,12 +8,9 @@ export class ExposeObserver {
     const callback: IntersectionObserverCallback = (entries) => {
       entries.forEach((entry) => {
         const element = registry.getElement(entry.target as HTMLElement)
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting && !element.exposed) {
           element.show()
             .then(() => {})
-            .catch(console.error)
-        } else {
-          element.hide()
         }
       })
     }

@@ -12,6 +12,7 @@ export class HoneyElement {
   private readonly images: string[] = []
   private awaitedElement: Maybe<HoneyElement>
   private spinner: Maybe<HTMLDivElement>
+  private isExposed = false
 
   constructor (public readonly node: HTMLElement) {
     this.params = parseDataParams(node.dataset)
@@ -22,6 +23,10 @@ export class HoneyElement {
     this.awaitedElement = el
   }
 
+  public get exposed (): boolean {
+    return this.isExposed
+  }
+
   public async ready (): Promise<void> {
     if (this.awaitedElement) {
       await this.awaitedElement.ready()
@@ -30,15 +35,9 @@ export class HoneyElement {
     await Promise.all(requests)
   }
 
-  public async visible (): Promise<void> {
-    await this.ready()
-    if (this.params.hold) {
-      await sleep(this.params.hold)
-    }
-  }
-
   public hide (): void {
     this.node.classList.remove('__visible')
+    this.isExposed = false
   }
 
   public showSpinner (): void {
@@ -46,6 +45,7 @@ export class HoneyElement {
   }
 
   public async show (): Promise<void> {
+    this.isExposed = true
     if (this.spinner) {
       removeSpinner(this.spinner)
     }

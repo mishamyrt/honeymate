@@ -24,7 +24,6 @@ export function animate (): void {
     }
     const element = registry.getElement(nodes[i] as HTMLElement)
     if (element.params.spin) {
-      console.log(element)
       element.showSpinner()
     }
     const previous = findAwaited(element, i)
@@ -35,12 +34,10 @@ export function animate (): void {
       element
         .ready()
         .then(() => { observer.add(element) })
-        .catch(console.error)
     } else {
       element
         .ready()
         .then(async () => { await element.show() })
-        .catch(console.error)
     }
   }
 }
