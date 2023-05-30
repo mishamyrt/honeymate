@@ -20,7 +20,7 @@ export class ExposeObserver {
 
     this.observer = new IntersectionObserver(callback, {
       rootMargin: '0px 0px 0px 0px',
-      threshold: 0
+      threshold: 0.05
     })
   }
 

@@ -12,6 +12,7 @@
   "scripts": {
     "dev": "npx rollup -c && npx rollup -c --environment module:true",
     "build": "pnpm run '/^build:.*/'",
+    "preview": "pnpm parcel preview/index.html",
     "build:js": "pnpm parcel build",
     "build:css": "pnpm lightningcss -m src/styles.css -o lib/honeymate.css",
     "server": "rm -f test/files/honeymate.js && ln lib/index.esm.js test/files/honeymate.js && node test/index.js",

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Honeymate preview</title>
+</head>
+
+<body>
+  <div class="module">
+    <h2>Animations</h2>
+    <button>Replay</button>
+    <div class="columns">
+      <div data-effect="relax" class="honey">
+        <h3>Relax</h3>
+        <img width="480px" src="https://placekitten.com/480/480?1" />
+      </div>
+      <div data-effect="zoom" class="honey">
+        <h3>Zoom</h3>
+        <img width="480px" src="https://placekitten.com/480/480?2" />
+      </div>
+      <div data-effect="slide" class="honey">
+        <h3>Slide (default)</h3>
+        <img width="480px" src="https://placekitten.com/480/480?3" />
+      </div>
+      <div data-effect="helix" class="honey">
+        <h3>Helix</h3>
+        <img width="480px" src="https://placekitten.com/480/480?4" />
+      </div>
+    </div>
+  </div>
+  <div class="module">
+    <h2>Expose</h2>
+    <button>Replay</button>
+    <div class="columns">
+      <div data-expose data-effect="relax" class="honey">
+        <img width="480px" src="https://placekitten.com/480/480?1" />
+      </div>
+      <div data-expose data-effect="zoom" class="honey">
+        <img width="480px" src="https://placekitten.com/480/480?2" />
+      </div>
+      <div data-expose data-effect="slide" class="honey">
+        <img width="480px" src="https://placekitten.com/480/480?3" />
+      </div>
+      <div data-expose data-effect="helix" class="honey">
+        <img width="480px" src="https://placekitten.com/480/480?4" />
+      </div>
+      <div data-expose data-effect="relax" class="honey">
+        <img width="480px" src="https://placekitten.com/480/480?1" />
+      </div>
+      <div data-expose data-effect="zoom" class="honey">
+        <img width="480px" src="https://placekitten.com/480/480?2" />
+      </div>
+      <div data-expose data-effect="slide" class="honey">
+        <img width="480px" src="https://placekitten.com/480/480?3" />
+      </div>
+      <div data-expose data-effect="helix" class="honey">
+        <img width="480px" src="https://placekitten.com/480/480?4" />
+      </div>
+    </div>
+  </div>
+  <link rel="stylesheet" href="../src/styles.css">
+  <style>
+    body,
+    html {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    .columns {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+    }
+  </style>
+  <script type="module">
+    import { animate, reset } from "../src/index.ts"
+
+    animate()
+
+    const button = document.querySelectorAll('button')
+    button.forEach((b) => {
+      const module = b.parentElement
+      b.onclick = () => {
+        reset(module)
+        animate()
+      }
+    })
+  </script>
+</body>
+
+</html>

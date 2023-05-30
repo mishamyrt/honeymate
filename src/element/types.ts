@@ -5,7 +5,7 @@ export enum AnimationDirection {
   left = 'left'
 }
 
-export type AnimationEffect = 'zoom' | 'helix' | 'slide' | 'relax' | 'fade'
+export type AnimationEffect = 'zoom' | 'helix' | 'slide' | 'relax'
 
 export interface AnimationParams {
   direction: AnimationDirection

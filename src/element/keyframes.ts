@@ -33,12 +33,6 @@ export function createAnimation (params: AnimationParams): [Keyframe[], Keyframe
       frameFrom.transform = `scale(${params.scale}) rotate(90deg)`
       easing = 'cubic-bezier(0,.75,.25,1)'
       break
-    case 'slide':
-      frameFrom.transform = generateSlide(params.direction, params.offset)
-      frameFrom.transformOrigin = params.origin
-      frameTo.transformOrigin = params.origin
-      easing = 'cubic-bezier(0,.9,.1,1)'
-      break
     case 'relax':
       frameFrom.transform = `scaleY(${params.scale})`
       frameFrom.transformOrigin = params.origin
@@ -46,7 +40,10 @@ export function createAnimation (params: AnimationParams): [Keyframe[], Keyframe
       easing = 'cubic-bezier(0,0,0,1)'
       break
     default:
-      easing = 'ease'
+      frameFrom.transform = generateSlide(params.direction, params.offset)
+      frameFrom.transformOrigin = params.origin
+      frameTo.transformOrigin = params.origin
+      easing = 'cubic-bezier(0,.9,.1,1)'
       break
   }
   return [[frameFrom as Keyframe, frameTo as Keyframe], {
