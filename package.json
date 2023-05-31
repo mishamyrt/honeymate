@@ -14,7 +14,7 @@
     "build": "pnpm run '/^build:.*/'",
     "preview": "pnpm parcel preview/index.html",
     "build:js": "pnpm parcel build",
-    "build:css": "pnpm lightningcss -m src/styles.css -o lib/honeymate.css",
+    "build:css": "pnpm lightningcss -m src/styles.css -o lib/styles.css",
     "server": "rm -f test/files/honeymate.js && ln lib/index.esm.js test/files/honeymate.js && node test/index.js",
     "test": "npm run check-codestyle && npm run unit-tests && npm run dev && npm run integration-tests",
     "check-codestyle": "npx eslint ./ && npx remark *.md",
