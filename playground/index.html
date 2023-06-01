@@ -18,7 +18,7 @@
         Library for loading animations of static pages.
       </p>
     </div>
-    <svg data-right="100" data-delay="150" class="logo honey" xmlns="http://www.w3.org/2000/svg"
+    <svg id="logo" data-right="100" data-delay="150" class="logo honey" xmlns="http://www.w3.org/2000/svg"
      fill="none" viewBox="0 0 690 695">
       <g fill-rule="evenodd" clip-path="url(#a)" clip-rule="evenodd">
         <path class="logo-hexagon" fill="#FACC55"
@@ -36,7 +36,7 @@
     </svg>
   </div>
 
-  <div data-bottom="100" data-continue data-delay="200" class="module honey">
+  <div data-bottom="100" data-await="logo" data-delay="200" class="module honey">
     <div class="module-heading">
       <h2>Effects</h2>
       <button>Replay</button>
@@ -68,7 +68,7 @@
       </div>
     </div>
   </div>
-  <div class="module">
+  <div data-bottom="100" data-await="logo" data-delay="200" class="module honey">
     <div class="module-heading">
       <h2>Awaits</h2>
       <button>Replay</button>
@@ -88,47 +88,23 @@
       </div>
     </div>
   </div>
-  <div class="module">
+  <div  data-bottom="100" data-await="logo" data-delay="200" class="module honey">
     <div class="module-heading">
-      <h2>Expose</h2>
+      <h2>Control</h2>
       <button>Replay</button>
     </div>
-    <div class="columns">
-      <div data-expose id="expose-first" class="honey">
-        <div class="square"></div>
+    <div class="columns expose-screen">
+      <div data-await="last-expose" data-spin-size="64" data-left="100" data-spin class="block honey">
+        Exposes
       </div>
-      <div data-continue data-await="expose-first" data-delay="200" class="honey">
-        <div class="square"></div>
+      <div data-delay="300" data-bottom="100" data-continue class="block honey">
+        on
       </div>
-      <div data-continue data-delay="200" class="honey">
-        <div class="square"></div>
+      <div data-delay="400" data-right="100" data-continue class="block honey">
+        scroll
       </div>
-      <div data-continue data-delay="200" class="honey">
-        <div class="square"></div>
-      </div>
-      <div data-expose id="expose-second" class="honey">
-        <div class="square"></div>
-      </div>
-      <div data-continue data-await="expose-second" data-delay="200" class="honey">
-        <div class="square"></div>
-      </div>
-      <div data-continue data-delay="200" class="honey">
-        <div class="square"></div>
-      </div>
-      <div data-continue data-delay="200" class="honey">
-        <div class="square"></div>
-      </div>
-      <div data-expose id="expose-third" class="honey">
-        <div class="square"></div>
-      </div>
-      <div data-continue data-await="expose-third" data-delay="200" class="honey">
-        <div class="square"></div>
-      </div>
-      <div data-continue data-delay="200" class="honey">
-        <div class="square"></div>
-      </div>
-      <div data-continue data-delay="200" class="honey">
-        <div class="square"></div>
+      <div id="last-expose" data-expose class="block trigger honey">
+        Trigger ←
       </div>
     </div>
   </div>

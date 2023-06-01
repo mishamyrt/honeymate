@@ -16,15 +16,24 @@ function expose (button?: HTMLButtonElement, node: ParentNode = document): void 
 
 expose()
 
+function reloadAll (): void {
+  reset()
+  setTimeout(() => {
+    expose()
+  }, 500)
+}
+
 const logoButton = document.querySelector<HTMLElement>('.logo')
 if (logoButton) {
-  logoButton.onclick = () => {
-    reset()
-    setTimeout(() => {
-      expose()
-    }, 500)
-  }
+  logoButton.onclick = reloadAll
 }
+
+window.addEventListener('keydown', (e: KeyboardEvent) => {
+  if (e.key === 'r' && e.ctrlKey) {
+    e.preventDefault()
+    reloadAll()
+  }
+})
 
 const modules = document.querySelectorAll<HTMLElement>('.module')
 modules.forEach(m => {
