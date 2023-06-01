@@ -22,7 +22,6 @@ export function animate (target: ParentNode = document, prepareParams?: ParamsBu
     const previous = registry.getAwaited(element)
     if (previous) {
       element.setAwaited(previous)
-      console.log(node, previous)
     }
     if (element.params.expose) {
       return element

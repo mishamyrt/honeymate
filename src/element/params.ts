@@ -71,6 +71,6 @@ export function parseDataParams (data: DOMStringMap): AnimationParams {
     continue: isPropertyExists(data, 'continue'),
     // Spinner
     spin: isPropertyExists(data, 'spin'),
-    spinSize: safeParseInt(data['spin-size'], 24)
+    spinSize: safeParseInt(data.spinSize, 24)
   }
 }
