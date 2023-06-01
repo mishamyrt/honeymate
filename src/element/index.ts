@@ -1,1 +1,1 @@
-export { HoneyElement } from './honey'
+export { HoneyElement } from './element'

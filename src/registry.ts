@@ -1,4 +1,4 @@
-import { HoneyElement } from './element/honey'
+import { HoneyElement } from './element/element'
 import { type Maybe } from './types'
 
 export class HoneyRegistry {
@@ -28,7 +28,7 @@ export class HoneyRegistry {
   public getAwaited (el: HoneyElement): Maybe<HoneyElement> {
     if (el.params.continue) {
       if (this.storage.size > 0) {
-        return this.getByIndex(this.storage.size - 1)
+        return this.getByIndex(this.storage.size - 2)
       } else {
         return undefined
       }
@@ -57,5 +57,3 @@ export class HoneyRegistry {
     return element
   }
 }
-
-// export const Registry = new HoneyRegistry()

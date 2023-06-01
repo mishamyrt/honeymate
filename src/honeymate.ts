@@ -1,17 +1,18 @@
+import { CLASS_MAIN, CLASS_VISIBLE } from './constants'
 import { ExposeObserver } from './expose-observer'
 import { HoneyRegistry } from './registry'
 import { type ParamsBuilder } from './types'
 
 const registry = new HoneyRegistry()
+const observer = new ExposeObserver(registry)
 
-export function animate (target: ParentNode = document, prepareParams?: ParamsBuilder): void {
-  const nodes = target.querySelectorAll('.honey:not(.__visible)')
+export function animate (target: ParentNode = document, prepareParams?: ParamsBuilder): Promise<unknown> {
+  const nodes = Array.from(
+    target.querySelectorAll(`.${CLASS_MAIN}:not(.${CLASS_VISIBLE})`)
+  )
   const observer = new ExposeObserver(registry)
-  for (let i = 0; i < nodes.length; i++) {
-    if (!nodes[i]) {
-      continue
-    }
-    const element = registry.getElement(nodes[i] as HTMLElement)
+  const animations = nodes.map(node => {
+    const element = registry.getElement(node as HTMLElement)
     if (prepareParams) {
       element.params = prepareParams(element.params)
     }
@@ -21,24 +22,26 @@ export function animate (target: ParentNode = document, prepareParams?: ParamsBu
     const previous = registry.getAwaited(element)
     if (previous) {
       element.setAwaited(previous)
+      console.log(node, previous)
     }
     if (element.params.expose) {
-      element
+      return element
         .ready()
-        .then(() => { observer.add(element) })
-    } else {
-      element
-        .ready()
-        .then(async () => { await element.show() })
+        .then(() => observer.add(element))
     }
-  }
+    return element
+      .ready()
+      .then(() => element.show())
+  })
+  return Promise.all(animations)
 }
 
 export function reset (target: ParentNode = document): void {
-  const nodes = target.querySelectorAll('.honey.__visible')
+  const nodes = target.querySelectorAll(`.${CLASS_MAIN}.${CLASS_VISIBLE}`)
 
   nodes.forEach((node) => {
-    node.classList.remove('__visible')
+    node.classList.remove(CLASS_VISIBLE)
   })
   registry.clear()
+  observer.clear()
 }

@@ -1,9 +1,9 @@
-import { AnimationDirection, type AnimationParams, type FrameDescription } from './types'
+import { AnimationDirection, type AnimationParams } from './types'
 
 /**
  * Generates CSS transform string for slide transition
  */
-function generateSlide (direction: AnimationDirection, offset: number): string {
+function formatTranslate (direction: AnimationDirection, offset: number): string {
   let transformString =
     direction === AnimationDirection.top ||
     direction === AnimationDirection.bottom
@@ -15,10 +15,10 @@ function generateSlide (direction: AnimationDirection, offset: number): string {
 
 export function createAnimation (params: AnimationParams): [Keyframe[], KeyframeAnimationOptions] {
   let easing
-  const frameFrom: FrameDescription = {
+  const frameFrom: Partial<CSSStyleDeclaration> = {
     opacity: '0'
   }
-  const frameTo: FrameDescription = {
+  const frameTo: Partial<CSSStyleDeclaration> = {
     opacity: '1',
     transform: 'scale(1) scaleY(1) scaleX(1) rotate(0deg)'
   }
@@ -38,7 +38,7 @@ export function createAnimation (params: AnimationParams): [Keyframe[], Keyframe
       easing = 'cubic-bezier(0,0,0,1)'
       break
     default:
-      frameFrom.transform = generateSlide(params.direction, params.offset)
+      frameFrom.transform = formatTranslate(params.direction, params.offset)
       frameFrom.transformOrigin = params.origin
       frameTo.transformOrigin = params.origin
       easing = 'cubic-bezier(0,.9,.1,1)'

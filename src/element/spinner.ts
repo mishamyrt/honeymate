@@ -1,4 +1,4 @@
-import { type HoneyElement } from './element'
+import { type HoneyElement } from '.'
 
 /**
  * Generates spinner SVG string
@@ -32,7 +32,6 @@ export function generateSpinner (element: HoneyElement): HTMLDivElement {
   setTimeout(() => {
     const doc = document.documentElement
     const rect = element.node.getBoundingClientRect()
-    console.log(rect)
     applyStyle(spinNode, {
       position: 'absolute',
       top: `${rect.top + doc.scrollTop}px`,

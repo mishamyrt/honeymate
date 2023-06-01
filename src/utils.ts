@@ -9,3 +9,7 @@ export async function imageLoaded (url: string): Promise<boolean> {
     image.src = url
   })
 }
+
+export async function sleep (ms: number): Promise<void> {
+  await new Promise(resolve => setTimeout(resolve, ms))
+}

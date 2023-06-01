@@ -4,11 +4,14 @@ import { type HoneyRegistry } from './registry'
 export class ExposeObserver {
   private readonly observer: IntersectionObserver
 
-  constructor (registry: HoneyRegistry) {
+  constructor (
+    registry: HoneyRegistry,
+    private readonly rootMargin = '10%'
+  ) {
     const callback: IntersectionObserverCallback = (entries) => {
       entries.forEach((entry) => {
         const element = registry.getElement(entry.target as HTMLElement)
-        if (entry.isIntersecting && !element.exposed) {
+        if (entry.isIntersecting && !element.visible) {
           element.show()
             .then(() => {})
         }
@@ -16,9 +19,13 @@ export class ExposeObserver {
     }
 
     this.observer = new IntersectionObserver(callback, {
-      rootMargin: '0px 0px 0px 0px',
+      rootMargin: this.rootMargin,
       threshold: 0.05
     })
+  }
+
+  public clear (): void {
+    this.observer.disconnect()
   }
 
   public add (element: HoneyElement): void {

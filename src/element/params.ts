@@ -1,5 +1,9 @@
-import { type Maybe } from '../types'
-import { AnimationDirection, type AnimationParams, type AnimationEffect } from './types'
+import {
+  AnimationDirection,
+  type AnimationParams,
+  type AnimationEffect,
+  type Maybe
+} from '../types'
 
 function directionFromData (data: DOMStringMap): AnimationDirection {
   if (data.left) {
@@ -43,24 +47,30 @@ function offsetFromData (data: DOMStringMap, fallback: number): number {
   }
 }
 
+function isPropertyExists (data: DOMStringMap, propName: string): boolean {
+  return (data as Record<string, string>).hasOwnProperty(propName)
+}
+
 /**
 * Transform dataset to HoneyNode parameters
 */
 export function parseDataParams (data: DOMStringMap): AnimationParams {
   return {
-    direction: directionFromData(data),
-    duration: safeParseInt(data.duration, 640),
+    // Appearance
     effect: data.effect ? data.effect as unknown as AnimationEffect : 'slide',
-    expose: supportsExpose && (data as Record<string, string>).hasOwnProperty('expose'),
-    delay: safeParseInt(data.delay, 0),
-    hold: safeParseInt(data.hold, 0),
-    scale: safeParseFloat(data.scale, 0.87),
-    await: data.await ?? '',
+    direction: directionFromData(data),
     origin: data.origin ? data.origin as AnimationDirection : AnimationDirection.top,
+    scale: safeParseFloat(data.scale, 0.87),
     offset: offsetFromData(data, 32),
-    spin: (data as Record<string, string>).hasOwnProperty('spin'),
-    spinColor: data['spin-color'] ?? '#000',
-    spinSize: safeParseInt(data['spin-size'], 24),
-    continue: (data as Record<string, string>).hasOwnProperty('continue')
+    // Timings
+    duration: safeParseInt(data.duration, 640),
+    delay: safeParseInt(data.delay, 0),
+    // Awaits
+    expose: supportsExpose && isPropertyExists(data, 'expose'),
+    await: data.await ?? '',
+    continue: isPropertyExists(data, 'continue'),
+    // Spinner
+    spin: isPropertyExists(data, 'spin'),
+    spinSize: safeParseInt(data['spin-size'], 24)
   }
 }
