@@ -25,6 +25,20 @@ export class HoneyRegistry {
     return element
   }
 
+  public getAwaited (el: HoneyElement): Maybe<HoneyElement> {
+    if (el.params.continue) {
+      if (this.storage.size > 0) {
+        return this.getByIndex(this.storage.size - 1)
+      } else {
+        return undefined
+      }
+    } else if (el.params.await) {
+      const node = document.getElementById(el.params.await)
+      return node ? this.getElement(node) : undefined
+    }
+    return undefined
+  }
+
   public get size (): number {
     return this.storage.size
   }
