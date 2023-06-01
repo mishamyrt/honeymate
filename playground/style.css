@@ -93,13 +93,6 @@ button:disabled {
   pointer-events: none;
 }
 
-.logo {
-  width: 175px;
-  height: 100%;
-  position: relative;
-  top: 1vw;
-}
-
 .hero {
   align-items: center;
   gap: 45px;
@@ -125,4 +118,35 @@ button:disabled {
   aspect-ratio: 1 / 1;
   width: 100%;
   background-color: #2C8D6C;
+}
+
+.logo {
+  width: 175px;
+  height: 100%;
+  position: relative;
+  top: 1vw;
+  transition: transform .4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.logo:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+.logo-hexagon {
+  transition: fill .4s cubic-bezier(0.16, 1, 0.3, 1);
+  fill: #FACC55;
+}
+
+.logo-play {
+  transition: fill .4s cubic-bezier(0.16, 1, 0.3, 1);
+  fill: #2C8D6C;
+}
+
+.logo:hover .logo-hexagon {
+  fill: #384f47;
+}
+
+.logo:hover .logo-play {
+  fill: #FACC55;
 }

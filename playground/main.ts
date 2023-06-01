@@ -16,6 +16,16 @@ function expose (button?: HTMLButtonElement, node: ParentNode = document): void 
 
 expose()
 
+const logoButton = document.querySelector<HTMLElement>('.logo')
+if (logoButton) {
+  logoButton.onclick = () => {
+    reset()
+    setTimeout(() => {
+      expose()
+    }, 500)
+  }
+}
+
 const modules = document.querySelectorAll<HTMLElement>('.module')
 modules.forEach(m => {
   const button = m.querySelector<HTMLButtonElement>('button')
