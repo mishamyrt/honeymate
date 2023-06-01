@@ -11,9 +11,10 @@
   ],
   "scripts": {
     "dev": "pnpm parcel --port 3000 preview/index.html",
-    "build": "pnpm run '/^build:.*/'",
-    "build:js": "pnpm parcel build",
-    "build:css": "pnpm lightningcss -m src/styles.css -o lib/styles.css",
+    "build-preview": "pnpm parcel build ./playground --public-url /honeymate/ --dist-dir=./playground/dist",
+    "build-lib": "pnpm run '/^build-lib:.*/'",
+    "build-lib:js": "pnpm parcel build",
+    "build-lib:css": "pnpm lightningcss -m src/styles.css -o lib/styles.css",
     "server": "rm -f test/files/honeymate.js && ln lib/index.esm.js test/files/honeymate.js && node test/index.js",
     "test": "npm run check-codestyle && npm run unit-tests && npm run dev && npm run integration-tests",
     "lint": "pnpm run '/^lint:.*/'",
@@ -42,7 +43,9 @@
     "url": "https://github.com/mishamyrt/honeymate/issues"
   },
   "devDependencies": {
+    "@parcel/config-default": "^2.9.1",
     "@parcel/packager-ts": "2.9.1",
+    "@parcel/transformer-typescript-tsc": "^2.9.1",
     "@parcel/transformer-typescript-types": "2.9.1",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "chai": "^4.3.7",
