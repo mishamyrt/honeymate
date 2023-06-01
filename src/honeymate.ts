@@ -4,7 +4,7 @@ import { type ParamsBuilder } from './types'
 
 const registry = new HoneyRegistry()
 
-export function animate (target = document, prepareParams?: ParamsBuilder): void {
+export function animate (target: ParentNode = document, prepareParams?: ParamsBuilder): void {
   const nodes = target.querySelectorAll('.honey:not(.__visible)')
   const observer = new ExposeObserver(registry)
   for (let i = 0; i < nodes.length; i++) {
@@ -34,7 +34,7 @@ export function animate (target = document, prepareParams?: ParamsBuilder): void
   }
 }
 
-export function reset (target = document): void {
+export function reset (target: ParentNode = document): void {
   const nodes = target.querySelectorAll('.honey.__visible')
 
   nodes.forEach((node) => {
