@@ -10,18 +10,17 @@
     "coordinator"
   ],
   "scripts": {
-    "dev": "npx rollup -c && npx rollup -c --environment module:true",
+    "dev": "pnpm parcel --port 3000 preview/index.html",
     "build": "pnpm run '/^build:.*/'",
-    "preview": "pnpm parcel --port 3000 preview/index.html",
     "build:js": "pnpm parcel build",
     "build:css": "pnpm lightningcss -m src/styles.css -o lib/styles.css",
     "server": "rm -f test/files/honeymate.js && ln lib/index.esm.js test/files/honeymate.js && node test/index.js",
     "test": "npm run check-codestyle && npm run unit-tests && npm run dev && npm run integration-tests",
     "lint": "pnpm run '/^lint:.*/'",
     "lint:scripts": "eslint 'src/**/*.ts'",
+    "lint-fix:scripts": "eslint --fix 'src/**/*.ts'",
     "unit-tests": "npx mocha test/unit/* --timeout 20000 --exit",
-    "integration-tests": "npx mocha test/index.js --timeout 20000 --exit",
-    "fix-codestyle": "npx eslint ./ --fix"
+    "integration-tests": "npx mocha test/index.js --timeout 20000 --exit"
   },
   "source": "src/index.ts",
   "main": "lib/index.esm.js",

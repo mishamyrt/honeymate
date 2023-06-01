@@ -1,0 +1,128 @@
+body,
+html {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: #1E1E1E;
+  color: rgb(255 248 231 / 87%);
+}
+
+
+body {
+  margin: 50px 100px;
+}
+
+.title-honey {
+  color: #facc56;
+}
+
+.title-mate {
+  color: white;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.module {
+  margin-bottom: 5vw;
+}
+
+.module-heading  {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  margin-bottom: 40px;
+}
+
+img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+h1 {
+  font-size: 9vw;
+  font-weight: 600;
+  margin: 0;
+  margin-left: -0.5vw;
+}
+
+h2 {
+  font-size: 6vw;
+  margin: 0;
+}
+
+button {
+  appearance: none;
+  height: fit-content;
+  color: white;
+  width: 175px;
+  background-color: transparent;
+  border: none;
+  outline: 7px solid #facc56;
+  border-radius: 100px;
+  padding: 21px 0px;
+  font-size: 24px;
+  font-weight: bold;
+  transition: outline .6s, transform 0.6s, color 0.6s;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+button:hover {
+  cursor: pointer;
+  outline: 12px solid #facc56;
+  transform: scale(1.02);
+  transition: outline .6s, transform 0.6s, color 0.6s;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+button:active {
+  cursor: pointer;
+  outline: 3px solid #facc56;
+  transform: scale(1);
+  transition: outline .6s, transform 0.6s, color 0.6s;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+button:disabled {
+  transition: outline .6s, transform 0.6s, color 0.6s;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  outline: 7px solid #837a6487;
+  transform: scale(1);
+  color: #fff8e75c;
+  pointer-events: none;
+}
+
+.logo {
+  width: 175px;
+  height: 100%;
+  position: relative;
+  top: 1vw;
+}
+
+.hero {
+  align-items: center;
+  gap: 45px;
+  margin-top: 82px;
+  margin-bottom: 106px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.hero-title {
+  position: relative;
+}
+
+.hero-subtitle {
+  position: absolute;
+  bottom: -66px;
+  font-size: 2vw;
+  color: #fff8e75c;
+  font-weight: 500;
+}
+
+.square {
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  background-color: #2C8D6C;
+}
