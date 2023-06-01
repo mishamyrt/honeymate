@@ -79,20 +79,7 @@
       aspect-ratio: 1 / 1;
     }
   </style>
-  <script type="module">
-    import { animate, reset } from "../src/index.ts"
-
-    animate()
-
-    const button = document.querySelectorAll('button')
-    button.forEach((b) => {
-      const module = b.parentElement
-      b.onclick = () => {
-        reset(module)
-        animate()
-      }
-    })
-  </script>
+  <script src="./main.ts" type="module"></script>
 </body>
 
 </html>

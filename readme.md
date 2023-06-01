@@ -164,6 +164,23 @@ honeyNode.options = {
 }
 ```
 
+### JS params processing
+
+When you start the animation, you can process the parameters that were derived from the html.
+
+```ts
+import { animate, reset } from "../src/index.ts"
+
+function expose(node=document) {
+  const params: 
+  animate(node, params => {
+
+  })
+}
+
+expose()
+```
+
 ## Credits
 
 The original idea belongs to Ilya Birman,
