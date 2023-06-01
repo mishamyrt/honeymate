@@ -1,6 +1,4 @@
-import { AnimationDirection, type AnimationParams } from './types'
-
-type FrameDescription = Partial<Record<keyof CSSStyleDeclaration, string>>
+import { AnimationDirection, type AnimationParams, type FrameDescription } from './types'
 
 /**
  * Generates CSS transform string for slide transition

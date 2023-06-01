@@ -23,3 +23,5 @@ export interface AnimationParams {
   spinSize: number
   continue: boolean
 }
+
+export type FrameDescription = Partial<Record<keyof CSSStyleDeclaration, string>>

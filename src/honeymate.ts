@@ -1,16 +1,20 @@
 import { ExposeObserver } from './expose-observer'
 import { HoneyRegistry } from './registry'
+import { type ParamsBuilder } from './types'
 
 const registry = new HoneyRegistry()
 
-export function animate (): void {
-  const nodes = document.querySelectorAll('.honey:not(.__visible)')
+export function animate (target = document, prepareParams?: ParamsBuilder): void {
+  const nodes = target.querySelectorAll('.honey:not(.__visible)')
   const observer = new ExposeObserver(registry)
   for (let i = 0; i < nodes.length; i++) {
     if (!nodes[i]) {
       continue
     }
     const element = registry.getElement(nodes[i] as HTMLElement)
+    if (prepareParams) {
+      element.params = prepareParams(element.params)
+    }
     if (element.params.spin) {
       element.showSpinner()
     }

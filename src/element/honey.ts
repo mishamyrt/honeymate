@@ -8,7 +8,7 @@ import { parseDataParams } from './params'
 import { type AnimationParams } from './types'
 
 export class HoneyElement {
-  public readonly params: AnimationParams
+  public params: AnimationParams
   private readonly images: string[] = []
   private awaitedElement: Maybe<HoneyElement>
   private spinner: Maybe<HTMLDivElement>
