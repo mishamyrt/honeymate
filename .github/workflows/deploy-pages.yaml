@@ -1,4 +1,4 @@
-name: Publish preview
+name: Publish playground
 
 on:
   - push
@@ -32,8 +32,8 @@ jobs:
         with:
           version: 8
 
-      - name: Build preview
-        run: pnpm run build-preview
+      - name: Build playground
+        run: pnpm run build-playground
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1

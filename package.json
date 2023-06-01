@@ -10,8 +10,8 @@
     "coordinator"
   ],
   "scripts": {
-    "dev": "pnpm parcel --port 3000 preview/index.html",
-    "build-preview": "pnpm parcel build ./playground --public-url /honeymate/ --dist-dir=./playground/dist",
+    "dev": "pnpm parcel --port 3000 playground/index.html",
+    "build-playground": "pnpm parcel build ./playground --public-url /honeymate/ --dist-dir=./playground/dist",
     "build-lib": "pnpm run '/^build-lib:.*/'",
     "build-lib:js": "pnpm parcel build",
     "build-lib:css": "pnpm lightningcss -m src/styles.css -o lib/styles.css",
