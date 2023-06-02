@@ -1,16 +1,19 @@
 import { generateSpinner, removeSpinner } from './spinner'
 import type { AnimationParams, Maybe } from '../types'
 import { collectImages } from './collect'
-import { createAnimation } from '../animation'
 import { imageLoaded, sleep } from '../utils'
 import { parseDataParams } from './params'
 import { CLASS_VISIBLE } from '../constants'
+import { type AnimationRenderer } from '../render/types'
+import { renderStyles } from '../render'
 
 enum ElementState {
   Hidden,
   Exposing,
   Exposed
 }
+
+const render: AnimationRenderer = renderStyles
 
 export class HoneyElement {
   public params: AnimationParams
@@ -71,9 +74,7 @@ export class HoneyElement {
     if (this.spinner) {
       removeSpinner(this.spinner)
     }
-    const [frames, options] = createAnimation(this.params)
-    const animation = this.node.animate(frames, options)
-    await animation.finished
+    await render(this.params, this.node)
     this.node.classList.add(CLASS_VISIBLE)
     this.state = ElementState.Exposed
   }
