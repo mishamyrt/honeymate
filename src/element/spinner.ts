@@ -30,22 +30,23 @@ export function generateSpinner (element: HoneyElement): HTMLDivElement {
   spinNode.innerHTML = getSpinner(
     element.params.spinSize
   )
+  const doc = document.documentElement
+  const rect = element.node.getBoundingClientRect()
+  applyStyle(spinNode, {
+    position: 'absolute',
+    top: `${rect.top + doc.scrollTop}px`,
+    left: `${rect.left + doc.scrollLeft}px`,
+    width: `${rect.width}px`,
+    height: `${rect.height}px`,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transition: 'opacity .23s ease-out'
+  })
+  document.body.appendChild(spinNode)
   setTimeout(() => {
-    const doc = document.documentElement
-    const rect = element.node.getBoundingClientRect()
-    applyStyle(spinNode, {
-      position: 'absolute',
-      top: `${rect.top + doc.scrollTop}px`,
-      left: `${rect.left + doc.scrollLeft}px`,
-      width: `${rect.width}px`,
-      height: `${rect.height}px`,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      transition: 'opacity .23s ease-out'
-    })
-    document.body.appendChild(spinNode)
-  }, 100)
+    spinNode.style.opacity = '1'
+  }, 50)
   return spinNode
 }
 
@@ -57,6 +58,6 @@ export function removeSpinner (node: HTMLDivElement): void {
     node.style.opacity = '0'
     setTimeout(() => {
       document.body.removeChild(node)
-    }, 500)
+    }, 300)
   })
 }

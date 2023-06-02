@@ -6,6 +6,11 @@
   opacity: 1;
 }
 
+.honey-spin {
+  opacity: 0;
+  transition: 0.2s ease-out;
+}
+
 :root {
   --honey-spinner: black;
 }
