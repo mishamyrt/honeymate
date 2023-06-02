@@ -1,22 +1,32 @@
+:root {
+  --color-background: #1E1E1E;
+  --color-foreground: rgb(255 248 231 / 87%);
+  --color-honey: #facc56;
+  --color-honey-disabled: #837a6487;
+  --color-green: #2C8D6C;
+  --font-family:  system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
 body,
 html {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background-color: #1E1E1E;
-  color: rgb(255 248 231 / 87%);
+  font-family: var(--font-family);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  color-scheme: only dark;
 }
 
 
 body {
   margin: 50px 100px;
-  --honey-spinner: rgb(255 248 231 / 87%);
+  --honey-spinner: var(--color-honey);
 }
 
 .title-honey {
-  color: #facc56;
+  color: var(--color-honey);
 }
 
 .title-mate {
-  color: white;
+  color: var(--color-foreground);
 }
 
 .columns {
@@ -56,11 +66,11 @@ h2 {
 button {
   appearance: none;
   height: fit-content;
-  color: white;
+  color: var(--color-foreground);
   width: 175px;
   background-color: transparent;
   border: none;
-  outline: 7px solid #facc56;
+  outline: 7px solid var(--color-honey);
   border-radius: 100px;
   padding: 21px 0px;
   font-size: 24px;
@@ -71,7 +81,7 @@ button {
 
 button:hover {
   cursor: pointer;
-  outline: 12px solid #facc56;
+  outline: 12px solid var(--color-honey);
   transform: scale(1.02);
   transition: outline .6s, transform 0.6s, color 0.6s;
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
@@ -79,7 +89,7 @@ button:hover {
 
 button:active {
   cursor: pointer;
-  outline: 3px solid #facc56;
+  outline: 3px solid var(--color-honey);
   transform: scale(1);
   transition: outline .6s, transform 0.6s, color 0.6s;
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
@@ -88,9 +98,9 @@ button:active {
 button:disabled {
   transition: outline .6s, transform 0.6s, color 0.6s;
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-  outline: 7px solid #837a6487;
+  outline: 7px solid var(--color-honey-disabled);
   transform: scale(1);
-  color: #fff8e75c;
+  color: var(--color-honey-disabled);
   pointer-events: none;
 }
 
@@ -118,7 +128,7 @@ button:disabled {
 .square {
   aspect-ratio: 1 / 1;
   width: 100%;
-  background-color: #2C8D6C;
+  background-color: var(--color-green);
 }
 
 .logo {
@@ -136,20 +146,20 @@ button:disabled {
 
 .logo-hexagon {
   transition: fill .4s cubic-bezier(0.16, 1, 0.3, 1);
-  fill: #FACC55;
+  fill: var(--color-honey);
 }
 
 .logo-play {
   transition: fill .4s cubic-bezier(0.16, 1, 0.3, 1);
-  fill: #2C8D6C;
+  fill: var(--color-green);
 }
 
 .logo:hover .logo-hexagon {
-  fill: #384f47;
+  fill: var(--color-green);
 }
 
 .logo:hover .logo-play {
-  fill: #FACC55;
+  fill: var(--color-honey);
 }
 
 .expose-screen {
@@ -170,6 +180,7 @@ button:disabled {
 
 .block.trigger {
   background-color: transparent;
+  color: var(--color-honey);
 }
 
 .block:nth-child(2) {
