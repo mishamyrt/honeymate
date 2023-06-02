@@ -41,6 +41,8 @@ export function reset (target: ParentNode = document): void {
   nodes.forEach((node) => {
     node.classList.remove(CLASS_VISIBLE)
   })
+  const spins = document.querySelectorAll<HTMLDivElement>('.honey-spin')
+  spins.forEach(spin => document.body.removeChild(spin))
   registry.clear()
   observer.clear()
 }

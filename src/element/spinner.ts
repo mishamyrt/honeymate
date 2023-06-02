@@ -26,6 +26,7 @@ export function applyStyle (
  */
 export function generateSpinner (element: HoneyElement): HTMLDivElement {
   const spinNode = document.createElement('div')
+  spinNode.className = 'honey-spin'
   spinNode.innerHTML = getSpinner(
     element.params.spinSize
   )
