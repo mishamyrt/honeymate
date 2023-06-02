@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  '@julian_cataldo/astro-resets':
+    specifier: ^0.12.6
+    version: 0.12.6
   astro:
     specifier: ^2.5.6
     version: 2.5.6(sass@1.62.1)
@@ -648,6 +651,10 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
+    dev: false
+
+  /@julian_cataldo/astro-resets@0.12.6:
+    resolution: {integrity: sha512-/b1Dhz8VhietrDCK1D1LfERv94HCQcROGUrz8RMJh7Xq6tfmftP/KhdYlL3GEjFo2HGFq9jwfOsRoXVYGii4nw==}
     dev: false
 
   /@ljharb/has-package-exports-patterns@0.0.2:

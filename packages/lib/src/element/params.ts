@@ -26,13 +26,6 @@ function safeParseInt (value: Maybe<string>, fallback = 0): number {
   return parseInt(value, 10)
 }
 
-function safeParseFloat (value: Maybe<string>, fallback = 0): number {
-  if (!value) {
-    return fallback
-  }
-  return parseFloat(value)
-}
-
 function offsetFromData (data: DOMStringMap, fallback: number): number {
   if (data.up) {
     return safeParseInt(data.up)
@@ -60,7 +53,7 @@ export function parseDataParams (data: DOMStringMap): AnimationParams {
     effect: data.effect ? data.effect as unknown as AnimationEffect : 'slide',
     direction: directionFromData(data),
     origin: data.origin ? data.origin as AnimationDirection : AnimationDirection.top,
-    scale: safeParseFloat(data.scale, 0.87),
+    scale: safeParseInt(data.scale, 87) / 100,
     offset: offsetFromData(data, 32),
     // Timings
     duration: safeParseInt(data.duration, 640),
