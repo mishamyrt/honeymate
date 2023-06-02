@@ -6,7 +6,7 @@ export class ExposeObserver {
 
   constructor (
     registry: HoneyRegistry,
-    private readonly rootMargin = '10%'
+    private readonly rootMargin = '-2%'
   ) {
     const callback: IntersectionObserverCallback = (entries) => {
       entries.forEach((entry) => {

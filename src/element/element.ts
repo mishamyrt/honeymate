@@ -71,14 +71,10 @@ export class HoneyElement {
     if (this.spinner) {
       removeSpinner(this.spinner)
     }
-    await new Promise<void>((resolve) => {
-      const [frames, options] = createAnimation(this.params)
-      const animation = this.node.animate(frames, options)
-      animation.onfinish = () => {
-        this.node.classList.add(CLASS_VISIBLE)
-        this.state = ElementState.Exposed
-        resolve()
-      }
-    })
+    const [frames, options] = createAnimation(this.params)
+    const animation = this.node.animate(frames, options)
+    await animation.finished
+    this.node.classList.add(CLASS_VISIBLE)
+    this.state = ElementState.Exposed
   }
 }
