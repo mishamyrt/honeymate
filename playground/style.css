@@ -18,6 +18,7 @@ html {
 
 body {
   margin: 50px 100px;
+  overflow-x: hidden;
   --honey-spinner: var(--color-honey);
 }
 
@@ -65,23 +66,23 @@ h2 {
 
 button {
   appearance: none;
+  height: -moz-fit-content;
   height: fit-content;
   color: var(--color-foreground);
-  width: 175px;
-  background-color: transparent;
+  width: 17vw;
+  outline: 1.1vw solid var(--color-honey);
+  background-color: #0000;
   border: none;
-  outline: 7px solid var(--color-honey);
   border-radius: 100px;
-  padding: 21px 0px;
-  font-size: 24px;
+  padding: 1.7vw 0;
+  font-size: 2.5vw;
   font-weight: bold;
-  transition: outline .6s, transform 0.6s, color 0.6s;
-  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  transition: outline .6s cubic-bezier(.16, 1, .3, 1), transform .6s cubic-bezier(.16, 1, .3, 1), color .6s cubic-bezier(.16, 1, .3, 1);
 }
 
 button:hover {
   cursor: pointer;
-  outline: 12px solid var(--color-honey);
+  outline: 1.5vw solid var(--color-honey);
   transform: scale(1.02);
   transition: outline .6s, transform 0.6s, color 0.6s;
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
@@ -89,7 +90,7 @@ button:hover {
 
 button:active {
   cursor: pointer;
-  outline: 3px solid var(--color-honey);
+  outline: 0.5vw solid var(--color-honey);
   transform: scale(1);
   transition: outline .6s, transform 0.6s, color 0.6s;
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
@@ -132,7 +133,7 @@ button:disabled {
 }
 
 .logo {
-  width: 175px;
+  width: 17.5vw;
   height: 100%;
   position: relative;
   top: 1vw;
@@ -165,7 +166,6 @@ button:disabled {
 .expose-screen {
   height: 110vh;
   grid-template-rows: repeat(4, 1fr);
-  grid-template-columns: repeat(3, 1fr);
   gap: 0;
 }
 
@@ -194,6 +194,49 @@ button:disabled {
 }
 
 .block:last-child {
-  grid-column: 1/3;
+  grid-column: 4;
   grid-row: 4;
+}
+
+@media screen and (max-width: 1000px) {
+  .block {
+    background-color: transparent;
+  }
+}
+
+@media screen and (max-width: 900px) {
+
+  .columns {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .block {
+    align-items: flex-start;
+    font-size: 6vw;
+  }
+
+  .expose-screen {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .block:nth-child(2),
+  .block:nth-child(3),
+  .block:last-child  {
+    grid-column: 1;
+  }
+
+  .columns > div {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .columns > div:nth-child(n+3) {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  body {
+    margin: 50px 20px;
+  }
 }
