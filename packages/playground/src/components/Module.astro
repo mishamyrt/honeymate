@@ -1,0 +1,87 @@
+---
+export interface Props {
+  title: string;
+  class?: string;
+}
+
+const { title, class: className } = Astro.props;
+---
+
+<div data-bottom="100" data-await="logo" data-delay="300" class="module honey">
+  <div class="module-heading">
+    <h2>{title}</h2>
+    <button>Replay</button>
+  </div>
+  <div class:list={["columns", className]}>
+    <slot />
+  </div>
+</div>
+
+<style is:global lang="scss">
+  .module {
+    margin-bottom: 5vw;
+
+    &-heading {
+      justify-content: space-between;
+      align-items: center;
+      display: flex;
+      margin-bottom: 40px;
+    }
+
+    h2 {
+      font-size: 6vw;
+      margin: 0;
+    }
+
+    button {
+      appearance: none;
+      height: -moz-fit-content;
+      height: fit-content;
+      color: var(--color-foreground);
+      width: 17vw;
+      outline: 1.1vw solid var(--color-honey);
+      background-color: #0000;
+      border: none;
+      border-radius: 100px;
+      padding: 1.7vw 0;
+      font-size: 2.5vw;
+      font-weight: bold;
+      transition: outline 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+
+      &:hover {
+        cursor: pointer;
+        outline: 1.5vw solid var(--color-honey);
+        transform: scale(1.02);
+        transition: outline 0.6s, transform 0.6s, color 0.6s;
+        transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      &:active {
+        cursor: pointer;
+        outline: 0.5vw solid var(--color-honey);
+        transform: scale(1);
+        transition: outline 0.6s, transform 0.6s, color 0.6s;
+        transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      &:disabled {
+        transition: outline 0.6s, transform 0.6s, color 0.6s;
+        transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+        outline: 7px solid var(--color-honey-disabled);
+        transform: scale(1);
+        color: var(--color-honey-disabled);
+        pointer-events: none;
+      }
+    }
+
+    .columns {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    @media screen and (max-width: 900px) {
+      .columns {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  }
+</style>

@@ -1,0 +1,85 @@
+---
+import Module from "../components/Module.astro";
+---
+
+<Module title="Control" class="expose-screen">
+  <div data-await="last-expose" data-spin-size="64" data-left="100" data-spin class="block honey">Exposes</div>
+  <div data-spin-size="64" data-spin data-left="100" data-delay="300" data-bottom="100" data-continue class="block honey">On</div>
+  <div data-spin-size="64" data-spin data-left="100" data-delay="400" data-right="100" data-continue class="block honey">Scroll</div>
+  <div class="block trigger">
+    <span data-effect="zoom" data-delay="1000" data-duration="1000" id="last-expose" data-expose class="honey"> Trigger ←</span>
+  </div>
+</Module>
+
+<style lang="scss">
+  .expose-screen {
+    height: 110vh;
+    grid-template-rows: repeat(4, 1fr);
+    gap: 0;
+  }
+
+  .block {
+    background-color: #ffffff1c;
+    font-size: 4vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+  }
+
+  .block.trigger {
+    background-color: transparent;
+    color: var(--color-honey);
+  }
+
+  .block:nth-child(2) {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .block:nth-child(3) {
+    grid-column: 3;
+    grid-row: 3;
+  }
+
+  .block:last-child {
+    grid-column: 4;
+    grid-row: 4;
+  }
+
+  @media screen and (max-width: 1000px) {
+    .block {
+      background-color: transparent;
+    }
+  }
+
+  @media screen and (max-width: 900px) {
+    .columns {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .block {
+      align-items: flex-start;
+      font-size: 6vw;
+    }
+
+    .expose-screen {
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+    .block:nth-child(2),
+    .block:nth-child(3),
+    .block:last-child {
+      grid-column: 1;
+    }
+
+    .columns > div {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+
+    .columns > div:nth-child(n + 3) {
+      flex-direction: column;
+    }
+  }
+</style>

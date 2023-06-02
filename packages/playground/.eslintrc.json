@@ -1,0 +1,82 @@
+{
+  "extends": [
+    "plugin:astro/recommended",
+    "standard-with-typescript"
+  ],
+  "plugins": [
+    "eslint-plugin-simple-import-sort"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "plugins": [
+        "@typescript-eslint"
+      ],
+      "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "standard-with-typescript"
+      ],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "project": "tsconfig.json"
+      },
+      "rules": {
+        "@typescript-eslint/no-floating-promises": "off"
+      }
+    },
+    {
+      "files": [
+        "*.astro"
+      ],
+      "parser": "astro-eslint-parser",
+      "parserOptions": {
+        "parser": "@typescript-eslint/parser",
+        "extraFileExtensions": [
+          ".astro"
+        ]
+      }
+    },
+    {
+      "files": [
+        "**/*.astro/*.js",
+        "*.astro/*.js"
+      ],
+      "env": {
+        "browser": true,
+        "es2020": true
+      },
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "sourceType": "module"
+      },
+      "rules": {
+        "prettier/prettier": "off",
+        "space-infix-ops": "off",
+        "@typescript-eslint/space-infix-ops": "off"
+      }
+    },
+    {
+      "files": [
+        "scripts/*.js",
+        "*.cjs"
+      ],
+      "env": {
+        "browser": false,
+        "node": true,
+        "es2020": true
+      },
+      "parserOptions": {
+        "sourceType": "script"
+      }
+    }
+  ],
+  "rules": {
+    "no-undef": "off",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "space-infix-ops": "off",
+    "@typescript-eslint/space-infix-ops": "error"
+  }
+}
