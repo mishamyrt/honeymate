@@ -39,11 +39,10 @@ let bundler = new Parcel({
 
 function printSize(b) {
   const gSize = gzipSize(`${DIST}/${b.displayName}`)
-  const size = b.stats.size / 1024
   return {
     file: b.displayName,
     gzip: gSize,
-    size
+    raw: b.stats.size / 1024
   }
 }
 
@@ -54,7 +53,7 @@ try {
   results.push({
     file: 'styles.css',
     gzip: gzipSize(CSS_PATH),
-    size: fileSize(CSS_PATH)
+    raw: fileSize(CSS_PATH)
   })
   console.table(results)
   const jsSize = results[0].gzip.toFixed(2)

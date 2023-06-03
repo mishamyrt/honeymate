@@ -1,5 +1,6 @@
-// import { animate } from '../../../lib/src'
+import { animate } from '../../../library/src'
 
+animate()
 // function expose (button?: HTMLButtonElement, node: ParentNode = document): void {
 //   if (button != null) {
 //     button.disabled = true
