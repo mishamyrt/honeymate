@@ -34,7 +34,7 @@ jobs:
           run_install: false
 
       - name: Install deps
-        run:
+        run: |
           cd packages/playground/
           pnpm install --frozen-lockfile
 
