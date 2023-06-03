@@ -41,7 +41,7 @@ jobs:
       - name: Build playground
         run: |
           cd packages/playground/
-          pnpm run build-playground
+          pnpm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
