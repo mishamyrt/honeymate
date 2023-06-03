@@ -1,1 +1,0 @@
-.honey{opacity:0}.honey.__visible{opacity:1}.honey-spin{opacity:0;transition:all .2s ease-out}:root{--honey-spinner:black}@keyframes honeySpin{0%{transform:rotate(-360deg)}to{transform:rotate(360deg)}}

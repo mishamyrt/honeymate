@@ -2,7 +2,9 @@ import {
   AnimationDirection,
   type AnimationParams,
   type AnimationEffect,
-  type Maybe
+  type Maybe,
+  type AnimationOrigin,
+  AnimationOriginDirection
 } from '../types'
 
 function directionFromData (data: DOMStringMap): AnimationDirection {
@@ -52,8 +54,8 @@ export function parseDataParams (data: DOMStringMap): AnimationParams {
     // Appearance
     effect: data.effect ? data.effect as unknown as AnimationEffect : 'slide',
     direction: directionFromData(data),
-    origin: data.origin ? data.origin as AnimationDirection : AnimationDirection.top,
-    scale: safeParseInt(data.scale, 87) / 100,
+    origin: data.origin ? data.origin as AnimationOrigin : AnimationOriginDirection.Center,
+    scale: safeParseInt(data.scale, 87),
     offset: offsetFromData(data, 32),
     // Timings
     duration: safeParseInt(data.duration, 640),

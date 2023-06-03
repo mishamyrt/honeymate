@@ -4,16 +4,13 @@ import { collectImages } from './collect'
 import { imageLoaded, sleep } from '../utils'
 import { parseDataParams } from './params'
 import { CLASS_VISIBLE } from '../constants'
-import { type AnimationRenderer } from '../render/types'
-import { renderStyles } from '../render'
+import { renderAnimation } from '../render'
 
 enum ElementState {
   Hidden,
   Exposing,
   Exposed
 }
-
-const render: AnimationRenderer = renderStyles
 
 export class HoneyElement {
   public params: AnimationParams
@@ -22,7 +19,9 @@ export class HoneyElement {
   private spinner: Maybe<HTMLDivElement>
   private state: ElementState = ElementState.Hidden
 
-  constructor (public readonly node: HTMLElement) {
+  constructor (
+    public readonly node: HTMLElement
+  ) {
     this.params = parseDataParams(node.dataset)
     this.images = collectImages(node)
   }
@@ -59,6 +58,9 @@ export class HoneyElement {
 
   public hide (): void {
     this.node.classList.remove(CLASS_VISIBLE)
+    if (this.spinner) {
+      removeSpinner(this.spinner)
+    }
     this.state = ElementState.Hidden
   }
 
@@ -74,7 +76,7 @@ export class HoneyElement {
     if (this.spinner) {
       removeSpinner(this.spinner)
     }
-    await render(this.params, this.node)
+    await renderAnimation(this.params, this.node)
     this.node.classList.add(CLASS_VISIBLE)
     this.state = ElementState.Exposed
   }

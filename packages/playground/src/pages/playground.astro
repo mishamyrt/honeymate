@@ -11,7 +11,7 @@ import MainLayout from "../layouts/MainLayout.astro";
           <option value="slide">Slide</option>
           <option value="relax">Relax</option>
           <option value="zoom">Zoom</option>
-          <option value="helix">Helix</option>
+          <option value="fade">Fade</option>
         </select>
       </div>
       <div class="param">
@@ -26,10 +26,11 @@ import MainLayout from "../layouts/MainLayout.astro";
       <div class="param">
         <span>Origin</span>
         <select name="origin" class="param-input">
-          <option value="top">top</option>
-          <option value="left">left</option>
-          <option value="bottom">bottom</option>
-          <option value="right">right</option>
+          <option value="center">Center</option>
+          <option value="top">Top</option>
+          <option value="left">Left</option>
+          <option value="bottom">Bottom</option>
+          <option value="right">Right</option>
         </select>
       </div>
       <div class="param">
@@ -37,12 +38,16 @@ import MainLayout from "../layouts/MainLayout.astro";
         <input value="87" name="scale" class="param-input" type="number" min="10" max="200" />
       </div>
       <div class="param">
+        <span>Offset</span>
+        <input value="32" name="offset" class="param-input" type="number" min="10" max="300" />
+      </div>
+      <div class="param">
         <span>Duration</span>
         <input name="duration" class="param-input" type="number" value="640" min="50" max="3000" />
       </div>
       <div class="param">
         <span>Delay</span>
-        <input value="0" name="delay" class="param-input" type="number" min="0" max="3000" />
+        <input value="100" name="delay" class="param-input" type="number" min="0" max="3000" />
       </div>
       <label class="param">
         <span>Continue</span>
@@ -59,26 +64,42 @@ import MainLayout from "../layouts/MainLayout.astro";
       <button id="play">Play</button>
     </div>
     <div class="preview">
-      <div class="figure"></div>
-      <div class="figure"></div>
-      <div class="figure"></div>
+      <div class="figure honey"></div>
+      <div class="figure honey"></div>
+      <div class="figure honey"></div>
     </div>
   </div>
 </MainLayout>
 
 <script>
+  import { AnimationParams, animate } from "../../../lib/src";
   const inputs = document.querySelectorAll<HTMLInputElement>(".param-input");
-  const params: Record<string, any> = {};
+  const button = document.querySelector("button")!;
+  const params: any = {};
 
-  function handleParams() {
-    console.log(params);
+  const disabledParams = {
+    'slide': ['scale', 'origin'],
+    'relax': ['offset', 'direction'],
+    'zoom': ['offset', 'direction'],
+    'helix': ['offset', 'direction']
   }
 
-  function updateInputValue(input: HTMLInputElement): void {
-    const key = input.name;
+  function disableFields () {
+    const banned = disabledParams[params.effect as keyof typeof disabledParams]
+    for (const input of inputs) {
+      if (banned.includes(input.name)) {
+        input.parentElement!.classList.add('__disabled')
+      } else {
+        input.parentElement!.classList.remove('__disabled')
+      }
+    }
+  }
+
+  function updateValue(input: HTMLInputElement) {
+    const key = input.name as keyof AnimationParams;
     switch (input.type) {
       case "checkbox":
-        params[key] = input?.checked;
+        params[key] = input.checked;
         break;
       case "number":
         params[key] = parseInt(input.value, 10);
@@ -86,18 +107,32 @@ import MainLayout from "../layouts/MainLayout.astro";
       default:
         params[key] = input.value;
     }
+    disableFields()
   }
 
-  function handleInput(e: Event) {
-    updateInputValue(e.target as HTMLInputElement);
-    handleParams();
+  let reset: (() => void) | undefined;
+  async function animatePreview() {
+    if (reset) {
+      reset();
+      reset = undefined;
+    }
+    button.disabled = true;
+    const { clear } = await animate({
+      prepareParams: () => params as AnimationParams,
+    });
+    button.disabled = false;
+    reset = clear;
   }
 
   function initialize() {
-    inputs.forEach((i) => updateInputValue(i));
     inputs.forEach((i) => {
-      i.addEventListener("input", handleInput);
+      i.addEventListener("input", (e) => {
+        updateValue(e.target as HTMLInputElement);
+      });
+      updateValue(i);
     });
+    animatePreview()
+    button.onclick = animatePreview;
   }
 
   initialize();
@@ -113,6 +148,12 @@ import MainLayout from "../layouts/MainLayout.astro";
     display: grid;
     grid-template-columns: 120px 1fr;
     align-items: center;
+    transition: opacity .3s ease;
+
+    &.__disabled {
+      pointer-events: none;
+      opacity: 0.3;
+    }
 
     span {
       font-size: 18px;
@@ -174,27 +215,25 @@ import MainLayout from "../layouts/MainLayout.astro";
     border-radius: 100px;
     font-size: 18px;
     border: none;
-    outline: 3px solid var(--color-honey);
+    outline: 5px solid var(--color-honey);
     padding: 7px 0;
     font-weight: 700;
     color: var(--color-foreground);
     margin-top: 16px;
+    transition: 0.6s cubic-bezier(0, 0.9, 0.1, 1);
+
+    &:hover {
+      outline-width: 8px;
+    }
+
+    &:active {
+      outline-width: 3px;
+    }
+
+    &:disabled {
+      outline-color: var(--color-honey-disabled);
+      color: var(--color-honey-disabled);
+      outline-width: 3px;
+    }
   }
 </style>
-<!-- // Appearance
-effect: data.effect ? data.effect as unknown as AnimationEffect : 'slide',
-direction: directionFromData(data),
-origin: data.origin ? data.origin as AnimationDirection : AnimationDirection.top,
-scale: safeParseFloat(data.scale, 0.87),
-offset: offsetFromData(data, 32),
-// Timings
-duration: safeParseInt(data.duration, 640),
-delay: safeParseInt(data.delay, 0),
-// Awaits
-expose: supportsExpose && isPropertyExists(data, 'expose'),
-await: data.await ?? '',
-continue: isPropertyExists(data, 'continue'),
-// Spinner
-spin: isPropertyExists(data, 'spin'),
-spinSize: safeParseInt(data.spinSize, 24)
-} -->

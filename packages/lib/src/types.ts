@@ -9,7 +9,13 @@ export enum AnimationDirection {
   left = 'left'
 }
 
-export type AnimationEffect = 'zoom' | 'helix' | 'slide' | 'relax'
+export enum AnimationOriginDirection {
+  Center = 'center'
+}
+
+export type AnimationOrigin = AnimationDirection | AnimationOriginDirection
+
+export type AnimationEffect = 'zoom' | 'fade' | 'slide' | 'relax'
 
 export interface AnimationParams {
   direction: AnimationDirection
@@ -19,7 +25,7 @@ export interface AnimationParams {
   delay: number
   scale: number
   await: string
-  origin: AnimationDirection
+  origin: AnimationOrigin
   offset: number
   spin: boolean
   spinSize: number

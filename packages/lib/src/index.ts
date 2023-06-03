@@ -1,2 +1,2 @@
-export { animate, reset } from './honeymate'
+export { animate } from './animate/animate'
 export type { AnimationParams } from './types'

@@ -2,14 +2,20 @@ import { HoneyElement } from './element/element'
 import { type Maybe } from './types'
 
 export class HoneyRegistry {
-  private readonly storage = new Map<HTMLElement, HoneyElement>()
+  private _elements: HoneyElement[] = []
+  private _nodes: HTMLElement[] = []
+
+  public get elements (): HoneyElement[] {
+    return this._elements
+  }
 
   public has (node: HTMLElement): boolean {
-    return this.storage.has(node)
+    return this._nodes.includes(node)
   }
 
   public clear (): void {
-    this.storage.clear()
+    this._elements = []
+    this._nodes = []
   }
 
   /**
@@ -17,18 +23,17 @@ export class HoneyRegistry {
    * If the node is not in the registry, it will create and return an entry
    */
   public getElement (node: HTMLElement): HoneyElement {
-    if (this.storage.has(node)) {
-      return this.storage.get(node) as HoneyElement
+    const index = this._nodes.indexOf(node)
+    if (index >= 0) {
+      return this._elements[index] as HoneyElement
     }
-    const element = new HoneyElement(node)
-    this.storage.set(node, element)
-    return element
+    return this.add(node)
   }
 
   public getAwaited (el: HoneyElement): Maybe<HoneyElement> {
     if (el.params.continue) {
-      if (this.storage.size > 0) {
-        return this.getByIndex(this.storage.size - 2)
+      if (this._elements.length > 0) {
+        return this.getByIndex(this._elements.length - 2)
       } else {
         return undefined
       }
@@ -40,20 +45,23 @@ export class HoneyRegistry {
   }
 
   public get size (): number {
-    return this.storage.size
+    return this._nodes.length
   }
 
   public getByIndex (i: number): Maybe<HoneyElement> {
-    const node = Array.from(this.storage.keys())[i] as HTMLElement
-    return this.storage.get(node)
+    if (i < 0 || i > this._elements.length) {
+      return
+    }
+    return this._elements[i]
   }
 
   public add (node: HTMLElement): HoneyElement {
-    if (this.storage.has(node)) {
+    if (this._nodes.includes(node)) {
       throw new Error('Element already exists')
     }
     const element = new HoneyElement(node)
-    this.storage.set(node, element)
+    this._nodes.push(node)
+    this._elements.push(element)
     return element
   }
 }

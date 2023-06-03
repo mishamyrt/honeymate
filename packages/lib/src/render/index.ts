@@ -1,2 +1,1 @@
-export { renderStyles } from './render-styles'
-export { renderWebAnimation } from './render-web-animation'
+export { renderAnimation } from './render'
