@@ -39,7 +39,9 @@ jobs:
           pnpm install --frozen-lockfile
 
       - name: Build playground
-        run: pnpm run build-playground
+        run: |
+          cd packages/playground/
+          pnpm run build-playground
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
