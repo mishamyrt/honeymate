@@ -1,7 +1,9 @@
 import { Parcel } from '@parcel/core'
 import { execSync } from 'child_process'
+import { gzipSize, fileSize } from './size.mjs'
 
 const DIST = './benchmarks/size/dist'
+const CSS_PATH = './lib/styles.css'
 
 const basicTargetConfig = {
   context: 'browser',
@@ -12,7 +14,7 @@ const basicTargetConfig = {
 
 process.env.NODE_ENV = 'production'
 let bundler = new Parcel({
-  entries: './benchmarks/size/main.mjs',
+  entries: './benchmarks/size/main.js',
   config: '@parcel/config-default',
   mode: 'production',
   targets: {
@@ -35,21 +37,12 @@ let bundler = new Parcel({
   }
 })
 
-function gzipSize(file) {
-  return parseInt(
-    execSync(`gzip -c '${file}' | wc -c`, { shell: true })
-      .toString()
-      .trim(),
-    10
-  )
-}
-
 function printSize(b) {
-  const gSize = gzipSize(`${DIST}/${b.displayName}`) / 1024
+  const gSize = gzipSize(`${DIST}/${b.displayName}`)
   const size = b.stats.size / 1024
   return {
     file: b.displayName,
-    ['GZip size']: gSize,
+    gzip: gSize,
     size
   }
 }
@@ -57,12 +50,17 @@ function printSize(b) {
 try {
   let { bundleGraph, buildTime } = await bundler.run();
   let bundles = bundleGraph.getBundles();
-  console.table(bundles.map(printSize))
-  // bundles.forEach(b => {
-  //   const size = printSize(b)
-  //   console.log(`${b.displayName} - ${b.stats.size / 1024} Kb`)
-  // })
-  console.log(`✨ Built ${bundles.length} bundles in ${buildTime}ms!`);
+  const results = bundles.map(printSize)
+  results.push({
+    file: 'styles.css',
+    gzip: gzipSize(CSS_PATH),
+    size: fileSize(CSS_PATH)
+  })
+  console.table(results)
+  const jsSize = results[0].gzip.toFixed(2)
+  const cssSize = results[2].gzip.toFixed(2)
+  const commonSize = (results[0].gzip + results[2].gzip).toFixed(2)
+  console.log(`✨ Modern bundle size: ${jsSize} + ${cssSize} = ${commonSize} Kb`);
 } catch (err) {
   console.log(err)
   console.log(err.diagnostics);
