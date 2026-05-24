@@ -2,7 +2,7 @@ import { createEffectStyles } from "./effect";
 import { createInViewWaiter } from "./inView";
 import { type Options, parseOptions } from "./options";
 import { insertSpinner } from "./spinner";
-import { waitImages } from "./wait";
+import { waitMedia } from "./wait";
 
 interface HoneyRecord {
   node: HTMLElement;
@@ -28,7 +28,7 @@ function sleep(timeout: number): Promise<void> {
 
 async function loadElementOnce(record: HoneyRecord): Promise<void> {
   await Promise.all([
-    waitImages(record.node),
+    waitMedia(record.node),
     record.awaited ? loadElement(record.awaited) : null,
   ]);
 

@@ -15,7 +15,7 @@ export function getBackgroundImage(node: Element): string | null {
  * Returns URL of image element or background image of node,
  * or null if neither is available
  */
-export function getImageUrl(node: Element) {
+export function getMediaLoaded(node: Element) {
   if (isImageElement(node)) {
     return node.src;
   }
@@ -27,6 +27,10 @@ export function getImageUrl(node: Element) {
  */
 export function isImageElement(node: Element): node is HTMLImageElement {
   return node.tagName === "IMG";
+}
+
+export function isVideoElement(node: Element): node is HTMLVideoElement {
+  return node.tagName === "VIDEO";
 }
 
 /**
@@ -41,11 +45,29 @@ export function waitImage(url: string): Promise<void> {
   });
 }
 
+export function waitVideo(node: HTMLVideoElement): Promise<void> {
+  return new Promise((resolve) => {
+    node.addEventListener("canplaythrough", () => resolve());
+  });
+}
+
 /**
  * Resolves when all images in node (including descendants) are loaded
  */
-export function waitImages(node: Element) {
-  const nodes = [node, ...node.querySelectorAll("*")];
-  const images = nodes.map(getImageUrl).filter(Boolean) as string[];
-  return Promise.all(images.map(waitImage));
+export function waitMedia(parent: Element) {
+  const elements = [parent, ...parent.querySelectorAll("*")];
+  const mediaPromises = [];
+  for (const element of elements) {
+    if (isImageElement(element)) {
+      mediaPromises.push(waitImage(element.src));
+    } else if (isVideoElement(element)) {
+      mediaPromises.push(waitVideo(element));
+    } else {
+      const bgImage = getBackgroundImage(element);
+      if (bgImage) {
+        mediaPromises.push(waitImage(bgImage));
+      }
+    }
+  }
+  return Promise.all(mediaPromises);
 }

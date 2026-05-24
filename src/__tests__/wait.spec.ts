@@ -2,10 +2,12 @@ import { afterEach, expect, test, vi } from "vitest";
 
 import {
   getBackgroundImage,
-  getImageUrl,
+  getMediaLoaded,
   isImageElement,
+  isVideoElement,
   waitImage,
-  waitImages,
+  waitMedia,
+  waitVideo,
 } from "../wait";
 
 interface FakeNode {
@@ -13,6 +15,7 @@ interface FakeNode {
   src?: string;
   background?: string;
   backgroundImage?: string;
+  addEventListener?: (event: string, callback: () => void) => void;
   querySelectorAll?: (selector: string) => FakeNode[];
 }
 
@@ -33,6 +36,11 @@ function stubComputedStyle() {
 test("detects image elements", () => {
   expect(isImageElement({ tagName: "IMG" } as Element)).toBe(true);
   expect(isImageElement({ tagName: "DIV" } as Element)).toBe(false);
+});
+
+test("detects video elements", () => {
+  expect(isVideoElement({ tagName: "VIDEO" } as Element)).toBe(true);
+  expect(isVideoElement({ tagName: "DIV" } as Element)).toBe(false);
 });
 
 test("gets background image URL", () => {
@@ -57,10 +65,10 @@ test("gets image URL from image element or background", () => {
   stubComputedStyle();
 
   expect(
-    getImageUrl({ tagName: "IMG", src: "photo.jpg" } as unknown as Element),
+    getMediaLoaded({ tagName: "IMG", src: "photo.jpg" } as unknown as Element),
   ).toBe("photo.jpg");
   expect(
-    getImageUrl({
+    getMediaLoaded({
       tagName: "DIV",
       background: "url(bg.webp)",
     } as unknown as Element),
@@ -98,8 +106,32 @@ test("waits for image load and error", async () => {
   await expect(errorPromise).resolves.toBeUndefined();
 });
 
-test("waits for images in node and descendants", async () => {
+test("waits for video canplaythrough", async () => {
+  let listener: (() => void) | null = null;
+  const video = {
+    tagName: "VIDEO",
+    addEventListener: vi.fn((event: string, callback: () => void) => {
+      expect(event).toBe("canplaythrough");
+      listener = callback;
+    }),
+  };
+
+  const promise = waitVideo(video as unknown as HTMLVideoElement);
+
+  expect(video.addEventListener).toHaveBeenCalledWith(
+    "canplaythrough",
+    expect.any(Function),
+  );
+
+  // @ts-expect-error
+  listener?.();
+
+  await expect(promise).resolves.toBeUndefined();
+});
+
+test("waits for media in node and descendants", async () => {
   const loadedUrls: string[] = [];
+  let videoListener: (() => void) | null = null;
 
   stubComputedStyle();
   vi.stubGlobal(
@@ -122,15 +154,30 @@ test("waits for images in node and descendants", async () => {
   );
 
   const image = { tagName: "IMG", src: "child.jpg" };
+  const video = {
+    tagName: "VIDEO",
+    addEventListener: vi.fn((event: string, callback: () => void) => {
+      expect(event).toBe("canplaythrough");
+      videoListener = callback;
+    }),
+  };
   const background = { tagName: "DIV", background: "url(child-bg.png)" };
   const node = {
     tagName: "DIV",
     background: "url(root.png)",
-    querySelectorAll: vi.fn(() => [image, background]),
+    querySelectorAll: vi.fn(() => [image, video, background]),
   };
 
-  await waitImages(node as unknown as Element);
+  const promise = waitMedia(node as unknown as Element);
+  // @ts-expect-error
+  videoListener?.();
+
+  await promise;
 
   expect(node.querySelectorAll).toHaveBeenCalledWith("*");
+  expect(video.addEventListener).toHaveBeenCalledWith(
+    "canplaythrough",
+    expect.any(Function),
+  );
   expect(loadedUrls).toEqual(["root.png", "child.jpg", "child-bg.png"]);
 });
