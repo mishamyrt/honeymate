@@ -19,7 +19,7 @@ export function parseOptions(dataset: DOMStringMap): Options {
     continue: dataset.continue === "true",
     expose: dataset.expose === "true",
     effect: parseEffect(dataset),
-    hold: parseInt(dataset.hold as string, 10) || 0,
+    hold: parseInt(dataset.hold as string, 10) || 50,
     spinner: parseSpinner(dataset),
   };
 }

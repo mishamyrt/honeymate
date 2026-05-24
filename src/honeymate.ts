@@ -52,9 +52,7 @@ async function showElement(
     record.removeSpinner();
   }
 
-  queueMicrotask(() => {
-    Object.assign(record.node.style, { opacity: "1", transform: "" });
-  });
+  Object.assign(record.node.style, { opacity: "1", transform: "" });
 }
 
 export function runHoneymate() {
@@ -102,7 +100,9 @@ export function runHoneymate() {
   for (let i = 0; i < records.length; i++) {
     const record = records[i];
     const effect = createEffectStyles(record.options.effect);
-    Object.assign(record.node.style, effect);
+    queueMicrotask(() => {
+      Object.assign(record.node.style, effect);
+    });
 
     if (record.options.spinner) {
       record.removeSpinner = insertSpinner(
