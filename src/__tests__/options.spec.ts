@@ -35,18 +35,9 @@ test("parses transform origin", () => {
 test("parses direction with documented priority", () => {
   expect(parseDirection(dataset())).toEqual([Direction.Up, 32]);
   expect(parseDirection(dataset({ up: "10" }))).toEqual([Direction.Up, 10]);
-  expect(parseDirection(dataset({ left: "20", up: "10" }))).toEqual([
-    Direction.Left,
-    20,
-  ]);
-  expect(parseDirection(dataset({ down: "30", left: "20" }))).toEqual([
-    Direction.Down,
-    30,
-  ]);
-  expect(parseDirection(dataset({ right: "40", down: "30" }))).toEqual([
-    Direction.Right,
-    40,
-  ]);
+  expect(parseDirection(dataset({ left: "20", up: "10" }))).toEqual([Direction.Left, 20]);
+  expect(parseDirection(dataset({ down: "30", left: "20" }))).toEqual([Direction.Down, 30]);
+  expect(parseDirection(dataset({ right: "40", down: "30" }))).toEqual([Direction.Right, 40]);
 });
 
 test("parses effect params", () => {
@@ -85,9 +76,7 @@ test("parses spinner params", () => {
     color: "#000",
     size: 24,
   });
-  expect(
-    parseSpinner(dataset({ spin: "true", spinColor: "#663399", spinSize: "48" })),
-  ).toEqual({
+  expect(parseSpinner(dataset({ spin: "true", spinColor: "#663399", spinSize: "48" }))).toEqual({
     color: "#663399",
     size: 48,
   });

@@ -27,10 +27,7 @@ function sleep(timeout: number): Promise<void> {
 }
 
 async function loadElementOnce(record: HoneyRecord): Promise<void> {
-  await Promise.all([
-    waitMedia(record.node),
-    record.awaited ? loadElement(record.awaited) : null,
-  ]);
+  await Promise.all([waitMedia(record.node), record.awaited ? loadElement(record.awaited) : null]);
 
   if (record.options.hold > 0) {
     await sleep(record.options.hold);
@@ -41,10 +38,7 @@ async function showElement(
   record: HoneyRecord,
   inViewWaiter: ReturnType<typeof createInViewWaiter> | null,
 ): Promise<void> {
-  const inView =
-    record.options.expose && inViewWaiter
-      ? inViewWaiter.waitFor(record.node)
-      : null;
+  const inView = record.options.expose && inViewWaiter ? inViewWaiter.waitFor(record.node) : null;
 
   await Promise.all([loadElement(record), inView]);
 
@@ -84,9 +78,7 @@ export function runHoneymate() {
     if (record.options.continue) {
       record.awaited = records[i - 1];
     } else if (record.options.awaitId) {
-      record.awaited = byElement.get(
-        document.getElementById(record.options.awaitId)!,
-      )!;
+      record.awaited = byElement.get(document.getElementById(record.options.awaitId)!)!;
     }
   }
 
@@ -105,10 +97,7 @@ export function runHoneymate() {
     });
 
     if (record.options.spinner) {
-      record.removeSpinner = insertSpinner(
-        record.rect!,
-        record.options.spinner,
-      );
+      record.removeSpinner = insertSpinner(record.rect!, record.options.spinner);
     }
   }
 

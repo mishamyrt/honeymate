@@ -2,12 +2,16 @@
   "name": "honeymate",
   "version": "5.0.0",
   "description": "Dead simple loading animations",
-  "main": "dist/honeymate.js",
   "keywords": [
-    "js",
     "animations",
-    "coordinator"
+    "coordinator",
+    "js"
   ],
+  "bugs": {
+    "url": "https://github.com/mishamyrt/honeymate/issues"
+  },
+  "license": "MIT",
+  "author": "Mikhael Khrustik",
   "files": [
     "dist",
     "package.json",
@@ -15,18 +19,19 @@
     "README.md",
     "style.css"
   ],
+  "main": "dist/honeymate.js",
   "scripts": {
     "dev": "vitest",
     "build": "rolldown -c rolldown.config.mjs",
+    "lint": "oxlint .",
+    "format": "oxfmt --write .",
+    "format:check": "oxfmt --check .",
     "test": "pnpm run test:unit",
     "test:unit": "vitest run"
   },
-  "author": "Mikhael Khrustik",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/mishamyrt/honeymate/issues"
-  },
   "devDependencies": {
+    "oxfmt": "^0.51.0",
+    "oxlint": "^1.66.0",
     "rolldown": "^1.0.2",
     "vitest": "^4.1.7"
   }

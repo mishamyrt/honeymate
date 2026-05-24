@@ -108,10 +108,7 @@ export function formatSlideTranslate(direction: Direction, offset: number) {
  * Generates CSS transition string.
  * Includes opacity transition with `ease-out` easing by default.
  */
-export function formatTransition(
-  duration: number,
-  properties: TransitionProperties,
-) {
+export function formatTransition(duration: number, properties: TransitionProperties) {
   const defaultProperties: TransitionProperties = { opacity: "ease-out" };
   return Object.entries({ ...defaultProperties, ...properties })
     .map(([property, easing]) => `${property} ${duration}ms ${easing}`)

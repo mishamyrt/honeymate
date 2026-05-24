@@ -64,10 +64,7 @@ export function getSpinner(params: SpinnerParams): SVGElement {
 /**
  * Creates an SVG element with the specified tag and attributes
  */
-export function createSvgElement(
-  tag: string,
-  attrs: Record<string, string | number>,
-): SVGElement {
+export function createSvgElement(tag: string, attrs: Record<string, string | number>): SVGElement {
   const element = document.createElementNS("http://www.w3.org/2000/svg", tag);
   for (const [key, value] of Object.entries(attrs)) {
     element.setAttribute(key, value.toString());

@@ -64,9 +64,9 @@ test("gets background image URL", () => {
 test("gets image URL from image element or background", () => {
   stubComputedStyle();
 
-  expect(
-    getMediaLoaded({ tagName: "IMG", src: "photo.jpg" } as unknown as Element),
-  ).toBe("photo.jpg");
+  expect(getMediaLoaded({ tagName: "IMG", src: "photo.jpg" } as unknown as Element)).toBe(
+    "photo.jpg",
+  );
   expect(
     getMediaLoaded({
       tagName: "DIV",
@@ -118,10 +118,7 @@ test("waits for video canplaythrough", async () => {
 
   const promise = waitVideo(video as unknown as HTMLVideoElement);
 
-  expect(video.addEventListener).toHaveBeenCalledWith(
-    "canplaythrough",
-    expect.any(Function),
-  );
+  expect(video.addEventListener).toHaveBeenCalledWith("canplaythrough", expect.any(Function));
 
   // @ts-expect-error
   listener?.();
@@ -175,9 +172,6 @@ test("waits for media in node and descendants", async () => {
   await promise;
 
   expect(node.querySelectorAll).toHaveBeenCalledWith("*");
-  expect(video.addEventListener).toHaveBeenCalledWith(
-    "canplaythrough",
-    expect.any(Function),
-  );
+  expect(video.addEventListener).toHaveBeenCalledWith("canplaythrough", expect.any(Function));
   expect(loadedUrls).toEqual(["root.png", "child.jpg", "child-bg.png"]);
 });

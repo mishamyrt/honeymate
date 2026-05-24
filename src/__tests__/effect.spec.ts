@@ -10,13 +10,11 @@ import {
 } from "../effect";
 
 test("formats transition", () => {
-  expect(formatTransition(100, { opacity: "ease-in" })).toBe(
-    "opacity 100ms ease-in",
-  );
+  expect(formatTransition(100, { opacity: "ease-in" })).toBe("opacity 100ms ease-in");
 
-  expect(
-    formatTransition(200, { opacity: "ease-out", transform: "linear" }),
-  ).toBe("opacity 200ms ease-out, transform 200ms linear");
+  expect(formatTransition(200, { opacity: "ease-out", transform: "linear" })).toBe(
+    "opacity 200ms ease-out, transform 200ms linear",
+  );
 
   expect(formatTransition(300, {})).toBe("opacity 300ms ease-out");
 });
@@ -43,8 +41,7 @@ test("returns zoom effect properties", () => {
   expect(zoom).toEqual({
     opacity: "0",
     transform: "scale(2)",
-    transition:
-      "opacity 100ms ease-out, transform 100ms cubic-bezier(0,.7,.3,1)",
+    transition: "opacity 100ms ease-out, transform 100ms cubic-bezier(0,.7,.3,1)",
   });
 });
 
@@ -61,8 +58,7 @@ test("returns helix effect properties", () => {
   expect(helix).toEqual({
     opacity: "0",
     transform: "scale(1) rotate(90deg)",
-    transition:
-      "opacity 100ms ease-out, transform 100ms cubic-bezier(0,.75,.25,1)",
+    transition: "opacity 100ms ease-out, transform 100ms cubic-bezier(0,.75,.25,1)",
   });
 });
 

@@ -41,9 +41,7 @@ function stubDocument() {
       scrollLeft: 5,
     },
     createElement: vi.fn((tag: string) => new FakeElement(tag)),
-    createElementNS: vi.fn(
-      (namespace: string, tag: string) => new FakeElement(tag, namespace),
-    ),
+    createElementNS: vi.fn((namespace: string, tag: string) => new FakeElement(tag, namespace)),
   });
 
   return body;
@@ -71,9 +69,7 @@ test("creates svg element with attributes", () => {
 test("creates spinner svg", () => {
   stubDocument();
 
-  const spinner = getSpinner({ size: 48, color: "#663399" }) as unknown as
-    | FakeElement
-    | undefined;
+  const spinner = getSpinner({ size: 48, color: "#663399" }) as unknown as FakeElement | undefined;
   const circle = spinner?.children[0];
 
   expect(spinner?.tagName).toBe("svg");
@@ -89,10 +85,10 @@ test("inserts and removes spinner", () => {
   vi.useFakeTimers();
   const body = stubDocument();
 
-  const remove = insertSpinner(
-    { top: 10, left: 20, width: 200, height: 100 } as DOMRect,
-    { size: 24, color: "#000" },
-  );
+  const remove = insertSpinner({ top: 10, left: 20, width: 200, height: 100 } as DOMRect, {
+    size: 24,
+    color: "#000",
+  });
   const container = body.children[0];
 
   expect(body.children).toHaveLength(1);
