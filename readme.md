@@ -1,7 +1,7 @@
 <h1 align="center">
 <br>
     <img
-        src="https://mishamyrt.github.io/honeymate/img/logo.svg"
+        src="./docs/logo.svg"
         alt="Honeymate logo"
         width="150">
 <br>
@@ -20,30 +20,15 @@
 <p>
 
 <p align="center">
-    <a href="https://travis-ci.org/mishamyrt/honeymate">
-        <img
-            height="18"
-            src="https://travis-ci.org/mishamyrt/honeymate.svg?branch=master">
-    </a>
     <a href="https://badge.fury.io/js/mishamyrt-honeymate">
         <img
             src="https://badge.fury.io/js/mishamyrt-honeymate.svg"
             alt="npm version"
             height="18">
     </a>
-    <img
-        src="https://david-dm.org/mishamyrt/honeymate.svg"
-        alt="David's dependencies control"
-        height="18">
-    <a href="https://www.codacy.com/app/mishamyrt/honeymate?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mishamyrt/honeymate&amp;utm_campaign=Badge_Grade">
-        <img
-            src="https://api.codacy.com/project/badge/Grade/84b678784f7e49e4b2e12ad6a0bc7839"
-            alt="Codacy Badge"
-            height="18">
-    </a>
 </p>
 
-<img src="https://mishamyrt.github.io/honeymate/img/preview.gif" alt="Honeymate logo">
+<img src="./docs/preview.gif" alt="Honeymate logo">
 
 **Simple.** Honeymate has declarative API therefore has a low entry threshold.
 
@@ -59,7 +44,7 @@ and move `dist/honeymate.js` to the desired directory.
 Or use npm:
 
 ```sh
-npm install mishamyrt-honeymate --save
+npm install honeymate --save
 ```
 
 ## Setup
