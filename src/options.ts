@@ -27,7 +27,7 @@ export function parseOptions(dataset: DOMStringMap): Options {
 /**
  * Parses the effect parameters from the dataset.
  */
-function parseEffect(dataset: DOMStringMap): EffectParams {
+export function parseEffect(dataset: DOMStringMap): EffectParams {
   const [direction, offset] = parseDirection(dataset);
   return {
     duration: parseInt(dataset.duration as string, 10) || 640,
@@ -43,7 +43,7 @@ function parseEffect(dataset: DOMStringMap): EffectParams {
  * Parses the direction from the dataset.
  * Returns a tuple of the direction and the direction offset.
  */
-function parseDirection(dataset: DOMStringMap): [Direction, number] {
+export function parseDirection(dataset: DOMStringMap): [Direction, number] {
   if (dataset.right) {
     return [Direction.Right, parseInt(dataset.right, 10)];
   } else if (dataset.down) {
@@ -60,7 +60,7 @@ function parseDirection(dataset: DOMStringMap): [Direction, number] {
 /**
  * Parse effect parameters from dataset
  */
-function parseEffectType(effect: string | undefined): Effect {
+export function parseEffectType(effect: string | undefined): Effect {
   if (!effect) {
     return Effect.Fade;
   }
@@ -78,7 +78,7 @@ function parseEffectType(effect: string | undefined): Effect {
 /**
  * Parse origin parameters from dataset
  */
-function parseOrigin(origin: string | undefined): Origin {
+export function parseOrigin(origin: string | undefined): Origin {
   if (!origin) {
     return Origin.Bottom;
   }
@@ -96,12 +96,12 @@ function parseOrigin(origin: string | undefined): Origin {
 /**
  * Parse spinner parameters from dataset
  */
-function parseSpinner(dataset: DOMStringMap): SpinnerParams | null {
+export function parseSpinner(dataset: DOMStringMap): SpinnerParams | null {
   if (!dataset.spin) {
     return null;
   }
   return {
-    color: dataset["spin-color"] || "#000",
-    size: parseInt(dataset["spin-size"] as string, 10) || 24,
+    color: dataset.spinColor || "#000",
+    size: parseInt(dataset.spinSize as string, 10) || 24,
   };
 }

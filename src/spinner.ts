@@ -38,7 +38,7 @@ export function insertSpinner(rect: DOMRect, params: SpinnerParams) {
 /**
  * Creates an SVG spinner element with the specified size and color
  */
-function getSpinner(params: SpinnerParams): SVGElement {
+export function getSpinner(params: SpinnerParams): SVGElement {
   const spinner: SVGElement = createSvgElement("svg", {
     width: params.size,
     height: params.size,
@@ -64,7 +64,7 @@ function getSpinner(params: SpinnerParams): SVGElement {
 /**
  * Creates an SVG element with the specified tag and attributes
  */
-function createSvgElement(
+export function createSvgElement(
   tag: string,
   attrs: Record<string, string | number>,
 ): SVGElement {

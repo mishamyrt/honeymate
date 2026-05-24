@@ -1,7 +1,7 @@
 /**
  * Finds background image on node
  */
-function getBackgroundImage(node: Element): string | null {
+export function getBackgroundImage(node: Element): string | null {
   const style = getComputedStyle(node);
   const background = style.background || style.backgroundImage;
   if (!background) {
@@ -15,7 +15,7 @@ function getBackgroundImage(node: Element): string | null {
  * Returns URL of image element or background image of node,
  * or null if neither is available
  */
-function getImageUrl(node: Element) {
+export function getImageUrl(node: Element) {
   if (isImageElement(node)) {
     return node.src;
   }
@@ -25,7 +25,7 @@ function getImageUrl(node: Element) {
 /**
  * Asserts that node is an image element
  */
-function isImageElement(node: Element): node is HTMLImageElement {
+export function isImageElement(node: Element): node is HTMLImageElement {
   return node.tagName === "IMG";
 }
 
@@ -33,7 +33,7 @@ function isImageElement(node: Element): node is HTMLImageElement {
  * Waits for image to load.
  * Resolves when loaded, never rejects
  */
-function waitImage(url: string): Promise<void> {
+export function waitImage(url: string): Promise<void> {
   return new Promise((resolve) => {
     const image = new Image();
     image.onload = image.onerror = () => resolve();
