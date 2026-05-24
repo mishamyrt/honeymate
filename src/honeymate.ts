@@ -28,10 +28,6 @@ function sleep(timeout: number): Promise<void> {
 
 async function loadElementOnce(record: HoneyRecord): Promise<void> {
   await Promise.all([waitMedia(record.node), record.awaited ? loadElement(record.awaited) : null]);
-
-  if (record.options.hold > 0) {
-    await sleep(record.options.hold);
-  }
 }
 
 async function showElement(
@@ -39,8 +35,11 @@ async function showElement(
   inViewWaiter: ReturnType<typeof createInViewWaiter> | null,
 ): Promise<void> {
   const inView = record.options.expose && inViewWaiter ? inViewWaiter.waitFor(record.node) : null;
-
   await Promise.all([loadElement(record), inView]);
+
+  if (record.options.hold > 0) {
+    await sleep(record.options.hold);
+  }
 
   if (record.removeSpinner) {
     record.removeSpinner();
