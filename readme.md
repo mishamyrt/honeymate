@@ -20,9 +20,9 @@
 <p>
 
 <p align="center">
-    <a href="https://badge.fury.io/js/mishamyrt-honeymate">
+    <a href="https://www.npmjs.com/package/honeymate">
         <img
-            src="https://badge.fury.io/js/mishamyrt-honeymate.svg"
+            src="https://img.shields.io/npm/v/honeymate"
             alt="npm version"
             height="18">
     </a>

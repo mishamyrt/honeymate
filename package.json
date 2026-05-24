@@ -1,13 +1,11 @@
 {
-  "name": "mishamyrt-honeymate",
+  "name": "honeymate",
   "version": "5.0.0",
   "description": "Dead simple loading animations",
   "main": "dist/honeymate.js",
   "keywords": [
     "js",
     "animations",
-    "esm",
-    "vanillajs",
     "coordinator"
   ],
   "scripts": {
