@@ -8,6 +8,13 @@
     "animations",
     "coordinator"
   ],
+  "files": [
+    "dist",
+    "package.json",
+    "LICENSE",
+    "README.md",
+    "style.css"
+  ],
   "scripts": {
     "dev": "vitest",
     "build": "rolldown -c rolldown.config.mjs",
