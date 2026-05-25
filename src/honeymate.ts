@@ -10,14 +10,17 @@ interface HoneyRecord {
   awaited: HoneyRecord | null;
   rect: DOMRect | null;
   removeSpinner: (() => void) | null;
-  loadPromise: Promise<void> | null;
+  showPromise: Promise<void> | null;
 }
 
-function loadElement(record: HoneyRecord): Promise<void> {
-  if (!record.loadPromise) {
-    record.loadPromise = loadElementOnce(record);
+function showElement(
+  record: HoneyRecord,
+  inViewWaiter: ReturnType<typeof createInViewWaiter> | null,
+): Promise<void> {
+  if (!record.showPromise) {
+    record.showPromise = showElementOnce(record, inViewWaiter);
   }
-  return record.loadPromise;
+  return record.showPromise;
 }
 
 function sleep(timeout: number): Promise<void> {
@@ -26,16 +29,16 @@ function sleep(timeout: number): Promise<void> {
   });
 }
 
-async function loadElementOnce(record: HoneyRecord): Promise<void> {
-  await Promise.all([waitMedia(record.node), record.awaited ? loadElement(record.awaited) : null]);
-}
-
-async function showElement(
+async function showElementOnce(
   record: HoneyRecord,
   inViewWaiter: ReturnType<typeof createInViewWaiter> | null,
 ): Promise<void> {
   const inView = record.options.expose && inViewWaiter ? inViewWaiter.waitFor(record.node) : null;
-  await Promise.all([loadElement(record), inView]);
+  await Promise.all([
+    waitMedia(record.node),
+    record.awaited ? showElement(record.awaited, inViewWaiter) : null,
+    inView,
+  ]);
 
   if (record.options.hold > 0) {
     await sleep(record.options.hold);
@@ -63,7 +66,7 @@ export function runHoneymate() {
       awaited: null,
       rect: null,
       removeSpinner: null,
-      loadPromise: null,
+      showPromise: null,
     };
 
     records[i] = record;

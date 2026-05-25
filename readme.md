@@ -110,7 +110,7 @@ These options could be specified on the block with the `honey` class.
 - `data-origin` — For relax, zoom and helix effects, the transformation origin. Default is ‘bottom’.
 - `data-duration` — The animation duration in milliseconds.
   Default is 600.
-- `data-await` — Wait for element with ID from value to load (but not finish the animation).
+- `data-await` — Wait for element with ID from value to start showing (but not finish the animation).
 - `data-scale` — For relax, zoom and helix effects, the initial scale. The default is 0.87.
 - `data-expose` — Wait until the user scrolls to the element. If a hold time is set, it is calculated from the moment when the element gets into view. This parameter uses IntersectionObserver for greater performance. In browsers that do not [support](https://caniuse.com/#feat=intersectionobserver) this, the parameter will be ignored.
 - `data-spin` — Show loading indicator.
