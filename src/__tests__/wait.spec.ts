@@ -15,7 +15,12 @@ interface FakeNode {
   src?: string;
   background?: string;
   backgroundImage?: string;
-  addEventListener?: (event: string, callback: () => void) => void;
+  addEventListener?: (
+    event: string,
+    callback: () => void,
+    options?: AddEventListenerOptions,
+  ) => void;
+  removeEventListener?: (event: string, callback: () => void) => void;
   querySelectorAll?: (selector: string) => FakeNode[];
 }
 
@@ -106,29 +111,52 @@ test("waits for image load and error", async () => {
   await expect(errorPromise).resolves.toBeUndefined();
 });
 
-test("waits for video canplaythrough", async () => {
-  let listener: (() => void) | null = null;
+test("waits for video readiness events", async () => {
+  const listeners = new Map<string, () => void>();
   const video = {
     tagName: "VIDEO",
+    readyState: 0,
+    error: null,
     addEventListener: vi.fn((event: string, callback: () => void) => {
-      expect(event).toBe("canplaythrough");
-      listener = callback;
+      listeners.set(event, callback);
     }),
+    removeEventListener: vi.fn(),
   };
 
   const promise = waitVideo(video as unknown as HTMLVideoElement);
 
-  expect(video.addEventListener).toHaveBeenCalledWith("canplaythrough", expect.any(Function));
+  for (const event of ["loadeddata", "canplay", "canplaythrough", "error", "abort"]) {
+    expect(video.addEventListener).toHaveBeenCalledWith(event, expect.any(Function), {
+      once: true,
+    });
+  }
 
-  // @ts-expect-error
-  listener?.();
+  listeners.get("canplay")?.();
 
   await expect(promise).resolves.toBeUndefined();
+  for (const event of ["loadeddata", "canplay", "canplaythrough", "error", "abort"]) {
+    expect(video.removeEventListener).toHaveBeenCalledWith(event, expect.any(Function));
+  }
+});
+
+test("does not wait for already loaded video", async () => {
+  const video = {
+    tagName: "VIDEO",
+    readyState: 2,
+    error: null,
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+  };
+
+  await expect(waitVideo(video as unknown as HTMLVideoElement)).resolves.toBeUndefined();
+
+  expect(video.addEventListener).not.toHaveBeenCalled();
+  expect(video.removeEventListener).not.toHaveBeenCalled();
 });
 
 test("waits for media in node and descendants", async () => {
   const loadedUrls: string[] = [];
-  let videoListener: (() => void) | null = null;
+  const videoListeners = new Map<string, () => void>();
 
   stubComputedStyle();
   vi.stubGlobal(
@@ -153,10 +181,12 @@ test("waits for media in node and descendants", async () => {
   const image = { tagName: "IMG", src: "child.jpg" };
   const video = {
     tagName: "VIDEO",
+    readyState: 0,
+    error: null,
     addEventListener: vi.fn((event: string, callback: () => void) => {
-      expect(event).toBe("canplaythrough");
-      videoListener = callback;
+      videoListeners.set(event, callback);
     }),
+    removeEventListener: vi.fn(),
   };
   const background = { tagName: "DIV", background: "url(child-bg.png)" };
   const node = {
@@ -166,12 +196,13 @@ test("waits for media in node and descendants", async () => {
   };
 
   const promise = waitMedia(node as unknown as Element);
-  // @ts-expect-error
-  videoListener?.();
+  videoListeners.get("loadeddata")?.();
 
   await promise;
 
   expect(node.querySelectorAll).toHaveBeenCalledWith("*");
-  expect(video.addEventListener).toHaveBeenCalledWith("canplaythrough", expect.any(Function));
+  expect(video.addEventListener).toHaveBeenCalledWith("loadeddata", expect.any(Function), {
+    once: true,
+  });
   expect(loadedUrls).toEqual(["root.png", "child.jpg", "child-bg.png"]);
 });

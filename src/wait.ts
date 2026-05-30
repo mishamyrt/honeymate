@@ -46,8 +46,25 @@ export function waitImage(url: string): Promise<void> {
 }
 
 export function waitVideo(node: HTMLVideoElement): Promise<void> {
+  const haveCurrentData = 2;
+
+  if (node.readyState >= haveCurrentData || node.error) {
+    return Promise.resolve();
+  }
+
   return new Promise((resolve) => {
-    node.addEventListener("canplaythrough", () => resolve());
+    const events = ["loadeddata", "canplay", "canplaythrough", "error", "abort"] as const;
+
+    const done = () => {
+      for (const event of events) {
+        node.removeEventListener(event, done);
+      }
+      resolve();
+    };
+
+    for (const event of events) {
+      node.addEventListener(event, done, { once: true });
+    }
   });
 }
 
