@@ -33,7 +33,7 @@ export function parseEffect(dataset: DOMStringMap): EffectParams {
   return {
     duration: parseInt(dataset.duration as string, 10) || 640,
     type: effectType,
-    scale: parseFloat(dataset.scale as string) || effectType === Effect.Focus ? 1.22 : 0.87,
+    scale: parseFloat(dataset.scale as string) || (effectType === Effect.Focus ? 1.22 : 0.87),
     origin: parseOrigin(dataset.origin),
     strength: parseInt(dataset.strength as string, 10) || 20,
     direction,

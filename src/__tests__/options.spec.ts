@@ -20,6 +20,7 @@ test("parses effect type", () => {
   expect(parseEffectType(Effect.Helix)).toBe(Effect.Helix);
   expect(parseEffectType(Effect.Slide)).toBe(Effect.Slide);
   expect(parseEffectType(Effect.Relax)).toBe(Effect.Relax);
+  expect(parseEffectType(Effect.Focus)).toBe(Effect.Focus);
   expect(() => parseEffectType("unknown")).toThrow("Unknown effect: unknown");
 });
 
@@ -46,6 +47,7 @@ test("parses effect params", () => {
     type: Effect.Fade,
     scale: 0.87,
     origin: Origin.Bottom,
+    strength: 20,
     direction: Direction.Up,
     offset: 32,
   });
@@ -65,8 +67,29 @@ test("parses effect params", () => {
     type: Effect.Relax,
     scale: 0.5,
     origin: Origin.Top,
+    strength: 20,
     direction: Direction.Left,
     offset: 12,
+  });
+
+  expect(parseEffect(dataset({ effect: Effect.Focus }))).toEqual({
+    duration: 640,
+    type: Effect.Focus,
+    scale: 1.22,
+    origin: Origin.Bottom,
+    strength: 20,
+    direction: Direction.Up,
+    offset: 32,
+  });
+
+  expect(parseEffect(dataset({ effect: Effect.Focus, scale: "1.5", strength: "12" }))).toEqual({
+    duration: 640,
+    type: Effect.Focus,
+    scale: 1.5,
+    origin: Origin.Bottom,
+    strength: 12,
+    direction: Direction.Up,
+    offset: 32,
   });
 });
 
@@ -110,6 +133,7 @@ test("parses full options object", () => {
       type: Effect.Zoom,
       scale: 0.9,
       origin: Origin.Right,
+      strength: 20,
       direction: Direction.Down,
       offset: 16,
     },

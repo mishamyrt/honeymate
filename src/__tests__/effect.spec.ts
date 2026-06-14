@@ -36,6 +36,7 @@ test("returns zoom effect properties", () => {
     direction: Direction.Up,
     offset: 0,
     origin: Origin.Bottom,
+    strength: 20,
   });
 
   expect(zoom).toEqual({
@@ -53,6 +54,7 @@ test("returns helix effect properties", () => {
     direction: Direction.Up,
     offset: 0,
     origin: Origin.Bottom,
+    strength: 20,
   });
 
   expect(helix).toEqual({
@@ -70,6 +72,7 @@ test("returns slide effect properties", () => {
     direction: Direction.Up,
     offset: 50,
     origin: Origin.Bottom,
+    strength: 20,
   });
 
   expect(slide).toEqual({
@@ -88,6 +91,7 @@ test("returns relax effect properties", () => {
     direction: Direction.Up,
     offset: 0,
     origin: Origin.Bottom,
+    strength: 20,
   });
 
   expect(relax).toEqual({
@@ -95,5 +99,25 @@ test("returns relax effect properties", () => {
     transform: "scaleY(0.5)",
     transformOrigin: "bottom",
     transition: "opacity 111ms ease-out, transform 111ms cubic-bezier(0,0,0,1)",
+  });
+});
+
+test("returns focus effect properties", () => {
+  const focus = createEffectStyles({
+    duration: 120,
+    type: Effect.Focus,
+    scale: 1.22,
+    direction: Direction.Up,
+    offset: 0,
+    origin: Origin.Bottom,
+    strength: 8,
+  });
+
+  expect(focus).toEqual({
+    opacity: "0",
+    transform: "scale(1.22)",
+    filter: "blur(8px)",
+    transition:
+      "opacity 120ms ease-out, filter 120ms cubic-bezier(0,0,0,1), transform 120ms cubic-bezier(0,0,0,1)",
   });
 });

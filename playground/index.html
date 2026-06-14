@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Honeymate Effects Demo</title>
+    <link rel="stylesheet" href="../style.css" />
+    <style>
+      :root {
+        color: #1d1d1f;
+        background: #fff;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      main {
+        width: min(980px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 32px 0 48px;
+      }
+
+      header {
+        display: grid;
+        gap: 12px;
+        margin-bottom: 28px;
+      }
+
+      h1 {
+        margin: 0;
+        max-width: 680px;
+        font-size: clamp(32px, 5vw, 56px);
+        line-height: 1.06;
+        letter-spacing: -0.04em;
+      }
+
+      h2 {
+        margin: 0 0 12px;
+        font-size: clamp(22px, 3vw, 30px);
+        letter-spacing: -0.03em;
+      }
+
+      p {
+        margin: 0;
+        max-width: 640px;
+        color: #6e6e73;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      button {
+        width: max-content;
+        border: 0;
+        border-radius: 980px;
+        padding: 8px 14px;
+        background: #1d1d1f;
+        color: white;
+        font: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #424245;
+      }
+
+      section {
+        margin-top: 36px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 12px;
+      }
+
+      .card {
+        min-height: 150px;
+        border: 1px solid #d2d2d7;
+        border-radius: 14px;
+        padding: 16px;
+        background: white;
+      }
+
+      .card strong {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 18px;
+        letter-spacing: -0.02em;
+      }
+
+      .card code {
+        display: inline-block;
+        border-radius: 6px;
+        margin-top: 14px;
+        padding: 4px 6px;
+        background: #f5f5f7;
+        color: #424245;
+        font-size: 12px;
+      }
+
+      .accent {
+        background: #f5f5f7;
+      }
+
+      .accent p,
+      .accent code {
+        color: #424245;
+      }
+
+      .sequence {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .step {
+        min-height: 92px;
+        border: 1px solid #d2d2d7;
+        border-radius: 14px;
+        padding: 16px;
+        background: #f5f5f7;
+        color: #1d1d1f;
+      }
+
+      .spacer {
+        min-height: 32vh;
+        display: grid;
+        place-items: center;
+        color: #86868b;
+      }
+
+      .photo {
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        border-radius: 10px;
+        object-fit: cover;
+        background: #f5f5f7;
+      }
+
+      @media (max-width: 640px) {
+        main {
+          width: min(100% - 24px, 1120px);
+          padding-top: 24px;
+        }
+
+        .sequence {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Honeymate effects test page</h1>
+        <p>
+          Rebuild the bundle with <code>pnpm build</code>, then open this page to quickly check
+          animation options and replay them.
+        </p>
+        <button class="honey-replay" type="button">Replay effects</button>
+      </header>
+
+      <section>
+        <h2>Basic effects</h2>
+        <div class="grid">
+          <article class="honey card" data-effect="fade" data-hold="80">
+            <strong>Fade</strong>
+            <p>Default opacity transition.</p>
+            <code>data-effect="fade"</code>
+          </article>
+          <article class="honey card accent" data-effect="zoom" data-scale="0.72" data-hold="160">
+            <strong>Zoom</strong>
+            <code>data-effect="zoom"</code>
+          </article>
+          <article class="honey card" data-effect="helix" data-duration="900" data-hold="240">
+            <strong>Helix</strong>
+            <code>data-effect="helix"</code>
+          </article>
+          <article
+            class="honey card"
+            data-effect="relax"
+            data-origin="top"
+            data-scale="0.45"
+            data-hold="320"
+          >
+            <strong>Relax</strong>
+            <code>data-origin="top"</code>
+          </article>
+          <article class="honey card" data-effect="focus" data-duration="900" data-hold="240">
+            <strong>Blur</strong>
+            <code>data-effect="helix"</code>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2>Slide directions</h2>
+        <div class="grid">
+          <article class="honey card" data-effect="slide" data-up="56" data-hold="100">
+            <strong>Slide from up</strong>
+            <code>data-up="56"</code>
+          </article>
+          <article class="honey card" data-effect="slide" data-down="56" data-hold="180">
+            <strong>Slide from down</strong>
+            <code>data-down="56"</code>
+          </article>
+          <article class="honey card" data-effect="slide" data-left="56" data-hold="260">
+            <strong>Slide from left</strong>
+            <code>data-left="56"</code>
+          </article>
+          <article class="honey card" data-effect="slide" data-right="56" data-hold="340">
+            <strong>Slide from right</strong>
+            <code>data-right="56"</code>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2>Spinner and media wait</h2>
+        <div class="grid">
+          <article
+            class="honey card"
+            data-effect="zoom"
+            data-spin="true"
+            data-spin-color="#ff7a59"
+            data-spin-size="38"
+            data-hold="500"
+          >
+            <strong>Spinner</strong>
+            <code>data-spin="true"</code>
+          </article>
+          <article class="honey card" data-effect="fade" data-spin="true" data-hold="300">
+            <img
+              class="photo"
+              alt="Gradient demo image"
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 500'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1' y1='0' y2='1'%3E%3Cstop stop-color='%23ffdf58'/%3E%3Cstop offset='1' stop-color='%23ff7a59'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='500' fill='url(%23g)'/%3E%3Ccircle cx='610' cy='130' r='92' fill='%23fff9e8' opacity='.65'/%3E%3C/svg%3E"
+            />
+            <code>image wait</code>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2>Sequential reveal</h2>
+        <div class="sequence">
+          <div class="honey step" data-effect="focus" data-hold="100">Step 1</div>
+          <div class="honey step" data-effect="focus" data-continue="true" data-hold="220">
+            Step 2
+          </div>
+          <div class="honey step" data-effect="focus" data-continue="true" data-hold="220">
+            Step 3
+          </div>
+          <div class="honey step" data-effect="focus" data-continue="true" data-hold="220">
+            Step 4
+          </div>
+        </div>
+      </section>
+
+      <div class="spacer">Scroll down to test data-expose</div>
+
+      <section>
+        <h2>In-view reveal</h2>
+        <div class="grid">
+          <article class="honey card accent" data-effect="zoom" data-expose="true" data-hold="150">
+            <strong>Expose zoom</strong>
+            <code>data-expose="true"</code>
+          </article>
+          <article
+            class="honey card"
+            data-effect="slide"
+            data-left="72"
+            data-expose="true"
+            data-hold="250"
+          >
+            <strong>Expose slide</strong>
+            <code>data-expose="true"</code>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script src="../dist/honeymate.js"></script>
+  </body>
+</html>
