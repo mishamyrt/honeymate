@@ -98,9 +98,7 @@ export function runHoneymate() {
   for (let i = 0; i < records.length; i++) {
     const record = records[i];
     const effect = createEffectStyles(record.options.effect);
-    queueMicrotask(() => {
-      Object.assign(record.node.style, effect);
-    });
+    Object.assign(record.node.style, effect);
 
     if (record.options.spinner) {
       record.removeSpinner = insertSpinner(record.rect!, record.options.spinner);
