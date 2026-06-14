@@ -65,6 +65,7 @@ export function parseEffectType(effect: string | undefined): Effect {
     return Effect.Fade;
   }
   switch (effect) {
+    case Effect.Fade:
     case Effect.Zoom:
     case Effect.Helix:
     case Effect.Slide:
