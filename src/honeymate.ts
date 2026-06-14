@@ -51,8 +51,12 @@ async function showElementOnce(
   Object.assign(record.node.style, { opacity: "1", transform: "" });
 }
 
+function getHoneyElements(): NodeListOf<HTMLElement> {
+  return document.querySelectorAll(".honey");
+}
+
 export function runHoneymate() {
-  const elements = document.querySelectorAll<HTMLElement>(".honey");
+  const elements = getHoneyElements();
   const records = Array.from<HoneyRecord>({ length: elements.length });
   const byElement = new WeakMap<Element, HoneyRecord>();
   let hasExposed = false;
@@ -112,5 +116,16 @@ export function runHoneymate() {
 
   if (inViewWaiter) {
     Promise.all(displays).then(() => inViewWaiter.destroy());
+  }
+}
+
+export function resetHoneymate() {
+  const elements = getHoneyElements();
+  for (const el of elements) {
+    Object.assign(el.style, {
+      transition: "",
+      transform: "",
+      opacity: "",
+    });
   }
 }
