@@ -23,8 +23,7 @@
   "scripts": {
     "dev": "vitest",
     "build": "rolldown -c rolldown.config.mjs",
-    "build:min": "rolldown -c rolldown.config.mjs -m -o dist/honeymate.min.js",
-    "print-size": "pnpm run build:min && gzip -c dist/honeymate.min.js | wc -c | xargs",
+    "print-size": "sh scripts/print-size.sh",
     "lint": "oxlint .",
     "format": "oxfmt --write .",
     "format:check": "oxfmt --check .",
