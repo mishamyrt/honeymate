@@ -19,7 +19,7 @@ export function parseOptions(dataset: DOMStringMap): Options {
     continue: dataset.continue === "true",
     expose: dataset.expose === "true",
     effect: parseEffect(dataset),
-    hold: parseInt(dataset.hold as string, 10) || 50,
+    hold: parseDecimal(dataset.hold) || 50,
     spinner: parseSpinner(dataset),
   };
 }
@@ -31,11 +31,11 @@ export function parseEffect(dataset: DOMStringMap): EffectParams {
   const [direction, offset] = parseDirection(dataset);
   const effectType = parseEffectType(dataset.effect);
   return {
-    duration: parseInt(dataset.duration as string, 10) || 640,
+    duration: parseDecimal(dataset.duration) || 640,
     type: effectType,
     scale: parseFloat(dataset.scale as string) || (effectType === Effect.Focus ? 1.22 : 0.87),
     origin: parseOrigin(dataset.origin),
-    strength: parseInt(dataset.strength as string, 10) || 20,
+    strength: parseDecimal(dataset.strength) || 20,
     direction,
     offset,
   };
@@ -47,13 +47,13 @@ export function parseEffect(dataset: DOMStringMap): EffectParams {
  */
 export function parseDirection(dataset: DOMStringMap): [Direction, number] {
   if (dataset.right) {
-    return [Direction.Right, parseInt(dataset.right, 10)];
+    return [Direction.Right, parseDecimal(dataset.right)];
   } else if (dataset.down) {
-    return [Direction.Down, parseInt(dataset.down, 10)];
+    return [Direction.Down, parseDecimal(dataset.down)];
   } else if (dataset.left) {
-    return [Direction.Left, parseInt(dataset.left, 10)];
+    return [Direction.Left, parseDecimal(dataset.left)];
   } else if (dataset.up) {
-    return [Direction.Up, parseInt(dataset.up, 10)];
+    return [Direction.Up, parseDecimal(dataset.up)];
   }
 
   return [Direction.Up, 32];
@@ -106,6 +106,16 @@ export function parseSpinner(dataset: DOMStringMap): SpinnerParams | null {
   }
   return {
     color: dataset.spinColor || "#000",
-    size: parseInt(dataset.spinSize as string, 10) || 24,
+    size: parseDecimal(dataset.spinSize) || 24,
   };
+}
+
+/**
+ * Parse decimal integer value
+ */
+export function parseDecimal(value: string | undefined): number {
+  if (!value) {
+    return NaN;
+  }
+  return parseInt(value, 10);
 }

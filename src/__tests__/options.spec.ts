@@ -2,6 +2,7 @@ import { expect, test } from "vitest";
 
 import { Direction, Effect, Origin } from "../effect";
 import {
+  parseDecimal,
   parseDirection,
   parseEffect,
   parseEffectType,
@@ -13,6 +14,14 @@ import {
 function dataset(values: Record<string, string> = {}): DOMStringMap {
   return values as DOMStringMap;
 }
+
+test("parses decimal number", () => {
+  expect(parseDecimal(undefined)).toBe(NaN);
+  expect(parseDecimal("")).toBe(NaN);
+  expect(parseDecimal("0")).toBe(0);
+  expect(parseDecimal("1")).toBe(1);
+  expect(parseDecimal("10")).toBe(10);
+});
 
 test("parses effect type", () => {
   expect(parseEffectType(undefined)).toBe(Effect.Fade);
