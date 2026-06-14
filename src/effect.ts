@@ -7,6 +7,7 @@ export enum Effect {
   Helix = "helix",
   Slide = "slide",
   Relax = "relax",
+  Focus = "focus",
 }
 
 /**
@@ -39,6 +40,7 @@ export interface EffectParams {
   scale: number;
   origin: Origin;
   offset: number;
+  strength: number;
 }
 
 /**
@@ -56,6 +58,7 @@ export function createEffectStyles({
   direction,
   offset,
   origin,
+  strength,
 }: EffectParams): Partial<CSSStyleDeclaration> {
   const props: Partial<CSSStyleDeclaration> = {
     opacity: "0",
@@ -86,6 +89,14 @@ export function createEffectStyles({
       props.transition = formatTransition(duration, {
         transform: "cubic-bezier(0,0,0,1)",
       });
+      break;
+    case Effect.Focus:
+      props.transition = formatTransition(duration, {
+        filter: "cubic-bezier(0,0,0,1)",
+        transform: "cubic-bezier(0,0,0,1)",
+      });
+      props.transform = `scale(${scale})`;
+      props.filter = `blur(${strength}px)`;
       break;
     default:
       props.transition = formatTransition(duration, {});

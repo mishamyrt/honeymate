@@ -29,11 +29,13 @@ export function parseOptions(dataset: DOMStringMap): Options {
  */
 export function parseEffect(dataset: DOMStringMap): EffectParams {
   const [direction, offset] = parseDirection(dataset);
+  const effectType = parseEffectType(dataset.effect);
   return {
     duration: parseInt(dataset.duration as string, 10) || 640,
-    type: parseEffectType(dataset.effect),
-    scale: parseFloat(dataset.scale as string) || 0.87,
+    type: effectType,
+    scale: parseFloat(dataset.scale as string) || effectType === Effect.Focus ? 1.22 : 0.87,
     origin: parseOrigin(dataset.origin),
+    strength: parseInt(dataset.strength as string, 10) || 20,
     direction,
     offset,
   };
@@ -70,6 +72,7 @@ export function parseEffectType(effect: string | undefined): Effect {
     case Effect.Helix:
     case Effect.Slide:
     case Effect.Relax:
+    case Effect.Focus:
       return effect;
     default:
       throw new Error(`Unknown effect: ${effect}`);

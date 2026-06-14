@@ -48,7 +48,7 @@ async function showElementOnce(
     record.removeSpinner();
   }
 
-  Object.assign(record.node.style, { opacity: "1", transform: "" });
+  Object.assign(record.node.style, { opacity: "1", transform: "", filter: "" });
 }
 
 function getHoneyElements(): NodeListOf<HTMLElement> {
@@ -125,6 +125,7 @@ export function resetHoneymate() {
     Object.assign(el.style, {
       transition: "",
       transform: "",
+      filter: "",
       opacity: "",
     });
   }

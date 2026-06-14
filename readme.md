@@ -105,17 +105,18 @@ honeyNode.isLoaded().then(() => honeyNode.expose());
 
 These options could be specified on the block with the `honey` class.
 
-- `data-effect` — Current effect. Available effects: helix, fade (default), relax, zoom.
+- `data-effect` — Current effect. Available effects: helix, fade (default), relax, zoom, focus.
 - `data-hold` — Hold on for this number of milliseconds (at least this much time should elapse after an element, which the given one was waiting for, have started emerging).
 - `data-origin` — For relax, zoom and helix effects, the transformation origin. Default is ‘bottom’.
 - `data-duration` — The animation duration in milliseconds.
   Default is 600.
 - `data-await` — Wait for element with ID from value to start showing (but not finish the animation).
-- `data-scale` — For relax, zoom and helix effects, the initial scale. The default is 0.87.
+- `data-scale` — For relax, zoom, helix and focus effects, the initial scale. The default is 1.22 for focus and 0.87 for others.
 - `data-expose` — Wait until the user scrolls to the element. If a hold time is set, it is calculated from the moment when the element gets into view. This parameter uses IntersectionObserver for greater performance. In browsers that do not [support](https://caniuse.com/#feat=intersectionobserver) this, the parameter will be ignored.
 - `data-spin` — Show loading indicator.
 - `data-spin-size` — Indicator diameter in pixels. Default is 24.
-- `data-spin-color` — Indicator colour. Default is black.
+- `data-spin-color` — Indicator color. Default is black.
+- `data-strength` — For focus effect, the blur strength. Default is 20.
 
 ```html
 <div class="honey" data-effect="helix" data-delay="400" data-spin="true">
