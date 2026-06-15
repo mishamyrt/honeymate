@@ -1,11 +1,14 @@
 import { afterEach, expect, test, vi } from "vitest";
 
-import { createSvgElement, getSpinner, insertSpinner } from "../spinner";
+import { createSpinner, insertSpinner } from "../spinner";
 
 class FakeElement {
   attributes = new Map<string, string>();
   children: FakeElement[] = [];
-  style: Record<string, string> = {};
+  style: Record<string, number | string> = {};
+  animate = vi.fn();
+
+  private html = "";
 
   constructor(
     public tagName: string,
@@ -15,6 +18,33 @@ class FakeElement {
   appendChild(child: FakeElement) {
     this.children.push(child);
     return child;
+  }
+
+  get firstElementChild() {
+    return this.children[0] || null;
+  }
+
+  get innerHTML() {
+    return this.html;
+  }
+
+  set innerHTML(value: string) {
+    this.html = value;
+
+    const svg = new FakeElement("svg");
+    svg.setAttribute("viewBox", "0 0 100 100");
+    svg.setAttribute("preserveAspectRatio", "xMidYMid");
+
+    const circle = new FakeElement("circle");
+    circle.setAttribute("cx", "50");
+    circle.setAttribute("cy", "50");
+    circle.setAttribute("r", "35");
+    circle.setAttribute("stroke-width", "10");
+    circle.setAttribute("fill", "none");
+    circle.setAttribute("stroke-dasharray", "90 60");
+
+    svg.appendChild(circle);
+    this.children = [svg];
   }
 
   removeChild(child: FakeElement) {
@@ -52,32 +82,26 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-test("creates svg element with attributes", () => {
-  stubDocument();
-
-  const element = createSvgElement("circle", {
-    cx: 50,
-    stroke: "#fff",
-  }) as unknown as FakeElement;
-
-  expect(element.tagName).toBe("circle");
-  expect(element.namespaceURI).toBe("http://www.w3.org/2000/svg");
-  expect(element.getAttribute("cx")).toBe("50");
-  expect(element.getAttribute("stroke")).toBe("#fff");
-});
-
 test("creates spinner svg", () => {
   stubDocument();
 
-  const spinner = getSpinner({ size: 48, color: "#663399" }) as unknown as FakeElement | undefined;
-  const circle = spinner?.children[0];
+  const container = createSpinner({ size: 48, color: "#663399" }) as unknown as FakeElement;
+  const spinner = container.firstElementChild;
+  const circle = spinner?.firstElementChild;
 
   expect(spinner?.tagName).toBe("svg");
-  expect(spinner?.getAttribute("width")).toBe("48");
-  expect(spinner?.getAttribute("height")).toBe("48");
+  expect(spinner?.style.width).toBe(48);
+  expect(spinner?.style.height).toBe(48);
   expect(spinner?.getAttribute("viewBox")).toBe("0 0 100 100");
+  expect(spinner?.animate).toHaveBeenCalledWith(
+    [{ transform: "rotate(0turn)" }, { transform: "rotate(1turn)" }],
+    {
+      duration: 850,
+      iterations: Infinity,
+    },
+  );
   expect(circle?.tagName).toBe("circle");
-  expect(circle?.getAttribute("stroke")).toBe("#663399");
+  expect(circle?.style.stroke).toBe("#663399");
   expect(circle?.getAttribute("stroke-dasharray")).toBe("90 60");
 });
 
@@ -98,7 +122,9 @@ test("inserts and removes spinner", () => {
     width: "200px",
     height: "100px",
     position: "absolute",
-    display: "flex",
+    display: "grid",
+    placeContent: "center",
+    transition: "opacity .23s ease-out",
   });
   expect(container.children[0].tagName).toBe("svg");
 

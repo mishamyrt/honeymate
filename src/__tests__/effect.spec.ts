@@ -20,12 +20,12 @@ test("formats transition", () => {
 });
 
 test("formats transform translate for slide effect", () => {
-  expect(formatSlideTranslate(Direction.Up, 100)).toBe("translateY(-100px)");
-  expect(formatSlideTranslate(Direction.Down, 150)).toBe("translateY(150px)");
-  expect(formatSlideTranslate(Direction.Left, 100)).toBe("translateX(-100px)");
-  expect(formatSlideTranslate(Direction.Right, 200)).toBe("translateX(200px)");
+  expect(formatSlideTranslate(Direction.Up, "100px")).toBe("translateY(-100px)");
+  expect(formatSlideTranslate(Direction.Down, "150px")).toBe("translateY(150px)");
+  expect(formatSlideTranslate(Direction.Left, "100px")).toBe("translateX(-100px)");
+  expect(formatSlideTranslate(Direction.Right, "200px")).toBe("translateX(200px)");
 
-  expect(formatSlideTranslate(Direction.Up, 0)).toBe("translateY(0px)");
+  expect(formatSlideTranslate(Direction.Up, "0px")).toBe("translateY(-0px)");
 });
 
 test("returns zoom effect properties", () => {
@@ -34,7 +34,7 @@ test("returns zoom effect properties", () => {
     type: Effect.Zoom,
     scale: 2,
     direction: Direction.Up,
-    offset: 0,
+    offset: "0",
     origin: Origin.Bottom,
     strength: 20,
   });
@@ -52,7 +52,7 @@ test("returns helix effect properties", () => {
     type: Effect.Helix,
     scale: 1,
     direction: Direction.Up,
-    offset: 0,
+    offset: "0",
     origin: Origin.Bottom,
     strength: 20,
   });
@@ -70,7 +70,7 @@ test("returns slide effect properties", () => {
     type: Effect.Slide,
     scale: 0,
     direction: Direction.Up,
-    offset: 50,
+    offset: "50px",
     origin: Origin.Bottom,
     strength: 20,
   });
@@ -89,7 +89,7 @@ test("returns relax effect properties", () => {
     type: Effect.Relax,
     scale: 0.5,
     direction: Direction.Up,
-    offset: 0,
+    offset: "0",
     origin: Origin.Bottom,
     strength: 20,
   });
@@ -108,7 +108,7 @@ test("returns focus effect properties", () => {
     type: Effect.Focus,
     scale: 1.22,
     direction: Direction.Up,
-    offset: 0,
+    offset: "0",
     origin: Origin.Bottom,
     strength: 8,
   });

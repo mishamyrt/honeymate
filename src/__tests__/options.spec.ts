@@ -43,11 +43,14 @@ test("parses transform origin", () => {
 });
 
 test("parses direction with documented priority", () => {
-  expect(parseDirection(dataset())).toEqual([Direction.Up, 32]);
-  expect(parseDirection(dataset({ up: "10" }))).toEqual([Direction.Up, 10]);
-  expect(parseDirection(dataset({ left: "20", up: "10" }))).toEqual([Direction.Left, 20]);
-  expect(parseDirection(dataset({ down: "30", left: "20" }))).toEqual([Direction.Down, 30]);
-  expect(parseDirection(dataset({ right: "40", down: "30" }))).toEqual([Direction.Right, 40]);
+  expect(parseDirection(dataset())).toEqual([Direction.Up, "32px"]);
+  expect(parseDirection(dataset({ up: "10px" }))).toEqual([Direction.Up, "10px"]);
+  expect(parseDirection(dataset({ left: "20em", up: "10cm" }))).toEqual([Direction.Left, "20em"]);
+  expect(parseDirection(dataset({ down: "30px", left: "20px" }))).toEqual([Direction.Down, "30px"]);
+  expect(parseDirection(dataset({ right: "40px", down: "30px" }))).toEqual([
+    Direction.Right,
+    "40px",
+  ]);
 });
 
 test("parses effect params", () => {
@@ -58,7 +61,7 @@ test("parses effect params", () => {
     origin: Origin.Bottom,
     strength: 20,
     direction: Direction.Up,
-    offset: 32,
+    offset: "32px",
   });
 
   expect(
@@ -68,7 +71,7 @@ test("parses effect params", () => {
         effect: Effect.Relax,
         scale: "0.5",
         origin: Origin.Top,
-        left: "12",
+        left: "12px",
       }),
     ),
   ).toEqual({
@@ -78,7 +81,7 @@ test("parses effect params", () => {
     origin: Origin.Top,
     strength: 20,
     direction: Direction.Left,
-    offset: 12,
+    offset: "12px",
   });
 
   expect(parseEffect(dataset({ effect: Effect.Focus }))).toEqual({
@@ -88,7 +91,7 @@ test("parses effect params", () => {
     origin: Origin.Bottom,
     strength: 20,
     direction: Direction.Up,
-    offset: 32,
+    offset: "32px",
   });
 
   expect(parseEffect(dataset({ effect: Effect.Focus, scale: "1.5", strength: "12" }))).toEqual({
@@ -98,7 +101,7 @@ test("parses effect params", () => {
     origin: Origin.Bottom,
     strength: 12,
     direction: Direction.Up,
-    offset: 32,
+    offset: "32px",
   });
 });
 
@@ -126,7 +129,7 @@ test("parses full options object", () => {
         duration: "700",
         scale: "0.9",
         origin: Origin.Right,
-        down: "16",
+        down: "16px",
         spin: "true",
         spinColor: "#fff",
         spinSize: "32",
@@ -144,7 +147,7 @@ test("parses full options object", () => {
       origin: Origin.Right,
       strength: 20,
       direction: Direction.Down,
-      offset: 16,
+      offset: "16px",
     },
     spinner: {
       color: "#fff",
