@@ -2,7 +2,7 @@ import { Direction, Effect, EffectParams, Origin } from "./effect";
 import type { SpinnerParams } from "./spinner";
 
 export interface Options {
-  awaitId: string | null;
+  await: string | null;
   continue: boolean;
   expose: boolean;
   effect: EffectParams;
@@ -18,7 +18,7 @@ const DEFAULT_VIDEO_EVENT = "canplaythrough";
  */
 export function parseOptions(dataset: DOMStringMap): Options {
   return {
-    awaitId: dataset.await || null,
+    await: dataset.await || null,
     continue: dataset.continue === "true",
     expose: dataset.expose === "true",
     event: dataset.event || DEFAULT_VIDEO_EVENT,

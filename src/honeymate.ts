@@ -83,8 +83,8 @@ export function runHoneymate() {
 
     if (record.options.continue) {
       record.awaited = records[i - 1];
-    } else if (record.options.awaitId) {
-      record.awaited = byElement.get(document.getElementById(record.options.awaitId)!)!;
+    } else if (record.options.await) {
+      record.awaited = byElement.get(document.getElementById(record.options.await)!)!;
     }
   }
 
