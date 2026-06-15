@@ -10,13 +10,11 @@ import {
 } from "../effect";
 
 test("formats transition", () => {
-  expect(formatTransition(100, { opacity: "ease-in" })).toBe("opacity 100ms ease-in");
-
-  expect(formatTransition(200, { opacity: "ease-out", transform: "linear" })).toBe(
+  expect(formatTransition(200, "linear", "transform")).toBe(
     "opacity 200ms ease-out, transform 200ms linear",
   );
 
-  expect(formatTransition(300, {})).toBe("opacity 300ms ease-out");
+  expect(formatTransition(300)).toBe("opacity 300ms ease-out");
 });
 
 test("formats transform translate for slide effect", () => {

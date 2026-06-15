@@ -43,10 +43,13 @@ export interface EffectParams {
   strength: number;
 }
 
-/**
- * Maps transition properties to their easing functions
- */
-type TransitionProperties = Record<string, string>;
+const BEZIER = "cubic-bezier(";
+const EASE_ZOOM = BEZIER + "0,.7,.3,1)";
+const EASE_HELIX = BEZIER + "0,.75,.25,1)";
+const EASE_SLIDE = BEZIER + "0,.9,.1,1)";
+const EASE_SETTLE = BEZIER + "0,0,0,1)";
+
+type TransitionProperty = "filter" | "transform";
 
 /**
  * Generates effect start point.
@@ -66,40 +69,29 @@ export function createEffectStyles({
   switch (type) {
     case Effect.Zoom:
       props.transform = `scale(${scale})`;
-      props.transition = formatTransition(duration, {
-        transform: "cubic-bezier(0,.7,.3,1)",
-      });
+      props.transition = formatTransition(duration, EASE_ZOOM, "transform");
       break;
     case Effect.Helix:
       props.transform = `scale(${scale}) rotate(90deg)`;
-      props.transition = formatTransition(duration, {
-        transform: "cubic-bezier(0,.75,.25,1)",
-      });
+      props.transition = formatTransition(duration, EASE_HELIX, "transform");
       break;
     case "slide":
       props.transform = formatSlideTranslate(direction, offset);
       props.transformOrigin = origin;
-      props.transition = formatTransition(duration, {
-        transform: "cubic-bezier(0,.9,.1,1)",
-      });
+      props.transition = formatTransition(duration, EASE_SLIDE, "transform");
       break;
     case Effect.Relax:
       props.transform = `scaleY(${scale})`;
       props.transformOrigin = origin;
-      props.transition = formatTransition(duration, {
-        transform: "cubic-bezier(0,0,0,1)",
-      });
+      props.transition = formatTransition(duration, EASE_SETTLE, "transform");
       break;
     case Effect.Focus:
-      props.transition = formatTransition(duration, {
-        filter: "cubic-bezier(0,0,0,1)",
-        transform: "cubic-bezier(0,0,0,1)",
-      });
+      props.transition = formatTransition(duration, EASE_SETTLE, "filter", "transform");
       props.transform = `scale(${scale})`;
       props.filter = `blur(${strength}px)`;
       break;
     default:
-      props.transition = formatTransition(duration, {});
+      props.transition = formatTransition(duration);
   }
   return props;
 }
@@ -119,9 +111,14 @@ export function formatSlideTranslate(direction: Direction, offset: string) {
  * Generates CSS transition string.
  * Includes opacity transition with `ease-out` easing by default.
  */
-export function formatTransition(duration: number, properties: TransitionProperties) {
-  const defaultProperties: TransitionProperties = { opacity: "ease-out" };
-  return Object.entries({ ...defaultProperties, ...properties })
-    .map(([property, easing]) => `${property} ${duration}ms ${easing}`)
-    .join(", ");
+export function formatTransition(
+  duration: number,
+  easing = "",
+  ...properties: TransitionProperty[]
+) {
+  let transition = `opacity ${duration}ms ease-out`;
+  for (const property of properties) {
+    transition += `, ${property} ${duration}ms ${easing}`;
+  }
+  return transition;
 }
