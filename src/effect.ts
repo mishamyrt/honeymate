@@ -39,7 +39,7 @@ export interface EffectParams {
   duration: number;
   scale: number;
   origin: Origin;
-  offset: number;
+  offset: string;
   strength: number;
 }
 
@@ -107,12 +107,12 @@ export function createEffectStyles({
 /**
  * Generates CSS transform string for slide transition
  */
-export function formatSlideTranslate(direction: Direction, offset: number) {
+export function formatSlideTranslate(direction: Direction, offset: string) {
   const axis = direction <= Direction.Down ? "Y" : "X";
   if (direction === Direction.Up || direction === Direction.Left) {
-    offset = -offset;
+    offset = "-" + offset;
   }
-  return `translate${axis}(${offset}px)`;
+  return "translate" + axis + "(" + offset + ")";
 }
 
 /**

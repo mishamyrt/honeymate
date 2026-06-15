@@ -45,18 +45,18 @@ export function parseEffect(dataset: DOMStringMap): EffectParams {
  * Parses the direction from the dataset.
  * Returns a tuple of the direction and the direction offset.
  */
-export function parseDirection(dataset: DOMStringMap): [Direction, number] {
+export function parseDirection(dataset: DOMStringMap): [Direction, string] {
   if (dataset.right) {
-    return [Direction.Right, parseDecimal(dataset.right)];
+    return [Direction.Right, dataset.right];
   } else if (dataset.down) {
-    return [Direction.Down, parseDecimal(dataset.down)];
+    return [Direction.Down, dataset.down];
   } else if (dataset.left) {
-    return [Direction.Left, parseDecimal(dataset.left)];
+    return [Direction.Left, dataset.left];
   } else if (dataset.up) {
-    return [Direction.Up, parseDecimal(dataset.up)];
+    return [Direction.Up, dataset.up];
   }
 
-  return [Direction.Up, 32];
+  return [Direction.Up, "32px"];
 }
 
 /**
