@@ -45,7 +45,7 @@ export function waitImage(url: string): Promise<void> {
   });
 }
 
-export function waitVideo(node: HTMLVideoElement): Promise<void> {
+export function waitVideo(node: HTMLVideoElement, event: string): Promise<void> {
   const haveCurrentData = 2;
 
   if (node.readyState >= haveCurrentData || node.error) {
@@ -53,25 +53,19 @@ export function waitVideo(node: HTMLVideoElement): Promise<void> {
   }
 
   return new Promise((resolve) => {
-    const events = ["loadeddata", "canplay", "canplaythrough", "error", "abort"] as const;
-
     const done = () => {
-      for (const event of events) {
-        node.removeEventListener(event, done);
-      }
+      node.removeEventListener(event, done);
       resolve();
     };
 
-    for (const event of events) {
-      node.addEventListener(event, done, { once: true });
-    }
+    node.addEventListener(event, done, { once: true });
   });
 }
 
 /**
  * Resolves when all images in node (including descendants) are loaded
  */
-export function waitMedia(parent: Element) {
+export function waitMedia(parent: Element, videoEvent: string) {
   const children = Array.from(parent.querySelectorAll("*"));
   const elements = [parent].concat(children);
   const mediaPromises = [];
@@ -79,7 +73,7 @@ export function waitMedia(parent: Element) {
     if (isImageElement(element)) {
       mediaPromises.push(waitImage(element.src));
     } else if (isVideoElement(element)) {
-      mediaPromises.push(waitVideo(element));
+      mediaPromises.push(waitVideo(element, videoEvent));
     } else {
       const bgImage = getBackgroundImage(element);
       if (bgImage) {

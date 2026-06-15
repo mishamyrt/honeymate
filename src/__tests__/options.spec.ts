@@ -117,6 +117,11 @@ test("parses spinner params", () => {
   });
 });
 
+test("parses video event", () => {
+  expect(parseOptions(dataset()).event).toBe("canplaythrough");
+  expect(parseOptions(dataset({ event: "loadedmetadata" })).event).toBe("loadedmetadata");
+});
+
 test("parses full options object", () => {
   expect(
     parseOptions(
@@ -124,6 +129,7 @@ test("parses full options object", () => {
         await: "hero",
         continue: "true",
         expose: "true",
+        event: "canplay",
         hold: "120",
         effect: Effect.Zoom,
         duration: "700",
@@ -139,6 +145,7 @@ test("parses full options object", () => {
     awaitId: "hero",
     continue: true,
     expose: true,
+    event: "canplay",
     hold: 120,
     effect: {
       duration: 700,

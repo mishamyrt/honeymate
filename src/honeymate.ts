@@ -35,7 +35,7 @@ async function showElementOnce(
 ): Promise<void> {
   const inView = record.options.expose && inViewWaiter ? inViewWaiter.waitFor(record.node) : null;
   await Promise.all([
-    waitMedia(record.node),
+    waitMedia(record.node, record.options.event),
     record.awaited ? showElement(record.awaited, inViewWaiter) : null,
     inView,
   ]);

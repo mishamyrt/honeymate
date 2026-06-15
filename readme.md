@@ -114,6 +114,7 @@ These options could be specified on the block with the `honey` class.
 - `data-scale` — For relax, zoom, helix and focus effects, the initial scale. The default is 1.22 for focus and 0.87 for others.
 - `data-strength` — For focus effect, the blur strength. Default is 20.
 - `data-expose` — Wait until the user scrolls to the element. If a hold time is set, it is calculated from the moment when the element gets into view. This parameter uses IntersectionObserver for greater performance. In browsers that do not [support](https://caniuse.com/#feat=intersectionobserver) this, the parameter will be ignored.
+- `data-event` — Video event to wait for before showing the element. Default is `canplaythrough`.
 - `data-spin` — Show loading indicator.
 - `data-spin-size` — Indicator diameter in pixels. Default is 24.
 - `data-spin-color` — Indicator color. Default is black.

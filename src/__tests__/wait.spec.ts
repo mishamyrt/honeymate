@@ -111,7 +111,7 @@ test("waits for image load and error", async () => {
   await expect(errorPromise).resolves.toBeUndefined();
 });
 
-test("waits for video readiness events", async () => {
+test("waits for configured video readiness event", async () => {
   const listeners = new Map<string, () => void>();
   const video = {
     tagName: "VIDEO",
@@ -123,20 +123,18 @@ test("waits for video readiness events", async () => {
     removeEventListener: vi.fn(),
   };
 
-  const promise = waitVideo(video as unknown as HTMLVideoElement);
+  const promise = waitVideo(video as unknown as HTMLVideoElement, "loadedmetadata");
 
-  for (const event of ["loadeddata", "canplay", "canplaythrough", "error", "abort"]) {
-    expect(video.addEventListener).toHaveBeenCalledWith(event, expect.any(Function), {
-      once: true,
-    });
-  }
+  expect(video.addEventListener).toHaveBeenCalledOnce();
+  expect(video.addEventListener).toHaveBeenCalledWith("loadedmetadata", expect.any(Function), {
+    once: true,
+  });
 
-  listeners.get("canplay")?.();
+  listeners.get("loadedmetadata")?.();
 
   await expect(promise).resolves.toBeUndefined();
-  for (const event of ["loadeddata", "canplay", "canplaythrough", "error", "abort"]) {
-    expect(video.removeEventListener).toHaveBeenCalledWith(event, expect.any(Function));
-  }
+  expect(video.removeEventListener).toHaveBeenCalledOnce();
+  expect(video.removeEventListener).toHaveBeenCalledWith("loadedmetadata", expect.any(Function));
 });
 
 test("does not wait for already loaded video", async () => {
@@ -148,7 +146,9 @@ test("does not wait for already loaded video", async () => {
     removeEventListener: vi.fn(),
   };
 
-  await expect(waitVideo(video as unknown as HTMLVideoElement)).resolves.toBeUndefined();
+  await expect(
+    waitVideo(video as unknown as HTMLVideoElement, "canplaythrough"),
+  ).resolves.toBeUndefined();
 
   expect(video.addEventListener).not.toHaveBeenCalled();
   expect(video.removeEventListener).not.toHaveBeenCalled();
@@ -195,13 +195,13 @@ test("waits for media in node and descendants", async () => {
     querySelectorAll: vi.fn(() => [image, video, background]),
   };
 
-  const promise = waitMedia(node as unknown as Element);
-  videoListeners.get("loadeddata")?.();
+  const promise = waitMedia(node as unknown as Element, "canplay");
+  videoListeners.get("canplay")?.();
 
   await promise;
 
   expect(node.querySelectorAll).toHaveBeenCalledWith("*");
-  expect(video.addEventListener).toHaveBeenCalledWith("loadeddata", expect.any(Function), {
+  expect(video.addEventListener).toHaveBeenCalledWith("canplay", expect.any(Function), {
     once: true,
   });
   expect(loadedUrls).toEqual(["root.png", "child.jpg", "child-bg.png"]);

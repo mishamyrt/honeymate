@@ -7,8 +7,11 @@ export interface Options {
   expose: boolean;
   effect: EffectParams;
   hold: number;
+  event: string;
   spinner: SpinnerParams | null;
 }
+
+const DEFAULT_VIDEO_EVENT = "canplaythrough";
 
 /**
  * Transform dataset to HoneyElement options
@@ -18,6 +21,7 @@ export function parseOptions(dataset: DOMStringMap): Options {
     awaitId: dataset.await || null,
     continue: dataset.continue === "true",
     expose: dataset.expose === "true",
+    event: dataset.event || DEFAULT_VIDEO_EVENT,
     effect: parseEffect(dataset),
     hold: parseDecimal(dataset.hold) || 50,
     spinner: parseSpinner(dataset),
