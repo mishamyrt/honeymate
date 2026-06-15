@@ -113,7 +113,7 @@ export function runHoneymate() {
   }
 
   if (inViewWaiter) {
-    Promise.all(displays).then(() => inViewWaiter.destroy());
+    Promise.all(displays).then(inViewWaiter.destroy);
   }
 }
 
