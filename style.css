@@ -1,12 +1,3 @@
 .honey {
   opacity: 0;
 }
-
-@keyframes honeySpin {
-  0% {
-    transform: rotate(-360deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
