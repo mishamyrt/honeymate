@@ -31,6 +31,9 @@ export function insertSpinner(rect: DOMRect, params: SpinnerParams) {
   };
 }
 
+/**
+ * Creates div with svg spinner inside.
+ */
 export function createSpinner(params: SpinnerParams): HTMLDivElement {
   const container = document.createElement("div");
   container.innerHTML =
