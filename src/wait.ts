@@ -72,7 +72,8 @@ export function waitVideo(node: HTMLVideoElement): Promise<void> {
  * Resolves when all images in node (including descendants) are loaded
  */
 export function waitMedia(parent: Element) {
-  const elements = [parent, ...parent.querySelectorAll("*")];
+  const children = Array.from(parent.querySelectorAll("*"));
+  const elements = [parent].concat(children);
   const mediaPromises = [];
   for (const element of elements) {
     if (isImageElement(element)) {
