@@ -10,11 +10,11 @@
 </h1>
 
 <h4 align="center">
-    Beautiful page load coordinator.
+    Dead simple loading animations.
 </h4>
 <p align="center">
-    Honeymate waits for loading images in blocks
-    and then shows with the selected animation.<br>
+    Honeymate waits for images, background images, and videos
+    inside blocks, then reveals them with the selected animation.<br>
     Allows you to easily manage the page load order,
     indicating the order in which items are displayed.
 <p>
@@ -34,120 +34,108 @@
 
 **Small.** 2.2 kilobytes (minified and gzipped). No dependencies.
 
-**Fast.** Only CSS animations wrapped in a `requestAnimationFrame` are used.
+**Fast.** Only CSS animations are used.
 
-## Get
+## Install
 
-[Download the repository code](https://github.com/mishamyrt/Honeymate/archive/master.zip)
-and move `dist/honeymate.js` to the desired directory.
-
-Or use npm:
+Use npm:
 
 ```sh
 npm install honeymate --save
 ```
 
+Or build from source:
+
+```sh
+pnpm install
+pnpm build
+```
+
 ## Setup
 
-Link the file `honeymate.js` from the compiled sources.
-
-If downloaded directly:
+Link the CSS and the browser bundle:
 
 ```html
-<script src="path/to/honeymate.js" type="text/javascript"></script>
+<link rel="stylesheet" href="node_modules/honeymate/style.css" />
+<script src="node_modules/honeymate/dist/honeymate.js"></script>
 ```
 
-If installed with npm:
+If built from source, use `style.css` and `dist/honeymate.js` from this repository.
 
-```html
-<script src="node_modules/mishamyrt-honeymate/dist/honeymate.js" type="text/javascript"></script>
-```
-
-Now any element with `class="honey"` will fade in after its contents are loaded:
+Now any element with `class="honey"` fades in after its media is loaded:
 
 ```html
 <div class="honey">... Show this only when it is ready ...</div>
 ```
 
-### Using as a ES module
+The script initializes automatically when loaded. Any element with `class="honey-replay"`
+will replay all `.honey` animations on click.
 
-Honeymate can be used as a ES module,
-so you can use it within webpack or Rollup build systems.
+## Media Loading
 
-First, install Honeymate using npm:
+Before showing a `.honey` element, Honeymate waits for media in the element itself and
+in all descendants:
 
-```sh
-npm install mishamyrt-honeymate --save
+- `<img>` elements.
+- CSS background images declared through `background` or `background-image`.
+- `<video>` elements.
+
+Images resolve on both `load` and `error`, so broken images do not block the reveal.
+
+### Video loading control
+
+By default, Honeymate waits for the `canplaythrough` event on each video. Use
+`data-event` to choose another video readiness event:
+
+```html
+<div class="honey" data-event="loadedmetadata">
+  <video src="intro.mp4" muted playsinline></video>
+</div>
 ```
 
-Then, use it somewhere in your program:
+This is useful when you want to reveal a block earlier (`loadedmetadata`, `loadeddata`,
+`canplay`) or keep the default stricter wait (`canplaythrough`). Videos that already
+have current data, or already have an error when Honeymate checks them, do not block the
+reveal.
 
-```js
-import { Honeymate } from "mishamyrt-honeymate";
+## Examples
 
-// Finds all honeymated blocks in the DOM and initializes them
-Honeymate.initiate();
+```html
+<div class="honey" data-effect="helix" data-hold="400" data-spin="true">
+  <img src="img/example.jpg" alt="" />
+</div>
 ```
 
-You can also control Honeymate event loop manually:
-
-```js
-import { Honeymate } from "mishamyrt-honeymate";
-
-// Creates an instance of the class HoneyNode
-const honeyNode = Honeymate.generateNode(document.querySelector(".node-selector"));
-
-// Shows the node after loading images
-honeyNode.isLoaded().then(() => honeyNode.expose());
+```html
+<div id="hero" class="honey" data-effect="zoom">Hero</div>
+<div class="honey" data-await="hero" data-effect="fade">Shown after hero starts showing</div>
 ```
 
 ## Options
 
-These options could be specified on the block with the `honey` class.
+Specify options as `data-*` attributes on `.honey` elements.
 
-- `data-effect` — Current effect. Available effects: helix, fade (default), relax, zoom, focus.
-- `data-hold` — Hold on for this number of milliseconds (at least this much time should elapse after an element, which the given one was waiting for, have started emerging).
-- `data-origin` — For relax, zoom and helix effects, the transformation origin. Default is ‘bottom’.
-- `data-duration` — The animation duration in milliseconds.
-  Default is 600.
-- `data-await` — Wait for element with ID from value to start showing (but not finish the animation).
-- `data-scale` — For relax, zoom, helix and focus effects, the initial scale. The default is 1.22 for focus and 0.87 for others.
-- `data-strength` — For focus effect, the blur strength. Default is 20.
-- `data-expose` — Wait until the user scrolls to the element. If a hold time is set, it is calculated from the moment when the element gets into view. This parameter uses IntersectionObserver for greater performance. In browsers that do not [support](https://caniuse.com/#feat=intersectionobserver) this, the parameter will be ignored.
-- `data-event` — Video event to wait for before showing the element. Default is `canplaythrough`.
-- `data-spin` — Show loading indicator.
-- `data-spin-size` — Indicator diameter in pixels. Default is 24.
-- `data-spin-color` — Indicator color. Default is black.
-
-```html
-<div class="honey" data-effect="helix" data-delay="400" data-spin="true">
-  <img src="img/example.jpg" />
-</div>
-```
-
-Them can also be a parameter when working with an ES module.
-To do this, use the same parameters without the `data` prefix.
-
-```js
-const honeyNode = Honeymate.generateNode(document.querySelector(".node-selector"));
-
-honeyNode.options = {
-  effect: "zoom",
-  scale: 0.93,
-  duration: 500,
-  spin: true,
-  "spin-color": "#663399",
-};
-```
+- `data-effect` — Current effect. Available effects: `fade` (default), `zoom`, `helix`, `slide`, `relax`, `focus`.
+- `data-duration` — Animation duration in milliseconds. Default is `640`.
+- `data-hold` — Extra wait before revealing the element, in milliseconds. Default is `50`.
+- `data-await` — Wait for the `.honey` element with this ID to start showing.
+- `data-continue` — With `true`, wait for the previous `.honey` element in DOM order to start showing.
+- `data-expose` — With `true`, wait until the element intersects the viewport. This option uses `IntersectionObserver`.
+- `data-event` — Video event to wait for. Default is `canplaythrough`.
+- `data-scale` — Initial scale for `zoom`, `helix`, `relax`, and `focus`. Default is `1.22` for `focus` and `0.87` for other effects.
+- `data-origin` — Transform origin for `slide` and `relax`. Available values: `top`, `bottom` (default), `left`, `right`.
+- `data-strength` — Blur strength in pixels for `focus`. Default is `20`.
+- `data-up`, `data-down`, `data-left`, `data-right` — Direction and offset for `slide`, for example `data-left="56px"`. Default is `data-up="32px"`.
+- `data-spin` — Show a loading indicator while the element waits. Set it to a non-empty value, for example `true`.
+- `data-spin-size` — Indicator diameter in pixels. Default is `24`.
+- `data-spin-color` — Indicator color. Default is `#000`.
 
 ## Credits
 
 The original idea belongs to Ilya Birman,
-who made the “[Emerge](https://ilyabirman.ru/projects/emerge/)”.
-I have only made a free alternative that focuses on performance
-and does not depend on a jQuery.
+who made the [Emerge](https://ilyabirman.ru/projects/emerge/).
 
 ## Supported browsers
 
 Honeymate supports the latest versions of Safari, Chrome and Firefox.
-In unsupported browsers, the page will load as if the library was not linked.
+`data-expose` requires `IntersectionObserver` support.
